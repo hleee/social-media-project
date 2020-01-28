@@ -12,7 +12,7 @@
 	$(function() {
 		$("#checkJson").click(function() {
 			var member = {
-				id : "207",
+				id : 207,
 				username : "test333",
 				password : "qwer1234",
 				createdAt : "2019-11-22T09:30:58.941+0000"
