@@ -31,7 +31,7 @@ public class UserController {
 			list.add(vo);
 		}
 
-		return new ResponseEntity(list, HttpStatus.OK);
+		return new ResponseEntity<List<UserVO>>(list, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{articleNO}", method = RequestMethod.GET)
@@ -42,18 +42,18 @@ public class UserController {
 		vo.setWriter("홍길동");
 		vo.setTitle("안뇽하세요");
 		vo.setContent("홍길동의 글입니다.");
-		return new ResponseEntity(vo, HttpStatus.OK);
+		return new ResponseEntity<UserVO>(vo, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<String> addArticle(@RequestBody UserVO articleVO) {
+	public ResponseEntity<String> addArticle(@RequestBody UserVO userVO) {
 		ResponseEntity<String> resEntity = null;
 		try {
-			logger.info("addArticle 메서드 호출");
-			logger.info(articleVO.toString());
-			resEntity = new ResponseEntity("ADD_SUCCEEDED", HttpStatus.OK);
+			logger.info("addArticle 메서드로 JSON으로 전달되는 객체를 새 글로 게시");
+			logger.info(userVO.toString());
+			resEntity = new ResponseEntity<String>("ADD_SUCCEEDED", HttpStatus.OK);
 		} catch (Exception e) {
-			resEntity = new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+			resEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 		return resEntity;
@@ -61,29 +61,28 @@ public class UserController {
 
 	@RequestMapping(value = "/{articleNO}", method = RequestMethod.PUT)
 	public ResponseEntity<String> modArticle(@PathVariable("articleNO") Integer articleNO,
-			@RequestBody UserVO articleVO) {
+			@RequestBody UserVO userVO) {
 		ResponseEntity<String> resEntity = null;
 		try {
-			logger.info("modArticle 메서드 호출");
-			logger.info(articleVO.toString());
-			resEntity = new ResponseEntity("MOD_SUCCEEDED", HttpStatus.OK);
+			logger.info("modArticle 메서드로 글 번호에 해당하는 글을 JSON 정보로 수정");
+			logger.info(userVO.toString());
+			resEntity = new ResponseEntity<String>("MOD_SUCCEEDED", HttpStatus.OK);
 		} catch (Exception e) {
-			resEntity = new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+			resEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 		return resEntity;
 	}
 
-
 	@RequestMapping(value = "/{articleNO}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> removeArticle(@PathVariable("articleNO") Integer articleNO) {
 		ResponseEntity<String> resEntity = null;
 		try {
-			logger.info("removeArticle 메서드 호출");
+			logger.info("removeArticle 메서드로 글 번호에 해당하는 글 삭제");
 			logger.info(articleNO.toString());
-			resEntity = new ResponseEntity("REMOVE_SUCCEEDED", HttpStatus.OK);
+			resEntity = new ResponseEntity<String>("REMOVE_SUCCEEDED", HttpStatus.OK);
 		} catch (Exception e) {
-			resEntity = new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+			resEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 		return resEntity;
