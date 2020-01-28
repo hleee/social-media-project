@@ -74,29 +74,29 @@ public class TestController {
 		logger.info(vo.toString());
 	}
 
-//	@RequestMapping("/membersList2")
-//	public ResponseEntity<List<MemberVO>> listMembers2() {
-//		List<MemberVO> list = new ArrayList<MemberVO>();
-//		for (int i = 0; i < 10; i++) {
-//			MemberVO vo = new MemberVO();
-//			vo.setId("lee" + i);
-//			vo.setPwd("123" + i);
-//			vo.setName("이율곡" + i);
-//			vo.setEmail("lee" + i + "@test.com");
-//			list.add(vo);
-//		}
-//		return new ResponseEntity(list, HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
-//
-//	@RequestMapping(value = "/res3")
-//	public ResponseEntity res3() {
-//		HttpHeaders responseHeaders = new HttpHeaders();
-//		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-//		String message = "<script>";
-//		message += " alert('새 회원을 등록했습니다.');";
-//		message += " location.href='/pro29/test/membersList2'; ";
-//		message += " </script>";
-//		return new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-//	}
+	@RequestMapping("/membersList2")
+	public ResponseEntity<List<MemberVO>> listMembers2() {
+		List<MemberVO> list = new ArrayList<MemberVO>();
+		for (int i = 0; i < 10; i++) {
+			MemberVO vo = new MemberVO();
+			vo.setId("207" + i);
+			vo.setUsername("test333" + i);
+			vo.setPassword("qwer1234" + i);
+			vo.setCreatedAt("2019-11-22 + " + i + " T09:30:58.941+0000");
+			list.add(vo);
+		}
+		return new ResponseEntity(list, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@RequestMapping(value = "/res3")
+	public ResponseEntity res3() {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset = utf-8");
+		String message = "<script>";
+		message += " alert('새 회원을 등록했습니다.');";
+		message += " location.href='/myapp/test/membersList2'; ";
+		message += " </script>";
+		return new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+	}
 
 }
