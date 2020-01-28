@@ -12,10 +12,10 @@
 	$(function() {
 		$("#checkJson").click(function() {
 			var member = {
-				id : "park",
-				name : "박지성",
-				pwd : "1234",
-				email : "park@test.com"
+				id : "207",
+				username : "test333",
+				password : "qwer1234",
+				createdAt : "2019-11-22T09:30:58.941+0000"
 			};
 			$.ajax({
 				type : "post",
