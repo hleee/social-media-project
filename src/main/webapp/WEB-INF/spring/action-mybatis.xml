@@ -11,14 +11,13 @@
 	</property>
 	</bean>
 
-	<bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
+	<!-- <bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
 		<property name="driver" value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 	
-
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -32,8 +31,7 @@
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 
-
-	<!-- <bean id="memberDAO"
+	<bean id="memberDAO"
 		class="com.spring.member.dao.MemberDAOImpl">
 		<property name="sqlSession" ref="sqlSession"></property>
 	</bean> -->
