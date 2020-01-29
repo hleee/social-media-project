@@ -13,8 +13,28 @@
 
   <select id="selectUser" resultMap="userResult" parameterType="Long">
     <![CDATA[
-      SELECT * FROM social_media.user
+      SELECT * FROM user
       WHERE id=#{id}
+    ]]>
+  </select>
+  
+  <select id="selectAllUsers" resultMap="userResult">
+    <![CDATA[
+      SELECT * FROM user
+    ]]>
+  </select>
+  
+  <select id="loginByUsername" resultMap="userResult" parameterType="userVO">
+    <![CDATA[
+      SELECT * FROM user
+      WHERE username=#{username} AND password=#{password}
+    ]]>
+  </select>
+  
+  <select id="insertUser" parameterType="userVO">
+    <![CDATA[
+      INSERT INTO user(id, username, password)
+      VALUES(#{id}, #{username}, #{password})
     ]]>
   </select>
 
