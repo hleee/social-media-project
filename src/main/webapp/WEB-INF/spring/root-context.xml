@@ -11,10 +11,10 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql:C:\ProgramData\Microsoft\Windows\Start Menu\Programs\MySQL"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/myapp"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="1234"></property>
 	</bean>
-
 
 </beans>
