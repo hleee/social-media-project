@@ -11,16 +11,11 @@
     <result property="createdAt" column="created_at" />
   </resultMap> 
 
-
-
-	
   <select id="selectUser" resultMap="userResult" parameterType="int">
     <![CDATA[
       SELECT * FROM social_media.user
       WHERE id=#{id}
     ]]>
   </select>
-  
-  
-  
+
 </mapper>
