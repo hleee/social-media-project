@@ -9,7 +9,7 @@ public class JDBCTest {
 
 	public class MySQLConnectionTest {
 	    private static final String DRIVER = "com.mysql.jdbc.Driver";
-	    private static final String URL = "jdbc:mysql://127.0.0.1:3306/myapp";
+	    private static final String URL = "jdbc:mysql://127.0.0.1:3306/conn";
 	    private static final String USER = "root";
 	    private static final String PW    = "1234";
 	    
