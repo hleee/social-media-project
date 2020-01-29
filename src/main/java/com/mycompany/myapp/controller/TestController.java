@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test/*")
 public class TestController {
 	static Logger logger = LoggerFactory.getLogger(TestController.class);
-	
+
 	@RequestMapping("/http")
 	public ResponseEntity<UserVO> userResponse() {
 		List<UserVO> list = new ArrayList<UserVO>();
@@ -32,7 +32,7 @@ public class TestController {
 			vo.setCreatedAt("lee" + i + "asdf");
 			list.add(vo);
 		}
-		return new ResponseEntity(list, HttpStatus.UNAUTHORIZED);
+		return new ResponseEntity(list, HttpStatus.OK);
 	}
 
 }
