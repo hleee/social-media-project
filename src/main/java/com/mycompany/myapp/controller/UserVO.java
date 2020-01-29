@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserVO {
-	private int id;
+	private Long id;
 	private String username;
 	private String password;
 	private String createdAt;
@@ -13,21 +13,12 @@ public class UserVO {
 
 	}
 
-	// 생성자
-	public UserVO(int id, String username, String password, String createdAt) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.createdAt = createdAt;
-	}
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int i) {
+		this.id = (long) i;
 	}
 
 	public String getUsername() {

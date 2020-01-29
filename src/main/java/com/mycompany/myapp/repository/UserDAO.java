@@ -15,7 +15,8 @@ public class UserDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public UserVO selectByID(int id) throws DataAccessException {
+	// 매개변수를 지정했으면 selectOne()에서 반복해주어야 (id)
+	public UserVO selectByID(Long id) throws DataAccessException {
 		UserVO userVO = sqlSession.selectOne("mapper.board.selectUser", id);
 		return userVO;
 	}

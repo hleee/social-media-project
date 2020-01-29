@@ -17,7 +17,7 @@ public class UserService {
 	@Autowired
 	UserVO userVO;
 	
-	public UserVO selectByID(int id) throws Exception{
+	public UserVO selectByID(Long id) throws Exception{
 		userVO =  userDAO.selectByID(id);
 		System.out.println(userVO);
 		return userVO;

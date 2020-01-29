@@ -19,9 +19,10 @@ public class RestAPIController {
 	UserService userService;
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public UserVO selectByID(@RequestParam("id") int id) throws Exception {
+	public UserVO selectByID(@RequestParam("id") Long id) throws Exception {
 		UserVO userVO = userService.selectByID(id);
 		System.out.println(userVO);
 		return userVO;
 	}
+	
 }
