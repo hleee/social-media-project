@@ -12,9 +12,8 @@ public class UserVO {
 	public UserVO() {
 
 	}
-	
-	
 
+	// 생성자
 	public UserVO(int id, String username, String password, String createdAt) {
 		super();
 		this.id = id;
@@ -23,20 +22,12 @@ public class UserVO {
 		this.createdAt = createdAt;
 	}
 
-
-
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	@Override
-	public String toString() {
-		String info = id + ", " + username + ", " + password + ", " + createdAt;
-		return info;
 	}
 
 	public String getUsername() {
@@ -63,4 +54,11 @@ public class UserVO {
 		this.createdAt = createdAt;
 	}
 
+	// 콘솔창에 출력
+	@Override
+	public String toString() {
+		String info = id + ", " + username + ", " + password + ", " + createdAt;
+		return info;
+	}
+	
 }
