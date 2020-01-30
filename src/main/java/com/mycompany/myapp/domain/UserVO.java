@@ -48,7 +48,7 @@ public class UserVO {
 	// 콘솔창에 출력
 	@Override
 	public String toString() {
-		String info = id + ", " + username + ", " + password + ", " + createdAt;
+		String info = "UserVO: id: " + id + ", username: " + username + ", password: " + password + ", join date: " + createdAt;
 		return info;
 	}
 	

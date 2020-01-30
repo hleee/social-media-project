@@ -15,10 +15,19 @@ public class UserService {
 	@Autowired
 	UserVO userVO;
 	
+	// 단일 회원 조회
 	public UserVO selectByID(Long id) throws Exception{
 		userVO =  userDAO.selectByID(id);
 		System.out.println(userVO);
 		return userVO;
 	}
+	
+	// 전체 회원 조회
+	
+	
+	// 로그인
+	
+	
+	// 회원 가입
 	
 }
