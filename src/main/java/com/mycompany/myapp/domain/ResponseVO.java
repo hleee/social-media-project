@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -18,8 +19,8 @@ public class ResponseVO {
 		return code;
 	}
 
-	public void setCode(int i) {
-		this.code = i;
+	public void setCode(int value) {
+
 	}
 
 	public String getMessage() {
@@ -34,8 +35,8 @@ public class ResponseVO {
 		return data;
 	}
 
-	public void setData(HashMap<String, Object> data) {
-		this.data = data;
+	public void setData(List<UserVO> userList) {
+		this.data = (HashMap<String, Object>) userList;
 	}
 
 	// 콘솔창에 출력
