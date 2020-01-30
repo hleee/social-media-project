@@ -4,6 +4,6 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.mycompany.myapp.controller.UserVO"  alias="userVO" />
+		<typeAlias type="com.mycompany.myapp.domain.UserVO"  alias="userVO" />
 	</typeAliases>
 </configuration>
