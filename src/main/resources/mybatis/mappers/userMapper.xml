@@ -12,7 +12,8 @@
 	</resultMap>
 
 	<!-- 단일 회원 조회 -->
-	<select id="selectUser" resultMap="userResult" parameterType="Long">
+	<select id="selectUser" resultMap="userResult"
+		parameterType="Long">
     <![CDATA[
       SELECT * FROM user
       WHERE id=#{id}
@@ -26,19 +27,22 @@
     ]]>
 	</select>
 
-	<select id="loginByUsername" resultMap="userResult"
-		parameterType="userVO">
-    <![CDATA[
-      SELECT * FROM user
-      WHERE username=#{username} AND password=#{password}
-    ]]>
-	</select>
-
+	<!-- 회원 가입 -->
 	<select id="insertUser" parameterType="userVO">
     <![CDATA[
       INSERT INTO user(id, username, password)
       VALUES(#{id}, #{username}, #{password})
     ]]>
 	</select>
+
+	<!-- 로그인 -->
+<!-- <select id="loginByUsername" resultMap="userResult"
+		parameterType="userVO">
+    <![CDATA[
+      SELECT * FROM user
+      WHERE username=#{username} AND password=#{password}
+    ]]>
+	</select>
+ -->
 
 </mapper>

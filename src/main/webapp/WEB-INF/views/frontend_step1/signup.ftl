@@ -89,7 +89,7 @@ body {
 	<div class="container login-container">
             <div class="row">
                 <div class="col-md-6 login-form-1">
-                    <h3>Sign Up</h3>
+                    <h3>Sign up</h3>
                     <form>
                         <div class="form-group">
                             <input type="text" id="signup_username" class="form-control" placeholder="Username *" value="" />

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.myapp.domain.ResponseVO;
 import com.mycompany.myapp.domain.UserVO;
 import com.mycompany.myapp.repository.UserDAO;
 
@@ -13,26 +12,23 @@ import com.mycompany.myapp.repository.UserDAO;
 public class UserService {
 
 	@Autowired
-	UserDAO uDAO;
-	UserVO uVO;
-	ResponseVO rVO;
-	
+	UserDAO dao;
+	UserVO vo;
+
 	// 단일 회원 조회
 	public UserVO selectByID(Long id) throws Exception {
-		uVO =  uDAO.selectByID(id);
-		System.out.println(uVO);
-		return uVO;
-	}
-	
-	// 전체 회원 조회
-	public List<UserVO> selectAll() throws Exception {
-		return uDAO.selectAll();
+		vo = dao.selectByID(id);
+		System.out.println(vo);
+		return vo;
 	}
 
-	
-	// 로그인
-	
-	
+	// 전체 회원 조회
+	public List<UserVO> selectAll() throws Exception {
+		return dao.selectAll();
+	}
+
 	// 회원 가입
-	
+
+	// 로그인
+
 }

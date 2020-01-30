@@ -19,8 +19,6 @@ import com.mycompany.myapp.service.UserService;
 @RestController
 public class RestAPIController {
 
-	private static final Logger logger = LoggerFactory.getLogger(RestAPIController.class);
-
 	@Autowired
 	UserService uService;
 	ResponseVO rVO;
