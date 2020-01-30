@@ -27,9 +27,6 @@ public class UserService {
 	// 전체 회원 조회
 	public List<UserVO> selectAll() throws Exception {
 		return uDAO.selectAll();
-//		rVO = (ResponseVO) uDAO.selectAll();
-//		System.out.println(rVO);
-//		return (List<UserVO>) rVO;
 	}
 
 	

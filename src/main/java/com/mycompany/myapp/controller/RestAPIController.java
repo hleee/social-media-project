@@ -25,26 +25,30 @@ public class RestAPIController {
 	UserService uService;
 	ResponseVO rVO;
 
-	// 한 명 조회
+	// 단일 회원 조회
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public UserVO selectByID(@RequestParam("id") Long id) throws Exception {
+	public HashMap<String, Object> selectByID(@RequestParam("id") Long id) throws Exception {
 		UserVO uVO = uService.selectByID(id);
-		System.out.println(uVO);
-		return uVO;
+		HashMap<String, Object> singleMap = new HashMap<String, Object>();
+
+		singleMap.put("code", HttpStatus.OK.value());
+		singleMap.put("message", "Success");
+		singleMap.put("data", uVO);
+
+		return singleMap;
 	}
 
 	// 전체 회원 조회
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public HashMap<String, Object> listAll() throws Exception {
 		List<UserVO> userList = uService.selectAll();
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> allMap = new HashMap<String, Object>();
 
-		map.put("code", HttpStatus.OK.value());
-		map.put("message", "Success");
-		map.put("data", userList);
+		allMap.put("code", HttpStatus.OK.value());
+		allMap.put("message", "Success");
+		allMap.put("data", userList);
 
-		return map;
-
+		return allMap;
 	}
 
 //	// 회원 가입
