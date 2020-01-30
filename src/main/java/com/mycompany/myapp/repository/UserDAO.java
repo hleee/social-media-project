@@ -25,7 +25,7 @@ public class UserDAO {
 	// 전체 회원 조회
 	public List<UserVO> selectAll() throws DataAccessException {
 		List<UserVO> userList = null;
-		userList = sqlSession.selectList("mapper.userMapper.selectAllUsers");
+		userList = sqlSession.selectList("mapper.userMapper.selectAll");
 		return userList;
 	}
 

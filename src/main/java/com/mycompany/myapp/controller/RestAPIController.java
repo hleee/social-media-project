@@ -1,5 +1,6 @@
 package com.mycompany.myapp.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -34,17 +35,15 @@ public class RestAPIController {
 
 	// 전체 회원 조회
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseVO listAll() throws Exception {
-		List<UserVO> userList = uService.listAll();
-		for (UserVO user : userList) {
-			System.out.println(user);
-		}
+	public HashMap<String, Object> listAll() throws Exception {
+		List<UserVO> userList = uService.selectAll();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		rVO.setCode(HttpStatus.OK.value());
-		rVO.setMessage("Success");
-		rVO.setData(userList);
+		map.put("code", HttpStatus.OK.value());
+		map.put("message", "Success");
+		map.put("data", userList);
 
-		return rVO;
+		return map;
 
 	}
 
