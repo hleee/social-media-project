@@ -20,7 +20,7 @@
 	</select>
 
 	<!-- 전체 회원 조회 -->
-	<select id="selectAllUsers" resultMap="userResult">
+	<select id="selectAll" resultMap="userResult">
     <![CDATA[
       SELECT * FROM user
     ]]>
