@@ -28,6 +28,9 @@ public class UserService {
 	}
 
 	// 회원 가입
+	public int insertUser(UserVO vo) throws Exception {
+		return dao.insertUser(vo);
+	}
 
 	// 로그인
 

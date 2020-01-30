@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,37 +21,41 @@ import com.mycompany.myapp.service.UserService;
 public class RestAPIController {
 
 	@Autowired
-	UserService uService;
-	ResponseVO rVO;
+	UserService service;
+	ResponseVO vo;
+
+	static Logger logger = LoggerFactory.getLogger(RestAPIController.class);
 
 	// 단일 회원 조회
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public HashMap<String, Object> selectByID(@RequestParam("id") Long id) throws Exception {
-		UserVO uVO = uService.selectByID(id);
-		HashMap<String, Object> singleMap = new HashMap<String, Object>();
+		UserVO vo = service.selectByID(id);
+		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		singleMap.put("code", HttpStatus.OK.value());
-		singleMap.put("message", "Success");
-		singleMap.put("data", uVO);
+		map.put("code", HttpStatus.OK.value());
+		map.put("message", "Success");
+		map.put("data", vo);
 
-		return singleMap;
+		return map;
 	}
 
 	// 전체 회원 조회
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public HashMap<String, Object> listAll() throws Exception {
-		List<UserVO> userList = uService.selectAll();
-		HashMap<String, Object> allMap = new HashMap<String, Object>();
+		List<UserVO> userList = service.selectAll();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		allMap.put("code", HttpStatus.OK.value());
-		allMap.put("message", "Success");
-		allMap.put("data", userList);
+		map.put("code", HttpStatus.OK.value());
+		map.put("message", "Success");
+		map.put("data", userList);
 
-		return allMap;
+		return map;
 	}
 
-//	// 회원 가입
-//	@PostMapping("/user")
-//	public 
-
+	// 회원 가입
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	public int insertUser(@RequestBody UserVO vo) throws Exception {
+		logger.info(vo.toString());
+		return 0;
+	}
 }

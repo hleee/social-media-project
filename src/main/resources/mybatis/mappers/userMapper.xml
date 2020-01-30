@@ -30,8 +30,8 @@
 	<!-- 회원 가입 -->
 	<select id="insertUser" parameterType="userVO">
     <![CDATA[
-      INSERT INTO user(id, username, password)
-      VALUES(#{id}, #{username}, #{password})
+      INSERT INTO user(username, password)
+      VALUES(#{username}, #{password})
     ]]>
 	</select>
 
