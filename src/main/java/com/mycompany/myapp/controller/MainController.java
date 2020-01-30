@@ -14,7 +14,7 @@ public class MainController {
 	public String signup(Locale locale, Model model) {
 		return "signup";
 	}
-
+	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
 		return "index";
