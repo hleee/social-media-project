@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Blog Home - Start Bootstrap Template</title>
+<title>Twitpresso - Sign up</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -20,7 +20,7 @@ body {
 	padding-top: 54px;
 }
 
-@media ( min-width : 992px) {
+@media (min-width : 992px) {
 	body {
 		padding-top: 56px;
 	}

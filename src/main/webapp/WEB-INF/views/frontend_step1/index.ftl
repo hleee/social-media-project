@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Blog Home - Start Bootstrap Template</title>
+<title>Twitpresso - Index page</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -20,7 +20,7 @@ body {
 	padding-top: 54px;
 }
 
-@media ( min-width : 992px) {
+@media (min-width : 992px) {
 	body {
 		padding-top: 56px;
 	}
@@ -32,11 +32,13 @@ body {
 	<#include "header.ftl">
 
 	<div class="container">
-	
-		<h1> Welcome <span id="username"></span> </h1>
-		
+
+		<h1>
+			Welcome <span id="username"></span>
+		</h1>
+
 	</div>
-	
+
 	<#include "footer.ftl">
 
 	<div class="modal fade" id="create_post_modal" tabindex="-1"
@@ -54,8 +56,8 @@ body {
 				<div class="modal-body">
 					<form>
 						<div class="form-group">
-							<label for="create_title_text">Title</label>
-							<input type="text" class="form-control" id="create_title_text" placeholder="Title">
+							<label for="create_title_text">Title</label> <input type="text"
+								class="form-control" id="create_title_text" placeholder="Title">
 						</div>
 						<div class="form-group">
 							<label for="create_content_text">Content</label>
@@ -66,7 +68,8 @@ body {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="save_post_btn">Save post</button>
+					<button type="button" class="btn btn-primary" id="save_post_btn">Save
+						post</button>
 				</div>
 			</div>
 		</div>
