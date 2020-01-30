@@ -28,6 +28,7 @@ public class UserService {
 	}
 
 	// 회원 가입
+	// UserVO가 DB로 가는 것, int는 DB로 부터 반환되는 자료형, 아래 return줄도
 	public int insertUser(UserVO vo) throws Exception {
 		return dao.insertUser(vo);
 	}

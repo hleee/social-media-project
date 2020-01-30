@@ -19,5 +19,5 @@ public class MainController {
 	public String index(Locale locale, Model model) {
 		return "index";
 	}
-
+	
 }

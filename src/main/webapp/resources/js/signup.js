@@ -16,7 +16,7 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			url : "/user",
+			url : "/myapp/signup",
 			method : "POST",
 			dataType : 'json',
 			contentType : 'application/json',
@@ -24,8 +24,7 @@ $(document).ready(function() {
 		}).then(function(data) {
 			alert("Success");
 		}, function(err) {
-			alert(param.username);
-			window.location.reload();
+			alert("Sign up failed");
 		});
 		return false;
 	});
