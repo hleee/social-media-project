@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mycompany.myapp.domain.TokenVO;
 import com.mycompany.myapp.domain.UserVO;
 import com.mycompany.myapp.repository.UserDAO;
 
@@ -34,5 +35,12 @@ public class UserService {
 	}
 
 	// 로그인
+	public UserVO login(UserVO vo) throws Exception {
+		return dao.login(vo);
+	}
 
+	// token
+	public int insertToken(TokenVO tokenVO) throws Exception {
+		return dao.insertToken(tokenVO);
+	}
 }
