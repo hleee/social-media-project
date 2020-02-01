@@ -8,7 +8,6 @@ public class UserVO {
 	private String username;
 	private String password;
 	private String createdAt;
-	private String token;
 
 	public UserVO() {
 
@@ -46,7 +45,6 @@ public class UserVO {
 		this.createdAt = createdAt;
 	}
 
-	
 	// 콘솔창에 출력
 	@Override
 	public String toString() {

@@ -21,13 +21,12 @@ public class ControllerToPostOneUser {
 
 	@Autowired
 	UserService userService;
-	
+
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public ResponseEntity<String> insertUser(@RequestBody UserVO vo) {
 		ResponseEntity<String> resEntity = null;
 		try {
-			System.out.println("=====POST method called=====");
-			logger.info("insertUser method called");
+			logger.info("Try loop entered");
 			logger.info(vo.toString());
 			// service의 insert 메서드를 호출
 			int resSignUp = userService.insertUser(vo); // vo 객체를 insert로 전달한 것의 반환값을 resSignUp에 담음
