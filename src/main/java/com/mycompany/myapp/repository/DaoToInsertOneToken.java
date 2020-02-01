@@ -20,6 +20,6 @@ public class DaoToInsertOneToken {
 
 	// 토큰;insert는 int 반환
 	public int insertToken(TokenVO tokenVO) throws DataAccessException {
-		return sqlSession.insert("mapper.userMapper.insertToken", tokenVO);
+		return sqlSession.insert("mapper.token.insertToken", tokenVO);
 	}
 }
