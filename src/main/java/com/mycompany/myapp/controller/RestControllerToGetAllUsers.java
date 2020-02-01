@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.UserVO;
-import com.mycompany.myapp.service.UserService;
+import com.mycompany.myapp.service.ServiceToSelectAllUsers;
 
 @RestController
 @RequestMapping("/*")
-public class ControllerToGetAllUsers {
+public class RestControllerToGetAllUsers {
 
-	static Logger logger = LoggerFactory.getLogger(RestAPIController.class);
+	static Logger logger = LoggerFactory.getLogger(RestControllerToGetAllUsers.class);
 
 	@Autowired
-	UserService userService;
+	ServiceToSelectAllUsers serviceToSelectAllUsers;
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public HashMap<String, Object> listAll() throws Exception {
-		List<UserVO> userList = userService.selectAll();
+		List<UserVO> userList = serviceToSelectAllUsers.selectAllUsers();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		map.put("code", HttpStatus.OK.value());
