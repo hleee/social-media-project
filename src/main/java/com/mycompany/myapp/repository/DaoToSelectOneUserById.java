@@ -14,14 +14,15 @@ import com.mycompany.myapp.domain.UserVO;
 public class DaoToSelectOneUserById {
 
 	static Logger logger = LoggerFactory.getLogger(RestAPIController.class);
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 
-	// 단일 회원 조회
-	// 매개변수를 지정했으면 selectOne()에서 인자로 반복 설정해주어야 (id)
+	// ID로 단일 회원 조회
+	// 전달되는 매개변수의 자료형과 이름을 지정했으면 sqlSession 메서드 내에서도 인자로 반복 설정해주어야 함
+	// 여기서는 Long id의 경우
 	public UserVO selectByID(Long id) throws DataAccessException {
-		UserVO userVO = sqlSession.selectOne("mapper.user.selectUser", id);
+		UserVO userVO = sqlSession.selectOne("mapper.user.selectOneUserById", id);
 		return userVO;
 	}
 }
