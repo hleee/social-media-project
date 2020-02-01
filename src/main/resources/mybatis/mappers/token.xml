@@ -12,7 +12,7 @@
 
 	<!-- 매개변수로 토큰 일련 번호와 user_id 전달 -->
    	<!-- DB의 토큰표에 토큰 저장 -->
-	<insert id="insertToken" parameterType="tokenVO">
+	<insert id="insertOneToken" parameterType="tokenVO">
     <![CDATA[
       INSERT INTO token(token, user_id)
       VALUES(#{token}, #{userId})
