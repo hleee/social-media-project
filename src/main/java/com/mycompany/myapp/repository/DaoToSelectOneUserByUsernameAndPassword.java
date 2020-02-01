@@ -10,16 +10,16 @@ import org.springframework.stereotype.Repository;
 import com.mycompany.myapp.domain.UserVO;
 
 @Repository
-public class DaoToSelectOneUserbyUsernameAndPassword {
+public class DaoToSelectOneUserByUsernameAndPassword {
 
-	static Logger logger = LoggerFactory.getLogger(DaoToSelectOneUserbyUsernameAndPassword.class);
+	static Logger logger = LoggerFactory.getLogger(DaoToSelectOneUserByUsernameAndPassword.class);
 
 	@Autowired
 	private SqlSession sqlSession;
 
 	// username과 password로 단일 회원 조회
 	// 로그인에 사용
-	public UserVO selectOneUserbyUsernameAndPassword(UserVO userVO) throws DataAccessException {
+	public UserVO selectOneUserByUsernameAndPassword(UserVO userVO) throws DataAccessException {
 		UserVO OneUserByUsernameAndPassword = sqlSession.selectOne("mapper.user.selectOneUserByUsernameAndPassword",
 				userVO);
 		return OneUserByUsernameAndPassword;
