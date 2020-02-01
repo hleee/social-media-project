@@ -22,7 +22,7 @@ public class DaoToSelectAllUsers {
 	
 	public List<UserVO> selectAll() throws DataAccessException {
 		List<UserVO> userList = null;
-		userList = sqlSession.selectList("mapper.userMapper.selectAll");
+		userList = sqlSession.selectList("mapper.user.selectAll");
 		return userList;
 	}
 	

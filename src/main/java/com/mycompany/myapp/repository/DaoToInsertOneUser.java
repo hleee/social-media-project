@@ -22,7 +22,7 @@ public class DaoToInsertOneUser {
 	// 반환형은 int, 전달 중인 객체는 UserVO, mapper를 찾아서 id가 insertUser인 걸 찾아서 vo 객체를 전달
 	// DB에 잘 들어가면 DB에서 작업한 줄의 개수 반환 -- 한 줄 작업했으니 1 반환
 	public int insertUser(UserVO userVO) throws DataAccessException {
-		int integerOneIfInserted = sqlSession.insert("mapper.userMapper.insertUser", userVO);
+		int integerOneIfInserted = sqlSession.insert("mapper.user.insertUser", userVO);
 		return integerOneIfInserted;
 	}
 

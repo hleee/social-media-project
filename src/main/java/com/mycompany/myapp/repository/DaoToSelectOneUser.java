@@ -21,7 +21,7 @@ public class DaoToSelectOneUser {
 	// 단일 회원 조회
 	// 매개변수를 지정했으면 selectOne()에서 인자로 반복 설정해주어야 (id)
 	public UserVO selectByID(Long id) throws DataAccessException {
-		UserVO userVO = sqlSession.selectOne("mapper.userMapper.selectUser", id);
+		UserVO userVO = sqlSession.selectOne("mapper.user.selectUser", id);
 		return userVO;
 	}
 }
