@@ -16,14 +16,15 @@ import com.mycompany.myapp.domain.UserVO;
 public class DaoToSelectAllUsers {
 
 	static Logger logger = LoggerFactory.getLogger(RestAPIController.class);
-	
+
 	@Autowired
 	private SqlSession sqlSession;
-	
-	public List<UserVO> selectAll() throws DataAccessException {
-		List<UserVO> userList = null;
-		userList = sqlSession.selectList("mapper.user.selectAll");
-		return userList;
+
+	// 반환되는 자료는 목록 형태
+	public List<UserVO> selectAllUsers() throws DataAccessException {
+		List<UserVO> allUsersList = null;
+		allUsersList = sqlSession.selectList("mapper.user.selectAllUsers");
+		return allUsersList;
 	}
-	
+
 }
