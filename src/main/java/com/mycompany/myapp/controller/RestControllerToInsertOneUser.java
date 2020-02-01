@@ -15,9 +15,9 @@ import com.mycompany.myapp.service.ServiceToInsertOneUser;
 
 @RestController
 @RequestMapping("/*")
-public class ControllerToPostOneUser {
+public class RestControllerToInsertOneUser {
 
-	static Logger logger = LoggerFactory.getLogger(ControllerToPostOneUser.class);
+	static Logger logger = LoggerFactory.getLogger(RestControllerToInsertOneUser.class);
 
 	@Autowired
 	ServiceToInsertOneUser serviceToInsertOneUser;
