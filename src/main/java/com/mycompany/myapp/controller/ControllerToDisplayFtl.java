@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class MainController {
+public class ControllerToDisplayFtl {
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signup(Locale locale, Model model) {
