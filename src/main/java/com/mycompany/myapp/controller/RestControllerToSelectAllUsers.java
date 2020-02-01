@@ -16,9 +16,9 @@ import com.mycompany.myapp.service.ServiceToSelectAllUsers;
 
 @RestController
 @RequestMapping("/*")
-public class RestControllerToGetAllUsers {
+public class RestControllerToSelectAllUsers {
 
-	static Logger logger = LoggerFactory.getLogger(RestControllerToGetAllUsers.class);
+	static Logger logger = LoggerFactory.getLogger(RestControllerToSelectAllUsers.class);
 
 	@Autowired
 	ServiceToSelectAllUsers serviceToSelectAllUsers;
