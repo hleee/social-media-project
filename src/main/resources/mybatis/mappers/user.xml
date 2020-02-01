@@ -28,7 +28,8 @@
 	</select>
 
 	<!-- 회원 가입 -->
-	<!-- parameterType은 매개변수 자료형, 우리는 modelConfig에서 alias 지정을 했으니 userVO로 축약 가능 -->
+	<!-- parameterType은 매개변수 자료형, 우리는 modelConfig에서 alias 지정을 했으니 userVO로 축약 
+		가능 -->
 	<insert id="insertUser" parameterType="userVO">
     <![CDATA[
       INSERT INTO user(username, password)
@@ -37,20 +38,11 @@
 	</insert>
 
 	<!-- 로그인 -->
-    <select id="login" resultMap="userResult"
-		parameterType="userVO">
+	<select id="login" resultMap="userResult" parameterType="userVO">
     <![CDATA[
       SELECT * FROM user
       WHERE username=#{username} AND password=#{password}
     ]]>
 	</select>
-	
-	<!-- 토큰 테이블에 토큰 저장 -->
-	<insert id="insertToken" parameterType="tokenVO">
-    <![CDATA[
-      INSERT INTO token(token, user_id)
-      VALUES(#{token}, #{userId})
-    ]]>
-	</insert>
 
 </mapper>
