@@ -6,17 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.myapp.domain.UserVO;
-import com.mycompany.myapp.repository.UserDAO;
+import com.mycompany.myapp.repository.DaoToInsertOneUser;
 
 @Service
 public class ServiceToInsertOneUser {
 
-static Logger logger = LoggerFactory.getLogger(ServiceToInsertOneUser.class);
-	
-	@Autowired
-	UserDAO userDAO;
+	static Logger logger = LoggerFactory.getLogger(ServiceToInsertOneUser.class);
 
 	@Autowired
-	UserVO tokenVO;
-	
+	DaoToInsertOneUser daoToInsertOneUser;
+
+	@Autowired
+	UserVO userVO;
+
+	public int insertOneUser(UserVO userVO) throws Exception {
+		int integerOneIfInserted = daoToInsertOneUser.insertOneUser(userVO);
+		return integerOneIfInserted;
+	}
+
 }

@@ -7,21 +7,21 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.myapp.controller.RestAPIController;
 import com.mycompany.myapp.domain.TokenVO;
-import com.mycompany.myapp.repository.UserDAO;
+import com.mycompany.myapp.repository.DaoToInsertOneToken;
 
 @Service
 public class ServiceToInsertOneToken {
 
 	static Logger logger = LoggerFactory.getLogger(RestAPIController.class);
-	
+
 	@Autowired
-	UserDAO userDAO;
+	DaoToInsertOneToken daoToInsertOneToken;
 
 	@Autowired
 	TokenVO tokenVO;
 
 	public int insertOneToken(TokenVO tokenVO) throws Exception {
-		int integerOneIfInserted = userDAO.insertToken(tokenVO);
+		int integerOneIfInserted = daoToInsertOneToken.insertOneToken(tokenVO);
 		return integerOneIfInserted;
 
 	}
