@@ -7,13 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.mycompany.myapp.controller.RestAPIController;
 import com.mycompany.myapp.domain.UserVO;
 
 @Repository
 public class DaoToInsertOneUser {
 
-	static Logger logger = LoggerFactory.getLogger(RestAPIController.class);
+	static Logger logger = LoggerFactory.getLogger(DaoToInsertOneUser.class);
 
 	@Autowired
 	private SqlSession sqlSession;

@@ -7,13 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.mycompany.myapp.controller.RestAPIController;
 import com.mycompany.myapp.domain.TokenVO;
 
 @Repository
 public class DaoToInsertOneToken {
 
-	static Logger logger = LoggerFactory.getLogger(RestAPIController.class);
+	static Logger logger = LoggerFactory.getLogger(DaoToInsertOneToken.class);
 
 	@Autowired
 	private SqlSession sqlSession;
