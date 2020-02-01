@@ -13,7 +13,7 @@ import com.mycompany.myapp.service.ServiceToInsertOneToken;
 @RequestMapping("/*")
 public class RestControllerToInsertOneToken {
 
-	static Logger logger = LoggerFactory.getLogger(RestControllerToInsertOneUser.class);
+	static Logger logger = LoggerFactory.getLogger(RestControllerToInsertOneToken.class);
 
 	@Autowired
 	ServiceToInsertOneToken serviceToInsertOneToken;

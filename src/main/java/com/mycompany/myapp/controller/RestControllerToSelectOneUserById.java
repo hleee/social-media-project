@@ -16,9 +16,9 @@ import com.mycompany.myapp.service.ServiceToSelectOneUserById;
 
 @RestController
 @RequestMapping("/*")
-public class RestControllerToSelectOneUser {
+public class RestControllerToSelectOneUserById {
 
-	static Logger logger = LoggerFactory.getLogger(RestControllerToSelectOneUser.class);
+	static Logger logger = LoggerFactory.getLogger(RestControllerToSelectOneUserById.class);
 
 	@Autowired
 	ServiceToSelectOneUserById serviceToSelectOneUserById;
