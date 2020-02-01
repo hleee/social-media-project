@@ -4,6 +4,9 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.mycompany.myapp.domain.UserVO"  alias="userVO" />
+		<typeAlias type="com.mycompany.myapp.domain.UserVO"
+			alias="userVO" />
+		<typeAlias type="com.mycompany.myapp.domain.TokenVO"
+			alias="tokenVO" />
 	</typeAliases>
 </configuration>
