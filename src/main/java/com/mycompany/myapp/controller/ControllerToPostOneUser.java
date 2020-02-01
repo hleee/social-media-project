@@ -31,9 +31,9 @@ public class ControllerToPostOneUser {
 			logger.info(vo.toString());
 			// service의 insert 메서드를 호출
 			int resSignUp = userService.insertUser(vo); // vo 객체를 insert로 전달한 것의 반환값을 resSignUp에 담음
-			System.out.println("DB에 추가됐으면 정수 1 반환; resSignUp: " + resSignUp);
+			logger.info("DB에 추가됐으면 정수 1 반환; resSignUp: " + resSignUp);
 			resEntity = new ResponseEntity<String>("ADD_SUCCEEDED", HttpStatus.OK);
-			System.out.println("resEntity : " + resEntity);
+			logger.info("resEntity : " + resEntity);
 		} catch (Exception e) {
 			resEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
