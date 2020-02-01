@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.UserVO;
+import com.mycompany.myapp.service.ServiceToSelectOneUserById;
 
 @RestController
 @RequestMapping("/*")
@@ -22,9 +23,12 @@ public class ControllerToGetOneUser {
 	@Autowired
 	ServiceToSelectOneUserById serviceToSelectOneUserById;
 
+	@Autowired
+	UserVO userVO;
+	
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public HashMap<String, Object> selectByID(@RequestParam("id") Long id) throws Exception {
-		UserVO userVO = userService.selectByID(id);
+	public HashMap<String, Object> selectOneUserById(@RequestParam("id") Long id) throws Exception {
+		UserVO userVO = serviceToSelectOneUserById.selectOneUserById(id);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		map.put("code", HttpStatus.OK.value());
