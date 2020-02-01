@@ -11,9 +11,10 @@
 		<result property="createdAt" column="created_at" />
 	</resultMap>
 
-	<!-- 단일 회원 조회 -->
-	<select id="selectUser" resultMap="userResult"
-		parameterType="Long">
+	<!-- ID로 단일 회원 조회 -->
+	<!-- parameterType은 DB쪽으로 전달되는 자료형; long 형태의 ID 번호가 전달되어 조회 -->
+	<select id="selectOneUserById" resultMap="userResult"
+		parameterType="long">
     <![CDATA[
       SELECT * FROM user
       WHERE id=#{id}
@@ -21,24 +22,27 @@
 	</select>
 
 	<!-- 전체 회원 조회 -->
-	<select id="selectAll" resultMap="userResult">
+	<select id="selectAllUsers" resultMap="userResult">
     <![CDATA[
       SELECT * FROM user
     ]]>
 	</select>
 
+	<!-- username과 password를 전달하여 DB에 저장 -->
+	<!-- parameterType은 DB로 전달되는 매개변수의 자료형; modelConfig에서 alias를 userVO로 지정했으므로 
+		축약 가능 -->
 	<!-- 회원 가입 -->
-	<!-- parameterType은 매개변수 자료형, 우리는 modelConfig에서 alias 지정을 했으니 userVO로 축약 
-		가능 -->
-	<insert id="insertUser" parameterType="userVO">
+	<insert id="insertOneUser" parameterType="userVO">
     <![CDATA[
       INSERT INTO user(username, password)
       VALUES(#{username}, #{password})
     ]]>
 	</insert>
 
+	<!-- username과 password로 단일 회원 조회 -->
 	<!-- 로그인 -->
-	<select id="login" resultMap="userResult" parameterType="userVO">
+	<select id="selectOneUserByUsernameAndPassword"
+		resultMap="userResult" parameterType="userVO">
     <![CDATA[
       SELECT * FROM user
       WHERE username=#{username} AND password=#{password}
