@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.UserVO;
-import com.mycompany.myapp.service.UserService;
 
 @RestController
 @RequestMapping("/*")
 public class ControllerToGetOneUser {
 
-	static Logger logger = LoggerFactory.getLogger(RestAPIController.class);
+	static Logger logger = LoggerFactory.getLogger(ControllerToGetOneUser.class);
 
 	@Autowired
-	UserService userService;
+	ServiceToSelectOneUserById serviceToSelectOneUserById;
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public HashMap<String, Object> selectByID(@RequestParam("id") Long id) throws Exception {

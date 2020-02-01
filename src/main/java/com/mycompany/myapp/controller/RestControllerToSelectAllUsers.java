@@ -24,13 +24,13 @@ public class RestControllerToSelectAllUsers {
 	ServiceToSelectAllUsers serviceToSelectAllUsers;
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public HashMap<String, Object> listAll() throws Exception {
-		List<UserVO> userList = serviceToSelectAllUsers.selectAllUsers();
+	public HashMap<String, Object> selectAllUsers() throws Exception {
+		List<UserVO> allUsersList = serviceToSelectAllUsers.selectAllUsers();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		map.put("code", HttpStatus.OK.value());
 		map.put("message", "Success");
-		map.put("data", userList);
+		map.put("data", allUsersList);
 
 		return map;
 	}
