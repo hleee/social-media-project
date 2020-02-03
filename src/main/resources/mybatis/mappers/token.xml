@@ -21,7 +21,7 @@
 
 	<!-- userId를 찾기 위해 토큰 조회 -->
 	<!-- DB에 글 저장을 위해 -->
-	<select id="selectOneToken" parameterType="tokenVO">
+	<select id="selectOneTokenRowByToken" parameterType="tokenVO">
     <![CDATA[
       SELECT * FROM token
       WHERE token=#{token}
