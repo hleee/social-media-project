@@ -1,15 +1,13 @@
 package com.mycompany.myapp.domain;
 
-import java.util.HashMap;
-import java.util.List;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ResponseVO {
 	private int code;
 	private String message;
-	private HashMap<String, Object> data;
+	private Object data;
 
 	public ResponseVO() {
 
@@ -19,8 +17,8 @@ public class ResponseVO {
 		return code;
 	}
 
-	public void setCode(int value) {
-
+	public void setCode(HttpStatus httpStatus) {
+		this.code = httpStatus.value();
 	}
 
 	public String getMessage() {
@@ -31,12 +29,12 @@ public class ResponseVO {
 		this.message = message;
 	}
 
-	public HashMap<String, Object> getData() {
+	public Object getData() {
 		return data;
 	}
 
-	public void setData(List<UserVO> userList) {
-		this.data = (HashMap<String, Object>) userList;
+	public void setData(Object data) {
+		this.data = data;
 	}
 
 	// 콘솔창에 출력
