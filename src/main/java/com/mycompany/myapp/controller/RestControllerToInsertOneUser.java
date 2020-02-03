@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.myapp.domain.ResponseVO;
 import com.mycompany.myapp.domain.UserVO;
 import com.mycompany.myapp.service.ServiceToInsertOneUser;
+import com.mycompany.myapp.service.ServiceToSelectOneUserByUsernameAndPassword;
 
 @RestController
 @RequestMapping("/*")
@@ -21,6 +22,9 @@ public class RestControllerToInsertOneUser {
 
 	@Autowired
 	private ServiceToInsertOneUser serviceToInsertOneUser;
+
+	@Autowired
+	private ServiceToSelectOneUserByUsernameAndPassword ServiceToSelectOneUserByUsernameAndPassword;
 
 	@Autowired
 	public UserVO userVO;
@@ -36,6 +40,9 @@ public class RestControllerToInsertOneUser {
 		// 회원이 성공적으로 추가됐으면 정수 1 출력
 		int integerOneIfInserted = serviceToInsertOneUser.insertOneUser(userVO);
 		logger.info("Integer 1 if inserted: " + integerOneIfInserted);
+
+		// id와 createdAt을 responseVO에 담아주기 위해 가입 후 다시 한 번 조회
+		userVO = ServiceToSelectOneUserByUsernameAndPassword.selectOneUserByUsernameAndPassword(userVO);
 
 		responseVO.setCode(HttpStatus.OK);
 		responseVO.setMessage("Success");
