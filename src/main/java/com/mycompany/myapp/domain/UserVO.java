@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserVO {
+	
 	private Long id;
 	private String username;
 	private String password;
