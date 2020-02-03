@@ -6,7 +6,7 @@ $(document).ready(function() {
 		var password = $('#login_password').val();
 
 		if (!username || !password) {
-			alert("필수 항목을 채워주세요.");
+			alert("This field is mandatory.");
 			return;
 		}
 
@@ -16,7 +16,7 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			url : "/auth",
+			url : "/auth", // /auth에서 시작하여
 			method : "POST",
 			dataType : 'json',
 			contentType : 'application/json',
@@ -24,9 +24,9 @@ $(document).ready(function() {
 		}).then(function(data) {
 			document.cookie = "accesstoken=" + data.data.token;
 			document.cookie = "userId=" + data.data.userId;
-			window.location.href = '/';
+			window.location.href = '/'; // 루트 주소인 localhost:8090/myapp/로 이동
 		}, function(err) {
-			alert("계정 정보를 확인해주세요.");
+			alert("Please check the information again.");
 			window.location.reload();
 		});
 		return false;

@@ -16,13 +16,14 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			url : "/myapp/signup",
+			url : "/myapp/signup", // /signup에서 시작하여
 			method : "POST",
 			dataType : 'json',
 			contentType : 'application/json',
 			data : JSON.stringify(param)
 		}).then(function(data) {
 			alert("Success");
+			window.location.href = '/login'; // /login으로 이동
 		}, function(err) {
 			alert("Sign up failed");
 		});
