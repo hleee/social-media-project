@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.post">
+	<resultMap id="postResult" type="postVO">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="createdAt" column="created_at" />
+	</resultMap>
+	
+	<insert id="insertOnePost" parameterType="postVO">
+    <![CDATA[
+      INSERT INTO post(title, content)
+      VALUES(#{title}, #{content})
+    ]]>
+	</insert>
+		
+</mapper>
+	
