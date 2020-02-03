@@ -12,6 +12,14 @@
 		<result property="createdAt" column="created_at" />
 	</resultMap>
 	
+	<select id="selectOnePostById" resultMap="userResult"
+		parameterType="Long">
+    <![CDATA[
+      SELECT * FROM post
+      WHERE id=#{id}
+    ]]>
+	</select>
+	
 	<insert id="insertOnePost" parameterType="postVO">
     <![CDATA[
       INSERT INTO post(title, content)
