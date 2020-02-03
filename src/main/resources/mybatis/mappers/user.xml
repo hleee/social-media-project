@@ -3,7 +3,7 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mapper.userMapper">
+<mapper namespace="mapper.user">
 	<resultMap id="userResult" type="userVO">
 		<result property="id" column="id" />
 		<result property="username" column="username" />
