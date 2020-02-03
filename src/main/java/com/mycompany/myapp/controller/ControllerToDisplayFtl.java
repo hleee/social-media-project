@@ -14,7 +14,7 @@ public class ControllerToDisplayFtl {
 
 	static Logger logger = LoggerFactory.getLogger(ControllerToDisplayFtl.class);
 
-	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String signup(Locale locale, Model model) {
 		logger.info("signup.ftl called.");
 		return "signup";
@@ -26,7 +26,7 @@ public class ControllerToDisplayFtl {
 		return "index";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String login(Locale locale, Model model) {
 		logger.info("login.ftl called.");
 		return "login";
