@@ -40,6 +40,7 @@ public class RestControllerToInsertOneToken {
 	@Autowired
 	private TokenMaker tokenMaker;
 
+	// Inserting token = authorising
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public ResponseVO insertOneToken(@RequestBody UserVO userVoToDb) throws Exception {
 
