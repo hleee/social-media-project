@@ -11,7 +11,7 @@
 		<result property="content" column="content" />
 		<result property="createdAt" column="created_at" />
 	</resultMap>
-	
+
 	<!-- id로 글 조회 -->
 	<select id="selectOnePostById" resultMap="postResult"
 		parameterType="Long">
@@ -20,14 +20,17 @@
       WHERE id=#{id}
     ]]>
 	</select>
-	
+
 	<!-- DB에 제목과 내용 저장 -->
-	<insert id="insertOnePost" parameterType="postVO">
+	<!-- useGeneratedKeys를 true로 지정하면, 방금 DB에 입력된 행의, keyProperty에 지정한 (여기선 
+		id) 값을 postVO에 담아줌 -->
+	<insert id="insertOnePost" parameterType="postVO"
+		useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
-      INSERT INTO post(title, content)
-      VALUES(#{title}, #{content})
+      INSERT INTO post(user_id, title, content)
+      VALUES(#{userId}, #{title}, #{content})
     ]]>
 	</insert>
-		
+
 </mapper>
 	

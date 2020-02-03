@@ -19,8 +19,8 @@ public class ServiceToSelectOnePostById {
 	@Autowired
 	PostVO postVO;
 
-	public PostVO selectOnePostById(PostVO postVO) {
-		return postVO = daoToSelectOnePostById.selectOnePostById(postVO);
+	public PostVO selectOnePostById(long id) {
+		return postVO = daoToSelectOnePostById.selectOnePostById(id);
 
 	}
 

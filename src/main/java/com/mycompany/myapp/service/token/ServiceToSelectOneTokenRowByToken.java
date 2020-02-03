@@ -19,7 +19,7 @@ public class ServiceToSelectOneTokenRowByToken {
 	@Autowired
 	public TokenVO tokenVO;
 
-	public TokenVO selectOneTokenRowWithToken(String token) {
+	public TokenVO selectOneTokenRowByToken(String token) {
 		TokenVO tokenVO = daoToSelectOneTokenRowByToken.selectOneTokenRowByToken(token);
 		return tokenVO;
 	}
