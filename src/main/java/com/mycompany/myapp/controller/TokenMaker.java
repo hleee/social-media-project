@@ -2,6 +2,11 @@ package com.mycompany.myapp.controller;
 
 import java.util.Random;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/*")
 public class TokenMaker {
 
 	public String makeToken() {
