@@ -39,7 +39,7 @@ public class RestControllerToSelectOneUserById {
 		logger.info("id contained in userVO: " + id);
 
 		// responseVO에 code, message, data 각각 설정
-		// data는 userVO의 정보 (id, username, password, createdAt)
+		// data는 userVO에 담긴 단일 회원의 정보 (id, username, password, createdAt)
 		responseVO.setCode(HttpStatus.OK);
 		responseVO.setMessage("Success");
 		responseVO.setData(userVO);
