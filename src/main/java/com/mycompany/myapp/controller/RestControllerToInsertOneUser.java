@@ -39,7 +39,7 @@ public class RestControllerToInsertOneUser {
 
 		// 회원이 성공적으로 추가됐으면 정수 1 출력
 		int integerOneIfInserted = serviceToInsertOneUser.insertOneUser(userVO);
-		logger.info("Integer 1 if inserted: " + integerOneIfInserted);
+		logger.info("Integer 1 if new user inserted: " + integerOneIfInserted);
 
 		// id와 createdAt을 responseVO에 담아주기 위해 가입 후 다시 한 번 조회
 		// 그렇지 않고 그대로 반환하면 null 반환
