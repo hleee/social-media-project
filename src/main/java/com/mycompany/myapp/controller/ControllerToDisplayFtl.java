@@ -39,7 +39,7 @@ public class ControllerToDisplayFtl {
 		return mav;
 	}
 
-	// index.js에서
+	// index.js로
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index() {
 
