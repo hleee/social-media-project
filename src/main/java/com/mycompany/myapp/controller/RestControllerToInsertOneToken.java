@@ -37,6 +37,8 @@ public class RestControllerToInsertOneToken {
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public UserVO insertOneToken(@RequestBody UserVO userVoToDb) throws Exception {
 
+		logger.info("insertOneToken() called.");
+		
 		// userVO에서 id를 추출
 		UserVO userVoFromDb = serviceToSelectOneUserByUsernameAndPassword.selectOneUserByUsernameAndPassword(userVoToDb);
 		long id = userVoFromDb.getId();
@@ -44,13 +46,16 @@ public class RestControllerToInsertOneToken {
 		
 		// 토큰 발행
 		String token = tokenMaker.makeToken();
+		logger.info("Token created.");
 		
 		// tokenVO에 일련 번호와 id 저장
 		tokenVO.setToken(token);
 		tokenVO.setUserId(id);
+		logger.info("Within tokenVO: token: " + token + ", id: " + id);
 		
 		// tokenVO에 담긴 정보를 데이터베이스의 token 표에 넣기
 		serviceToInsertOneToken.insertOneToken(tokenVO);
+		logger.info("Token inserted into the database.");
 		
 		
 		return userVoFromDb;
