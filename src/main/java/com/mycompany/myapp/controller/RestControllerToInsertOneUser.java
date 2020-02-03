@@ -28,20 +28,29 @@ public class RestControllerToInsertOneUser {
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public ResponseEntity<String> insertOneUser(@RequestBody UserVO userVO) {
 		ResponseEntity<String> resEntity = null;
+		logger.info("Response entity initialised.");
 		try {
-			logger.info("Try loop entered");
-			logger.info(userVO.toString());
+			logger.info("Try statement entered.");
+			logger.info("userVO: " + userVO.toString());
+			
 			// service의 insert 메서드를 호출
 			// vo 객체를 insert로 전달한 것의 반환값을 resSignUp에 담음
 			int integerOneIfInserted = serviceToInsertOneUser.insertOneUser(userVO);
-			logger.info("DB에 추가됐으면 정수 1 반환: " + integerOneIfInserted);
+			logger.info("Integer 1 if inserted: " + integerOneIfInserted);
 			resEntity = new ResponseEntity<String>("ADD_SUCCEEDED", HttpStatus.OK);
+			
 			// 응답 객체 출력해보기
-			logger.info("resEntity : " + resEntity);
+			logger.info("Response entity : " + resEntity);
+		
 		} catch (Exception e) {
+			
+			logger.info("Catch statement entered.");
 			resEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			logger.info("Response entity: " + resEntity);
 		}
+		
 		return resEntity;
+	
 	}
 
 }
