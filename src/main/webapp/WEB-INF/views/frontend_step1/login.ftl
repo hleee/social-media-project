@@ -103,11 +103,11 @@ body {
 				<form>
 					<div class="form-group">
 						<input type="text" id="login_username" class="form-control"
-							placeholder="Username *" value="" />
+							placeholder="Username*" value="" />
 					</div>
 					<div class="form-group">
 						<input type="password" id="login_password" class="form-control"
-							placeholder="Password *" value="" />
+							placeholder="Password*" value="" />
 					</div>
 					<div class="form-group">
 						<input type="submit" id="login_btn" class="btnSubmit"
@@ -132,7 +132,7 @@ body {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
-	<script src="/js/login.js"></script>
+	<script src="/myapp/js/login.js"></script>
 </body>
 
 </html>
