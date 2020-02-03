@@ -42,7 +42,7 @@ public class RestControllerToInsertOneToken {
 		// userVO에서 id를 추출
 		UserVO userVoFromDb = serviceToSelectOneUserByUsernameAndPassword.selectOneUserByUsernameAndPassword(userVoToDb);
 		long id = userVoFromDb.getId();
-		logger.info("id: " + id);
+		logger.info("id retrieved from DB: " + id);
 		
 		// 토큰 발행
 		String token = tokenMaker.makeToken();
