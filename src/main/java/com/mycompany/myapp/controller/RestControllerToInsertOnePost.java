@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.myapp.domain.PostVO;
 import com.mycompany.myapp.domain.ResponseVO;
 import com.mycompany.myapp.repository.DaoToInsertOnePost;
+import com.mycompany.myapp.repository.DaoToSelectOnePostByTitleAndContent;
 import com.mycompany.myapp.service.ServiceToInsertOnePost;
+import com.mycompany.myapp.service.ServiceToSelectOnePostByTitleAndContent;
 
 @RestController
 @RequestMapping("/*")
@@ -25,6 +27,12 @@ public class RestControllerToInsertOnePost {
 
 	@Autowired
 	public DaoToInsertOnePost daoToInsertOnePost;
+
+	@Autowired
+	public DaoToSelectOnePostByTitleAndContent daoToSelectOnePostById;
+
+	@Autowired
+	public ServiceToSelectOnePostByTitleAndContent serviceToSelectOnePostById;
 
 	@Autowired
 	public PostVO postVO;
@@ -41,7 +49,7 @@ public class RestControllerToInsertOnePost {
 		int IntegerOneIfInserted = serviceToInsertOnePost.insertOnePost(postVO);
 		logger.info("Integer 1 if new post inserted: " + IntegerOneIfInserted);
 
-		postVO = 
+		postVO = serviceToSelectOnePostById.selectOnePostByTitleAndContent(postVO);
 
 		responseVO.setCode(HttpStatus.OK);
 		responseVO.setMessage("Success");

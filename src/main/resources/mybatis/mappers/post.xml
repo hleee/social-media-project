@@ -12,11 +12,11 @@
 		<result property="createdAt" column="created_at" />
 	</resultMap>
 	
-	<select id="selectOnePostById" resultMap="userResult"
+	<select id="selectOnePostByTitleAndContent" resultMap="userResult"
 		parameterType="Long">
     <![CDATA[
       SELECT * FROM post
-      WHERE id=#{id}
+      WHERE title=#{title} AND content=#{content}
     ]]>
 	</select>
 	
