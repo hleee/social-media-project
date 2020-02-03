@@ -29,7 +29,7 @@ $(document).ready(function() { // jQuery 시작
 		}).then(function(data) {
 			alert("Success");
 			console.log(data);
-			window.location.href = '/login'; // /login으로 이동 (ControllerToDisplayFtl)
+			window.location.href = '/myapp/login'; // /myapp/login으로 이동 (ControllerToDisplayFtl)
 		}, function(err) {
 			alert("Sign up failed");
 		});
