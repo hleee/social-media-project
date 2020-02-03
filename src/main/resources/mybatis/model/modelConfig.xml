@@ -10,5 +10,7 @@
 			alias="userVO" />
 		<typeAlias type="com.mycompany.myapp.domain.TokenVO"
 			alias="tokenVO" />
+		<typeAlias type="com.mycompany.myapp.domain.PostVO"
+			alias="postVO" />
 	</typeAliases>
 </configuration>
