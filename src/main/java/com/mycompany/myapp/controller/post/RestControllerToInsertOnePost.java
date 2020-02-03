@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.myapp.domain.PostVO;
 import com.mycompany.myapp.domain.ResponseVO;
 import com.mycompany.myapp.repository.post.DaoToInsertOnePost;
-import com.mycompany.myapp.repository.post.DaoToSelectOnePostByTitleAndContent;
+import com.mycompany.myapp.repository.post.DaoToSelectOnePostById;
 import com.mycompany.myapp.service.post.ServiceToInsertOnePost;
-import com.mycompany.myapp.service.post.ServiceToSelectOnePostByTitleAndContent;
+import com.mycompany.myapp.service.post.ServiceToSelectOnePostById;
 
 @RestController
 @RequestMapping("/*")
@@ -29,10 +29,10 @@ public class RestControllerToInsertOnePost {
 	public DaoToInsertOnePost daoToInsertOnePost;
 
 	@Autowired
-	public DaoToSelectOnePostByTitleAndContent daoToSelectOnePostById;
+	public DaoToSelectOnePostById daoToSelectOnePostById;
 
 	@Autowired
-	public ServiceToSelectOnePostByTitleAndContent serviceToSelectOnePostById;
+	public ServiceToSelectOnePostById serviceToSelectOnePostById;
 
 	@Autowired
 	public PostVO postVO;
@@ -46,11 +46,22 @@ public class RestControllerToInsertOnePost {
 
 		logger.info("insertOnePost() called");
 
+		// 1. token을 이용해서 selectTokenVOBytoken //where token = 토큰값
+		
+		
+		// 2. tokenVO.getUserId() 통해서 userId값 추출
+		
+		
+		// 3. postVO.setUserId(추출한 userID값)을 통해서 postVO의 userId를 담아준다.
+		
+		
+		// 4. postVO : userId, title, content --> insert
+		
+		
 		int IntegerOneIfInserted = serviceToInsertOnePost.insertOnePost(postVO);
 		logger.info("Integer 1 if new post inserted: " + IntegerOneIfInserted);
 
-		postVO = serviceToSelectOnePostById.selectOnePostByTitleAndContent(postVO);
-
+		postVO = serviceToSelectOnePostById.selectOnePostById(postVO);
 		
 		responseVO.setCode(HttpStatus.OK);
 		responseVO.setMessage("Success");
