@@ -1,4 +1,4 @@
-package com.mycompany.myapp.controller;
+package com.mycompany.myapp.controller.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.UserVO;
-import com.mycompany.myapp.service.ServiceToSelectOneUserByUsernameAndPassword;
+import com.mycompany.myapp.service.user.ServiceToSelectOneUserByUsernameAndPassword;
 
 @RestController
 @RequestMapping("/*")

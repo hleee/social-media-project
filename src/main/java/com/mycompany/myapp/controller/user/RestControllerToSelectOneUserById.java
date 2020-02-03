@@ -1,4 +1,4 @@
-package com.mycompany.myapp.controller;
+package com.mycompany.myapp.controller.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.ResponseVO;
 import com.mycompany.myapp.domain.UserVO;
-import com.mycompany.myapp.service.ServiceToSelectOneUserById;
+import com.mycompany.myapp.service.user.ServiceToSelectOneUserById;
 
 @RestController
 @RequestMapping("/*")

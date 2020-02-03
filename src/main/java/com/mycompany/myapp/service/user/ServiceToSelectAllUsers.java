@@ -1,4 +1,4 @@
-package com.mycompany.myapp.service;
+package com.mycompany.myapp.service.user;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.myapp.domain.UserVO;
-import com.mycompany.myapp.repository.DaoToSelectAllUsers;
+import com.mycompany.myapp.repository.user.DaoToSelectAllUsers;
 
 @Service
 public class ServiceToSelectAllUsers {

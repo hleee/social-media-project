@@ -1,4 +1,4 @@
-package com.mycompany.myapp.repository;
+package com.mycompany.myapp.repository.post;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.LoggerFactory;

@@ -1,11 +1,11 @@
-package com.mycompany.myapp.service;
+package com.mycompany.myapp.service.post;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mycompany.myapp.domain.PostVO;
-import com.mycompany.myapp.repository.DaoToInsertOnePost;
+import com.mycompany.myapp.repository.post.DaoToInsertOnePost;
 
 public class ServiceToInsertOnePost {
 

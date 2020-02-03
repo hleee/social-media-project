@@ -1,4 +1,4 @@
-package com.mycompany.myapp.controller;
+package com.mycompany.myapp.controller.token;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.myapp.domain.ResponseVO;
 import com.mycompany.myapp.domain.TokenVO;
 import com.mycompany.myapp.domain.UserVO;
-import com.mycompany.myapp.service.ServiceToInsertOneToken;
-import com.mycompany.myapp.service.ServiceToSelectOneUserByUsernameAndPassword;
+import com.mycompany.myapp.service.token.ServiceToInsertOneToken;
+import com.mycompany.myapp.service.user.ServiceToSelectOneUserByUsernameAndPassword;
 import com.mycompany.myapp.util.TokenMaker;
 
 @RestController

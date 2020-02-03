@@ -1,4 +1,4 @@
-package com.mycompany.myapp.controller;
+package com.mycompany.myapp.controller.post;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.PostVO;
 import com.mycompany.myapp.domain.ResponseVO;
-import com.mycompany.myapp.repository.DaoToInsertOnePost;
-import com.mycompany.myapp.repository.DaoToSelectOnePostByTitleAndContent;
-import com.mycompany.myapp.service.ServiceToInsertOnePost;
-import com.mycompany.myapp.service.ServiceToSelectOnePostByTitleAndContent;
+import com.mycompany.myapp.repository.post.DaoToInsertOnePost;
+import com.mycompany.myapp.repository.post.DaoToSelectOnePostByTitleAndContent;
+import com.mycompany.myapp.service.post.ServiceToInsertOnePost;
+import com.mycompany.myapp.service.post.ServiceToSelectOnePostByTitleAndContent;
 
 @RestController
 @RequestMapping("/*")
@@ -51,6 +51,7 @@ public class RestControllerToInsertOnePost {
 
 		postVO = serviceToSelectOnePostById.selectOnePostByTitleAndContent(postVO);
 
+		
 		responseVO.setCode(HttpStatus.OK);
 		responseVO.setMessage("Success");
 		responseVO.setData(postVO);
