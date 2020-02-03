@@ -19,6 +19,7 @@ public class ServiceToInsertOneUser {
 	@Autowired
 	UserVO userVO;
 
+	// DB에 성공적으로 추가하면 작업한 줄 개수 반환 (정수 1)
 	public int insertOneUser(UserVO userVO) throws Exception {
 		int integerOneIfInserted = daoToInsertOneUser.insertOneUser(userVO);
 		return integerOneIfInserted;
