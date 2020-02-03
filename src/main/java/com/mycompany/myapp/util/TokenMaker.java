@@ -2,9 +2,9 @@ package com.mycompany.myapp.util;
 
 import java.util.Random;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-@Controller
+@Component
 public class TokenMaker {
 
 	public String makeToken() {
