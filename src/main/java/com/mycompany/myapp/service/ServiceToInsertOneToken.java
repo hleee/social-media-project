@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.myapp.controller.RestAPIController;
 import com.mycompany.myapp.domain.TokenVO;
 import com.mycompany.myapp.repository.DaoToInsertOneToken;
 
