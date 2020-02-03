@@ -24,7 +24,7 @@ public class RestControllerToInsertOneUser {
 	private ServiceToInsertOneUser serviceToInsertOneUser;
 
 	@Autowired
-	private ServiceToSelectOneUserByUsernameAndPassword ServiceToSelectOneUserByUsernameAndPassword;
+	private ServiceToSelectOneUserByUsernameAndPassword serviceToSelectOneUserByUsernameAndPassword;
 
 	@Autowired
 	public UserVO userVO;
@@ -43,7 +43,7 @@ public class RestControllerToInsertOneUser {
 
 		// id와 createdAt을 responseVO에 담아주기 위해 가입 후 다시 한 번 조회
 		// 그렇지 않고 그대로 반환하면 null 반환
-		userVO = ServiceToSelectOneUserByUsernameAndPassword.selectOneUserByUsernameAndPassword(userVO);
+		userVO = serviceToSelectOneUserByUsernameAndPassword.selectOneUserByUsernameAndPassword(userVO);
 
 		responseVO.setCode(HttpStatus.OK);
 		responseVO.setMessage("Success");
