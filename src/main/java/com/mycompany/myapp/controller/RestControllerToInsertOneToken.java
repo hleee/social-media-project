@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.myapp.domain.TokenVO;
 import com.mycompany.myapp.domain.UserVO;
 import com.mycompany.myapp.service.ServiceToInsertOneToken;
+import com.mycompany.myapp.service.ServiceToSelectOneUserByUsernameAndPassword;
 
 @RestController
 @RequestMapping("/*")
@@ -20,19 +21,23 @@ public class RestControllerToInsertOneToken {
 
 	@Autowired
 	ServiceToInsertOneToken serviceToInsertOneToken;
-	
+
+	@Autowired
+	ServiceToSelectOneUserByUsernameAndPassword serviceToSelectOneUserByUsernameAndPassword;
+
 	@Autowired
 	UserVO userVO;
-	
+
 	@Autowired
 	TokenVO tokenVO;
-	
+
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public UserVO insertOneToken(@RequestBody UserVO userVO) throws Exception {
 
-		UserVO userVOWithToken = serviceToInsertOneToken.insertOneToken(tokenVO)
+		UserVO userVOWithToken = serviceToSelectOneUserByUsernameAndPassword.selectOneUserByUsernameAndPassword(userVO);
+
 		return 0;
-		
+
 	}
-	
+
 }
