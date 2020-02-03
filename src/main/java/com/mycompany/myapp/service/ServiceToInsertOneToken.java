@@ -12,7 +12,7 @@ import com.mycompany.myapp.repository.DaoToInsertOneToken;
 @Service
 public class ServiceToInsertOneToken {
 
-	static Logger logger = LoggerFactory.getLogger(RestAPIController.class);
+	static Logger logger = LoggerFactory.getLogger(ServiceToInsertOneToken.class);
 
 	@Autowired
 	DaoToInsertOneToken daoToInsertOneToken;
