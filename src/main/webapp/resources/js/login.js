@@ -16,7 +16,7 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			url : "/auth", // /auth에서 시작하여
+			url : "/auth", // 프런트 쪽 /auth에서 시작
 			method : "POST",
 			dataType : 'json',
 			contentType : 'application/json',
