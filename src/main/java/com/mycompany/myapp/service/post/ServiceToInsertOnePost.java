@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.myapp.domain.PostVO;
+import com.mycompany.myapp.domain.PostVo;
 import com.mycompany.myapp.repository.post.DaoToInsertOnePost;
 
 @Service
@@ -17,9 +17,9 @@ public class ServiceToInsertOnePost {
 	DaoToInsertOnePost daoToInsertOnePost;
 
 	@Autowired
-	PostVO postVO;
+	PostVo postVO;
 
-	public int insertOnePost(PostVO postVO) {
+	public int insertOnePost(PostVo postVO) {
 		int integerOneIfInserted = daoToInsertOnePost.insertOnePost(postVO);
 		logger.info("=== Service to insert one post ===");
 		logger.info("Integer 1 if post inserted: " + integerOneIfInserted);

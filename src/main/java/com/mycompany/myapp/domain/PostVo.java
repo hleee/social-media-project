@@ -3,7 +3,7 @@ package com.mycompany.myapp.domain;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PostVO {
+public class PostVo {
 
 	private Long id;
 	private Long userId;
@@ -11,7 +11,7 @@ public class PostVO {
 	private String content;
 	private String createdAt;
 
-	public PostVO() {
+	public PostVo() {
 		super();
 	}
 

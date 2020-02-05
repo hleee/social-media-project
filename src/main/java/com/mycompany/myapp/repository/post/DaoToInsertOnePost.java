@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mycompany.myapp.domain.PostVO;
+import com.mycompany.myapp.domain.PostVo;
 
 @Repository
 public class DaoToInsertOnePost {
@@ -17,9 +17,9 @@ public class DaoToInsertOnePost {
 	private SqlSession sqlSession;
 
 	@Autowired
-	public PostVO postVO;
+	public PostVo postVO;
 
-	public int insertOnePost(PostVO postVO) {
+	public int insertOnePost(PostVo postVO) {
 		int integerOneIfInserted = sqlSession.insert("mapper.post.insertOnePost", postVO);
 		logger.info("=== DAO to insert one post ===");
 		logger.info("Integer 1 if post inserted: " + integerOneIfInserted);

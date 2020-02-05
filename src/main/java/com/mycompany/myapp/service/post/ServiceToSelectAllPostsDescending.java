@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.myapp.domain.PostVO;
+import com.mycompany.myapp.domain.PostVoWithUser;
 import com.mycompany.myapp.repository.post.DaoToSelectAllPostsDescending;
 
 @Service
@@ -19,9 +19,9 @@ public class ServiceToSelectAllPostsDescending {
 	public DaoToSelectAllPostsDescending daoToSelectAllPostsDescending;
 
 	@Autowired
-	public PostVO postVO;
+	public PostVoWithUser postVoWithUser;
 
-	public List<PostVO> selectAllPostsDescending() {
+	public List<PostVoWithUser> selectAllPostsDescending() {
 		logger.info("SERVICE: selectAllPostsDescending() called.");
 		return daoToSelectAllPostsDescending.selectAllPostsDescending();
 	}

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mycompany.myapp.domain.PostVO;
+import com.mycompany.myapp.domain.PostVo;
 import com.mycompany.myapp.domain.ResponseVO;
 import com.mycompany.myapp.domain.TokenVO;
 import com.mycompany.myapp.service.post.ServiceToInsertOnePost;
@@ -34,14 +34,14 @@ public class RestControllerToInsertOnePost {
 	public ServiceToSelectOnePostById serviceToSelectOnePostById;
 
 	@Autowired
-	public PostVO postVO;
+	public PostVo postVO;
 
 	@Autowired
 	public ResponseVO responseVO;
 
 	// @RequestBody를 써줘야 컨트롤러가 프런트에서 입력받은 값을 인식함 (title과 content를 가져옴)
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
-	public ResponseVO insertOnePost(@RequestBody PostVO postVO, HttpServletRequest request) throws Exception {
+	public ResponseVO insertOnePost(@RequestBody PostVo postVO, HttpServletRequest request) throws Exception {
 		// 로그인 시 발행된 토큰 값은 쿠키에 담겨있으므로 그곳에서 가져옴
 		// HttpServletRequest request.getHeader("가져올 값의 이름")이나 request.getCookie() (모든
 		// 쿠킷값을 배열로 반환)

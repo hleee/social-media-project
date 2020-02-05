@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.mycompany.myapp.domain.PostVO;
+import com.mycompany.myapp.domain.PostVo;
 
 @Repository
 public class DaoToSelectOnePostById {
@@ -18,10 +18,10 @@ public class DaoToSelectOnePostById {
 	private SqlSession sqlSession;
 
 	@Autowired
-	public PostVO postVO;
+	public PostVo postVO;
 
-	public PostVO selectOnePostById(long id) throws DataAccessException {
-		PostVO postVoFromDb = sqlSession.selectOne("mapper.post.selectOnePostById", id);
+	public PostVo selectOnePostById(long id) throws DataAccessException {
+		PostVo postVoFromDb = sqlSession.selectOne("mapper.post.selectOnePostById", id);
 		return postVoFromDb;
 	}
 

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mycompany.myapp.domain.PostVO;
 import com.mycompany.myapp.domain.PostVoWithUser;
 import com.mycompany.myapp.domain.ResponseVO;
 import com.mycompany.myapp.domain.UserVO;
@@ -44,24 +43,24 @@ public class RestControllerToSelectAllPostsDescending {
 		logger.info("REST_CONTROLLER: selectAllPostsDescending() called.");
 
 		// 전체 글을 역순으로 담은 목록 객체 생성
-		List<PostVO> allPostsList = serviceToSelectAllPostsDescending.selectAllPostsDescending();
-		
+		List<PostVoWithUser> allPostsList = serviceToSelectAllPostsDescending.selectAllPostsDescending();
+
 		// allPostsList를 돌며 사용자 userId를 추출해 변수에 담음
-		for (PostVO postVO : allPostsList) {
+		for (PostVoWithUser postVoWithUser : allPostsList) {
 
 			logger.info("REST_CONTROLLER: For loop entered to extract userId.");
 
-			long userId = postVO.getUserId();
+			long userId = postVoWithUser.getUserId();
 			logger.info("REST_CONTROLLER: userId retrieved.");
-			
+
 			// 추출한 id 번호를 이용해 DB의 user 테이블에서 글쓴이의 정보 (id, username, created_at) 조회
 			// 그 정보를 userVO 객체에 넣어 postVO에 담음
 			UserVO userVO = serviceToSelectOneUserById.selectOneUserById(userId);
 			logger.info("REST_CONTROLLER: user info contained in userVO " + userVO);
-			
-			postVO.setUserInfo(userVO);
+
+			postVoWithUser.setUser(userVO);
 		}
-		
+
 		// responseVO에 code, message, data 설정
 		// 여기서 data는 전체 글을 역순으로 담은 목록 객체
 		responseVO.setCode(HttpStatus.OK);
