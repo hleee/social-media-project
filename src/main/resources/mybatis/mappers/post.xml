@@ -31,9 +31,8 @@
       VALUES(#{userId}, #{title}, #{content})
     ]]>
 	</insert>
-
-	<!-- 전체 글 목록을 내림차순 조회 (id 번호 역순으로) -->
-	<!-- 가장 최근 글부터 보이도록 구현 -->
+	
+	<!-- 전체 글을 내림차순 (가장 최근 글부터) 조회 -->
 	<select id="selectAllPostsDescending" resultMap="postResult">
     <![CDATA[
       SELECT * FROM post

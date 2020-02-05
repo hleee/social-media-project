@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mycompany.myapp.domain.post.PostVoWithUser;
+import com.mycompany.myapp.domain.post.PostVo;
 
 @Repository
 public class DaoToSelectAllPostsDescending {
@@ -19,10 +19,10 @@ public class DaoToSelectAllPostsDescending {
 	public SqlSession sqlSession;
 
 	@Autowired
-	public PostVoWithUser postVoWithUser;
+	public PostVo postVo;
 
-	public List<PostVoWithUser> selectAllPostsDescending() {
-		List<PostVoWithUser> allPostsList = null;
+	public List<PostVo> selectAllPostsDescending() {
+		List<PostVo> allPostsList = null;
 		allPostsList = sqlSession.selectList("mapper.post.selectAllPostsDescending");
 		logger.info("DAO: selectAllPostsDescending() called.");
 		return allPostsList;
