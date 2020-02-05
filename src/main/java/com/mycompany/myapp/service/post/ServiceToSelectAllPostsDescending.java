@@ -22,9 +22,8 @@ public class ServiceToSelectAllPostsDescending {
 	public PostVO postVO;
 
 	public List<PostVO> selectAllPostsDescending() {
-		List<PostVO> allPostsList = daoToSelectAllPostsDescending.selectAllPostsDescending();
 		logger.info("SERVICE: selectAllPostsDescending() called.");
-		return allPostsList;
+		return daoToSelectAllPostsDescending.selectAllPostsDescending();
 	}
 
 }
