@@ -31,7 +31,9 @@ public class RestControllerToSelectAllPostsDescending {
 
 	@RequestMapping(value = "/allPosts", method = RequestMethod.GET)
 	public ResponseVO selectAllPostsDescending() {
+		
 		logger.info("RESTCONTROLLER: selectAllPostsDescending() called.");
+		
 		List<PostVO> allPostsList = serviceToSelectAllPostsDescending.selectAllPostsDescending();
 
 		// responseVO에 code, message, data 설정
