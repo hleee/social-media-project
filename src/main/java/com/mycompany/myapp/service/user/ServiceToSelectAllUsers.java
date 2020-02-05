@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.myapp.domain.user.UserVO;
+import com.mycompany.myapp.domain.user.UserVo;
 import com.mycompany.myapp.repository.user.DaoToSelectAllUsers;
 
 @Service
@@ -19,9 +19,9 @@ public class ServiceToSelectAllUsers {
 	DaoToSelectAllUsers daoToSelectAllUsers;
 
 	@Autowired
-	UserVO userVO;
+	UserVo userVO;
 
-	public List<UserVO> selectAllUsers() throws Exception {
+	public List<UserVo> selectAllUsers() throws Exception {
 		return daoToSelectAllUsers.selectAllUsers();
 	}
 

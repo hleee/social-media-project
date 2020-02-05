@@ -3,14 +3,14 @@ package com.mycompany.myapp.domain.user;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserVO {
+public class UserVo {
 	
 	private Long id;
 	private String username;
 	private String password;
 	private String createdAt;
 
-	public UserVO() {
+	public UserVo() {
 
 	}
 

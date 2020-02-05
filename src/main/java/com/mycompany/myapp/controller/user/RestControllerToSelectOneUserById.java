@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mycompany.myapp.domain.ResponseVO;
-import com.mycompany.myapp.domain.user.UserVO;
+import com.mycompany.myapp.domain.ResponseVo;
+import com.mycompany.myapp.domain.user.UserVo;
 import com.mycompany.myapp.service.user.ServiceToSelectOneUserById;
 
 @RestController
@@ -23,18 +23,18 @@ public class RestControllerToSelectOneUserById {
 	private ServiceToSelectOneUserById serviceToSelectOneUserById;
 
 	@Autowired
-	public UserVO userVO;
+	public UserVo userVO;
 
 	@Autowired
-	public ResponseVO responseVO;
+	public ResponseVo responseVO;
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public ResponseVO selectOneUserById(@RequestParam("id") Long id) throws Exception {
+	public ResponseVo selectOneUserById(@RequestParam("id") Long id) throws Exception {
 
 		logger.info("selectOneUserByID() called.");
 
 		// ID로 단일 회원을 조회한 후 userVO에 담음
-		UserVO userVO = serviceToSelectOneUserById.selectOneUserById(id);
+		UserVo userVO = serviceToSelectOneUserById.selectOneUserById(id);
 		logger.info("One user selected from database.");
 		logger.info("id contained in userVO: " + id);
 

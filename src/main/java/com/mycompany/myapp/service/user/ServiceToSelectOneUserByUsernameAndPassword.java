@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.myapp.domain.user.UserVO;
+import com.mycompany.myapp.domain.user.UserVo;
 import com.mycompany.myapp.repository.user.DaoToSelectOneUserByUsernameAndPassword;
 
 @Service
@@ -17,10 +17,10 @@ public class ServiceToSelectOneUserByUsernameAndPassword {
 	DaoToSelectOneUserByUsernameAndPassword dao;
 
 	@Autowired
-	UserVO userVO;
+	UserVo userVO;
 
-	public UserVO selectOneUserByUsernameAndPassword(UserVO userVO) {
-		UserVO oneUserByUsernameAndPassword = dao.selectOneUserByUsernameAndPassword(userVO);
+	public UserVo selectOneUserByUsernameAndPassword(UserVo userVO) {
+		UserVo oneUserByUsernameAndPassword = dao.selectOneUserByUsernameAndPassword(userVO);
 		return oneUserByUsernameAndPassword;
 	}
 

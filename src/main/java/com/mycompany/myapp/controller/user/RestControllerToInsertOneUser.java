@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mycompany.myapp.domain.ResponseVO;
-import com.mycompany.myapp.domain.user.UserVO;
+import com.mycompany.myapp.domain.ResponseVo;
+import com.mycompany.myapp.domain.user.UserVo;
 import com.mycompany.myapp.service.user.ServiceToInsertOneUser;
 import com.mycompany.myapp.service.user.ServiceToSelectOneUserByUsernameAndPassword;
 
@@ -27,13 +27,13 @@ public class RestControllerToInsertOneUser {
 	private ServiceToSelectOneUserByUsernameAndPassword serviceToSelectOneUserByUsernameAndPassword;
 
 	@Autowired
-	public UserVO userVO;
+	public UserVo userVO;
 
 	@Autowired
-	public ResponseVO responseVO;
+	public ResponseVo responseVO;
 
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public ResponseVO insertOneUser(@RequestBody UserVO userVO) throws Exception {
+	public ResponseVo insertOneUser(@RequestBody UserVo userVO) throws Exception {
 
 		logger.info("insertOneUser() initialised.");
 

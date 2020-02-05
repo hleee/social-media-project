@@ -4,12 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ResponseVO {
+public class ResponseVo {
 	private int code;
 	private String message;
 	private Object data;
 
-	public ResponseVO() {
+	public ResponseVo() {
 
 	}
 

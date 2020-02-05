@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mycompany.myapp.domain.ResponseVO;
-import com.mycompany.myapp.domain.user.UserVO;
+import com.mycompany.myapp.domain.ResponseVo;
+import com.mycompany.myapp.domain.user.UserVo;
 import com.mycompany.myapp.service.user.ServiceToSelectAllUsers;
 
 @RestController
@@ -24,15 +24,15 @@ public class RestControllerToSelectAllUsers {
 	private ServiceToSelectAllUsers serviceToSelectAllUsers;
 
 	@Autowired
-	public ResponseVO responseVO;
+	public ResponseVo responseVO;
 
 	@RequestMapping(value = "/allUsers", method = RequestMethod.GET)
-	public ResponseVO selectAllUsers() throws Exception {
+	public ResponseVo selectAllUsers() throws Exception {
 
 		logger.info("REST_CONTROLLER: selectAllUsers() called.");
 
 		// 전체 회원 정보를 allUsersList라는 List에 담음
-		List<UserVO> allUsersList = serviceToSelectAllUsers.selectAllUsers();
+		List<UserVo> allUsersList = serviceToSelectAllUsers.selectAllUsers();
 		logger.info("REST_CONTROLLER: All user information selected from database.");
 
 		// responseVO에 code, message, data 각각 설정

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mycompany.myapp.domain.user.UserVO;
+import com.mycompany.myapp.domain.user.UserVo;
 import com.mycompany.myapp.service.user.ServiceToSelectOneUserByUsernameAndPassword;
 
 @RestController
@@ -19,7 +19,7 @@ public class RestControllerToSelectOneUserByUsernameAndPassword {
 	ServiceToSelectOneUserByUsernameAndPassword service;
 	
 	@Autowired
-	UserVO userVO;
+	UserVo userVO;
 	
 	
 	

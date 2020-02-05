@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.mycompany.myapp.domain.user.UserVO;
+import com.mycompany.myapp.domain.user.UserVo;
 
 @Repository
 public class DaoToSelectAllUsers {
@@ -20,8 +20,8 @@ public class DaoToSelectAllUsers {
 	private SqlSession sqlSession;
 
 	// 반환되는 자료는 목록 형태
-	public List<UserVO> selectAllUsers() throws DataAccessException {
-		List<UserVO> allUsersList = null;
+	public List<UserVo> selectAllUsers() throws DataAccessException {
+		List<UserVo> allUsersList = null;
 		allUsersList = sqlSession.selectList("mapper.user.selectAllUsers");
 		return allUsersList;
 	}

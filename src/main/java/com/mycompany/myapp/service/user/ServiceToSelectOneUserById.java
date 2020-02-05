@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.myapp.domain.user.UserVO;
+import com.mycompany.myapp.domain.user.UserVo;
 import com.mycompany.myapp.repository.user.DaoToSelectOneUserById;
 
 @Service
@@ -17,9 +17,9 @@ public class ServiceToSelectOneUserById {
 	DaoToSelectOneUserById daoToSelectOneUserById;
 
 	@Autowired
-	UserVO userVO;
+	UserVo userVO;
 
-	public UserVO selectOneUserById(Long id) {
+	public UserVo selectOneUserById(Long id) {
 		return userVO = daoToSelectOneUserById.selectOneUserByID(id);
 	}
 }

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mycompany.myapp.domain.ResponseVO;
+import com.mycompany.myapp.domain.ResponseVo;
 import com.mycompany.myapp.domain.token.TokenVo;
-import com.mycompany.myapp.domain.user.UserVO;
+import com.mycompany.myapp.domain.user.UserVo;
 import com.mycompany.myapp.service.token.ServiceToInsertOneToken;
 import com.mycompany.myapp.service.user.ServiceToSelectOneUserByUsernameAndPassword;
 import com.mycompany.myapp.util.TokenMaker;
@@ -29,10 +29,10 @@ public class RestControllerToInsertOneToken {
 	private ServiceToSelectOneUserByUsernameAndPassword serviceToSelectOneUserByUsernameAndPassword;
 
 	@Autowired
-	public UserVO userVO;
+	public UserVo userVO;
 
 	@Autowired
-	public ResponseVO responseVO;
+	public ResponseVo responseVO;
 
 	@Autowired
 	public TokenVo tokenVO;
@@ -42,12 +42,12 @@ public class RestControllerToInsertOneToken {
 
 	// Inserting token = authorising
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
-	public ResponseVO insertOneToken(@RequestBody UserVO userVoToDb) throws Exception {
+	public ResponseVo insertOneToken(@RequestBody UserVo userVoToDb) throws Exception {
 
 		logger.info("insertOneToken() called to authorise user.");
 
 		// userVO에서 id를 추출
-		UserVO userVoFromDb = serviceToSelectOneUserByUsernameAndPassword
+		UserVo userVoFromDb = serviceToSelectOneUserByUsernameAndPassword
 				.selectOneUserByUsernameAndPassword(userVoToDb);
 		long id = userVoFromDb.getId();
 		logger.info("id retrieved from DB: " + id);

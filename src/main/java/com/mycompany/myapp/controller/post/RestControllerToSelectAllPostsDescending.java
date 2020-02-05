@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mycompany.myapp.domain.ResponseVO;
+import com.mycompany.myapp.domain.ResponseVo;
 import com.mycompany.myapp.domain.post.PostVoWithUser;
-import com.mycompany.myapp.domain.user.UserVO;
+import com.mycompany.myapp.domain.user.UserVo;
 import com.mycompany.myapp.service.post.ServiceToSelectAllPostsDescending;
 import com.mycompany.myapp.service.user.ServiceToSelectOneUserById;
 
@@ -32,13 +32,13 @@ public class RestControllerToSelectAllPostsDescending {
 	public PostVoWithUser postVoWithUser;
 
 	@Autowired
-	public UserVO userVO;
+	public UserVo userVO;
 
 	@Autowired
-	public ResponseVO responseVO;
+	public ResponseVo responseVO;
 
 	@RequestMapping(value = "/allPosts", method = RequestMethod.GET)
-	public ResponseVO selectAllPostsDescending() {
+	public ResponseVo selectAllPostsDescending() {
 
 		logger.info("REST_CONTROLLER: selectAllPostsDescending() called.");
 
@@ -55,7 +55,7 @@ public class RestControllerToSelectAllPostsDescending {
 
 			// 추출한 id 번호를 이용해 DB의 user 테이블에서 글쓴이의 정보 (id, username, created_at) 조회
 			// 그 정보를 userVO 객체에 넣어 postVO에 담음
-			UserVO userVO = serviceToSelectOneUserById.selectOneUserById(userId);
+			UserVo userVO = serviceToSelectOneUserById.selectOneUserById(userId);
 			logger.info("REST_CONTROLLER: user info contained in userVO " + userVO);
 
 			postVoWithUser.setUser(userVO);
