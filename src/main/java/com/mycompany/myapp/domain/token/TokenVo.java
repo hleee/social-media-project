@@ -1,14 +1,14 @@
-package com.mycompany.myapp.domain;
+package com.mycompany.myapp.domain.token;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class TokenVO {
+public class TokenVo {
 	private String token;
 	private long userId;
 	private String createdAt;
 
-	public TokenVO() {
+	public TokenVo() {
 		super();
 	}
 

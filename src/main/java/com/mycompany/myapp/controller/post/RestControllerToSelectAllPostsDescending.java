@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mycompany.myapp.domain.PostVoWithUser;
 import com.mycompany.myapp.domain.ResponseVO;
-import com.mycompany.myapp.domain.UserVO;
+import com.mycompany.myapp.domain.post.PostVoWithUser;
+import com.mycompany.myapp.domain.user.UserVO;
 import com.mycompany.myapp.service.post.ServiceToSelectAllPostsDescending;
 import com.mycompany.myapp.service.user.ServiceToSelectOneUserById;
 

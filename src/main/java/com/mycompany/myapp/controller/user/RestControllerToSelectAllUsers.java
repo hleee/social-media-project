@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.ResponseVO;
-import com.mycompany.myapp.domain.UserVO;
+import com.mycompany.myapp.domain.user.UserVO;
 import com.mycompany.myapp.service.user.ServiceToSelectAllUsers;
 
 @RestController

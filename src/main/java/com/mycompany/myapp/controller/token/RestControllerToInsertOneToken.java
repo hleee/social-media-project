@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.ResponseVO;
-import com.mycompany.myapp.domain.TokenVO;
-import com.mycompany.myapp.domain.UserVO;
+import com.mycompany.myapp.domain.token.TokenVo;
+import com.mycompany.myapp.domain.user.UserVO;
 import com.mycompany.myapp.service.token.ServiceToInsertOneToken;
 import com.mycompany.myapp.service.user.ServiceToSelectOneUserByUsernameAndPassword;
 import com.mycompany.myapp.util.TokenMaker;
@@ -35,7 +35,7 @@ public class RestControllerToInsertOneToken {
 	public ResponseVO responseVO;
 
 	@Autowired
-	public TokenVO tokenVO;
+	public TokenVo tokenVO;
 
 	@Autowired
 	private TokenMaker tokenMaker;

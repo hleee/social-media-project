@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.ResponseVO;
-import com.mycompany.myapp.domain.TokenVO;
 import com.mycompany.myapp.domain.post.PostVo;
+import com.mycompany.myapp.domain.token.TokenVo;
 import com.mycompany.myapp.service.post.ServiceToInsertOnePost;
 import com.mycompany.myapp.service.post.ServiceToSelectOnePostById;
 import com.mycompany.myapp.service.token.ServiceToSelectOneTokenRowByToken;
@@ -53,7 +53,7 @@ public class RestControllerToInsertOnePost {
 
 		// 1. 쿠키에 담긴 토큰 문자열을 이용해서 DB내의 토큰 데이터 행을 조회해 가져오기 (token, user_id, created_at)
 		String token = request.getHeader("accesstoken");
-		TokenVO tokenVO = serviceToSelectOneTokenRowByToken.selectOneTokenRowByToken(token);
+		TokenVo tokenVO = serviceToSelectOneTokenRowByToken.selectOneTokenRowByToken(token);
 		logger.info("accesstoken extracted and row retrieved.");
 
 		// 2. tokenVO.getUserId() 통해서 userId값 추출

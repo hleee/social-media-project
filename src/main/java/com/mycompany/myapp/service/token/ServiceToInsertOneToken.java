@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.myapp.domain.TokenVO;
+import com.mycompany.myapp.domain.token.TokenVo;
 import com.mycompany.myapp.repository.token.DaoToInsertOneToken;
 
 @Service
@@ -17,9 +17,9 @@ public class ServiceToInsertOneToken {
 	DaoToInsertOneToken daoToInsertOneToken;
 
 	@Autowired
-	TokenVO tokenVO;
+	TokenVo tokenVO;
 
-	public int insertOneToken(TokenVO tokenVO) throws Exception {
+	public int insertOneToken(TokenVo tokenVO) throws Exception {
 		int integerOneIfInserted = daoToInsertOneToken.insertOneToken(tokenVO);
 		return integerOneIfInserted;
 

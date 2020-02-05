@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mycompany.myapp.domain.TokenVO;
+import com.mycompany.myapp.domain.token.TokenVo;
 
 @Repository
 public class DaoToSelectOneTokenRowByToken {
@@ -17,9 +17,9 @@ public class DaoToSelectOneTokenRowByToken {
 	private SqlSession sqlSession;
 
 	@Autowired
-	public TokenVO tokenVO;
+	public TokenVo tokenVO;
 
-	public TokenVO selectOneTokenRowByToken(String token) {
+	public TokenVo selectOneTokenRowByToken(String token) {
 		tokenVO = sqlSession.selectOne("mapper.token.selectOneTokenRowByToken", token);
 		return tokenVO;
 	}
