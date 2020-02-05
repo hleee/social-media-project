@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.PostVO;
+import com.mycompany.myapp.domain.PostVoWithUser;
 import com.mycompany.myapp.domain.ResponseVO;
 import com.mycompany.myapp.domain.UserVO;
 import com.mycompany.myapp.service.post.ServiceToSelectAllPostsDescending;
@@ -29,7 +30,7 @@ public class RestControllerToSelectAllPostsDescending {
 	public ServiceToSelectOneUserById serviceToSelectOneUserById;
 
 	@Autowired
-	public PostVO postVO;
+	public PostVoWithUser postVoWithUser;
 
 	@Autowired
 	public UserVO userVO;
@@ -40,24 +41,25 @@ public class RestControllerToSelectAllPostsDescending {
 	@RequestMapping(value = "/allPosts", method = RequestMethod.GET)
 	public ResponseVO selectAllPostsDescending() {
 
-		logger.info("RESTCONTROLLER: selectAllPostsDescending() called.");
+		logger.info("REST_CONTROLLER: selectAllPostsDescending() called.");
 
 		// 전체 글을 역순으로 담은 목록 객체 생성
-		List<PostVO> allPostsListWithoutUserInfo = serviceToSelectAllPostsDescending.selectAllPostsDescending();
-
+		List<PostVO> allPostsList = serviceToSelectAllPostsDescending.selectAllPostsDescending();
+		
 		// allPostsList를 돌며 사용자 userId를 추출해 변수에 담음
-		for (PostVO postVO : allPostsListWithoutUserInfo) {
+		for (PostVO postVO : allPostsList) {
+
+			logger.info("REST_CONTROLLER: For loop entered to extract userId.");
 
 			long userId = postVO.getUserId();
-
+			logger.info("REST_CONTROLLER: userId retrieved.");
+			
 			// 추출한 id 번호를 이용해 DB의 user 테이블에서 글쓴이의 정보 (id, username, created_at) 조회
 			// 그 정보를 userVO 객체에 넣어 postVO에 담음
 			UserVO userVO = serviceToSelectOneUserById.selectOneUserById(userId);
-			postVO.setUser(userVO);
-
-			// 사용자 정보까지 담은 postVO를 다시 목록 객체로 묶음
-			List<PostVO> allPostsList = 
-		
+			logger.info("REST_CONTROLLER: user info contained in userVO " + userVO);
+			
+			postVO.setUserInfo(userVO);
 		}
 		
 		// responseVO에 code, message, data 설정
@@ -65,7 +67,7 @@ public class RestControllerToSelectAllPostsDescending {
 		responseVO.setCode(HttpStatus.OK);
 		responseVO.setMessage("Success");
 		responseVO.setData(allPostsList);
-		logger.info("code, message, and data set in responseVO.");
+		logger.info("REST_CONTROLLER: code, message, and data set in responseVO.");
 
 		return responseVO;
 	}
