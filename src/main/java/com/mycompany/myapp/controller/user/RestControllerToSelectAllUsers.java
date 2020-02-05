@@ -29,18 +29,18 @@ public class RestControllerToSelectAllUsers {
 	@RequestMapping(value = "/allUsers", method = RequestMethod.GET)
 	public ResponseVO selectAllUsers() throws Exception {
 
-		logger.info("selectAllUsers() called.");
+		logger.info("REST_CONTROLLER: selectAllUsers() called.");
 
 		// 전체 회원 정보를 allUsersList라는 List에 담음
 		List<UserVO> allUsersList = serviceToSelectAllUsers.selectAllUsers();
-		logger.info("All user information selected from database.");
+		logger.info("REST_CONTROLLER: All user information selected from database.");
 
 		// responseVO에 code, message, data 각각 설정
 		// data는 모든 회원의 모든 정보 (id, username, password, createdAt)
 		responseVO.setCode(HttpStatus.OK);
 		responseVO.setMessage("Success");
 		responseVO.setData(allUsersList);
-		logger.info("code, message, and data set in responseVO.");
+		logger.info("REST_CONTROLLER: code, message, and data set in responseVO.");
 
 		return responseVO;
 	}
