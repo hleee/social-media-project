@@ -4,7 +4,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.post">
-	<resultMap id="postResult" type="postVO">
+	<resultMap id="postResult" type="postVo">
 		<result property="id" column="id" />
 		<result property="userId" column="user_id" />
 		<result property="title" column="title" />
@@ -24,7 +24,7 @@
 	<!-- DB에 제목과 내용 저장 -->
 	<!-- useGeneratedKeys를 true로 지정하면, 방금 DB에 입력된 행의, keyProperty에 지정한 (여기선 
 		id) 값을 postVO에 담아줌 -->
-	<insert id="insertOnePost" parameterType="postVO"
+	<insert id="insertOnePost" parameterType="postVo"
 		useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
       INSERT INTO post(user_id, title, content)

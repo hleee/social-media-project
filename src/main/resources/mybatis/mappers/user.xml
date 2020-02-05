@@ -4,7 +4,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.user">
-	<resultMap id="userResult" type="userVO">
+	<resultMap id="userResult" type="userVo">
 		<result property="id" column="id" />
 		<result property="username" column="username" />
 		<result property="password" column="password" />
@@ -32,7 +32,7 @@
 	<!-- parameterType은 DB로 전달되는 매개변수의 자료형; modelConfig에서 alias를 userVO로 지정했으므로 
 		축약 가능 -->
 	<!-- 회원 가입 -->
-	<insert id="insertOneUser" parameterType="userVO">
+	<insert id="insertOneUser" parameterType="userVo">
     <![CDATA[
       INSERT INTO user(username, password)
       VALUES(#{username}, #{password})
