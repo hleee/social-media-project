@@ -29,13 +29,13 @@ public class RestControllerToInsertOneToken {
 	private ServiceToSelectOneUserByUsernameAndPassword serviceToSelectOneUserByUsernameAndPassword;
 
 	@Autowired
-	public UserVo userVO;
+	public UserVo userVo;
 
 	@Autowired
-	public ResponseVo responseVO;
+	public ResponseVo responseVo;
 
 	@Autowired
-	public TokenVo tokenVO;
+	public TokenVo tokenVo;
 
 	@Autowired
 	private TokenMaker tokenMaker;
@@ -56,23 +56,23 @@ public class RestControllerToInsertOneToken {
 		String token = tokenMaker.makeToken();
 		logger.info("Token created.");
 
-		// tokenVO에 새로 만든 일련 번호와 DB의 user 표에서 불러온 id 저장
-		tokenVO.setToken(token);
-		tokenVO.setUserId(id);
+		// tokenVo에 새로 만든 일련 번호와 DB의 user 표에서 불러온 id 저장
+		tokenVo.setToken(token);
+		tokenVo.setUserId(id);
 		logger.info("tokenVO: token: " + token + ", id: " + id);
 
-		// tokenVO에 담긴 정보를 데이터베이스의 token 표에 넣기
-		serviceToInsertOneToken.insertOneToken(tokenVO);
+		// tokenVo에 담긴 정보를 데이터베이스의 token 표에 넣기
+		serviceToInsertOneToken.insertOneToken(tokenVo);
 		logger.info("Token inserted into the database.");
 
-		// responseVO에 code, message, data 설정
+		// responseVo에 code, message, data 설정
 		// data는 토큰 일련 번호를 DB의 토큰 표에 넣고 같이 저장된 userId와 createdAt (토큰 생성 시간)
-		responseVO.setCode(HttpStatus.OK);
-		responseVO.setMessage("Success");
-		responseVO.setData(tokenVO);
-		logger.info("code, message, and data set in responseVO");
+		responseVo.setCode(HttpStatus.OK);
+		responseVo.setMessage("Success");
+		responseVo.setData(tokenVo);
+		logger.info("code, message, and data set in responseVo");
 
-		return responseVO;
+		return responseVo;
 
 	}
 

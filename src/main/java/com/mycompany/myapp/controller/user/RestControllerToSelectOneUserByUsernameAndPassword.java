@@ -19,7 +19,7 @@ public class RestControllerToSelectOneUserByUsernameAndPassword {
 	ServiceToSelectOneUserByUsernameAndPassword service;
 	
 	@Autowired
-	UserVo userVO;
+	UserVo userVo;
 	
 	
 	

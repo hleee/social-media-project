@@ -17,11 +17,11 @@ public class DaoToSelectOneTokenRowByToken {
 	private SqlSession sqlSession;
 
 	@Autowired
-	public TokenVo tokenVO;
+	public TokenVo tokenVo;
 
 	public TokenVo selectOneTokenRowByToken(String token) {
-		tokenVO = sqlSession.selectOne("mapper.token.selectOneTokenRowByToken", token);
-		return tokenVO;
+		tokenVo = sqlSession.selectOne("mapper.token.selectOneTokenRowByToken", token);
+		return tokenVo;
 	}
 
 }

@@ -17,10 +17,10 @@ public class ServiceToSelectOneUserByUsernameAndPassword {
 	DaoToSelectOneUserByUsernameAndPassword dao;
 
 	@Autowired
-	UserVo userVO;
+	UserVo userVo;
 
-	public UserVo selectOneUserByUsernameAndPassword(UserVo userVO) {
-		UserVo oneUserByUsernameAndPassword = dao.selectOneUserByUsernameAndPassword(userVO);
+	public UserVo selectOneUserByUsernameAndPassword(UserVo userVo) {
+		UserVo oneUserByUsernameAndPassword = dao.selectOneUserByUsernameAndPassword(userVo);
 		return oneUserByUsernameAndPassword;
 	}
 

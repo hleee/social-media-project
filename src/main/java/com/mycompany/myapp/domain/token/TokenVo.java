@@ -38,7 +38,7 @@ public class TokenVo {
 
 	@Override
 	public String toString() {
-		return "TokenVO [token=" + token + ", userId=" + userId + ", createdAt=" + createdAt + "]";
+		return "TokenVo [token=" + token + ", userId=" + userId + ", createdAt=" + createdAt + "]";
 	}
 
 }

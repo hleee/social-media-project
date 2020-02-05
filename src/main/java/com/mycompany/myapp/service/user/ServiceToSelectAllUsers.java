@@ -19,7 +19,7 @@ public class ServiceToSelectAllUsers {
 	DaoToSelectAllUsers daoToSelectAllUsers;
 
 	@Autowired
-	UserVo userVO;
+	UserVo userVo;
 
 	public List<UserVo> selectAllUsers() throws Exception {
 		return daoToSelectAllUsers.selectAllUsers();

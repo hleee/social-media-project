@@ -18,7 +18,7 @@ public class DaoToSelectOnePostById {
 	private SqlSession sqlSession;
 
 	@Autowired
-	public PostVo postVO;
+	public PostVo postVo;
 
 	public PostVo selectOnePostById(long id) throws DataAccessException {
 		PostVo postVoFromDb = sqlSession.selectOne("mapper.post.selectOnePostById", id);

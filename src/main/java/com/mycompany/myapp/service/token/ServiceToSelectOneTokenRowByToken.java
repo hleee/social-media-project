@@ -17,11 +17,11 @@ public class ServiceToSelectOneTokenRowByToken {
 	public DaoToSelectOneTokenRowByToken daoToSelectOneTokenRowByToken;
 
 	@Autowired
-	public TokenVo tokenVO;
+	public TokenVo tokenVo;
 
 	public TokenVo selectOneTokenRowByToken(String token) {
-		TokenVo tokenVO = daoToSelectOneTokenRowByToken.selectOneTokenRowByToken(token);
-		return tokenVO;
+		TokenVo tokenVo = daoToSelectOneTokenRowByToken.selectOneTokenRowByToken(token);
+		return tokenVo;
 	}
 
 }

@@ -17,9 +17,9 @@ public class ServiceToSelectOneUserById {
 	DaoToSelectOneUserById daoToSelectOneUserById;
 
 	@Autowired
-	UserVo userVO;
+	UserVo userVo;
 
 	public UserVo selectOneUserById(Long id) {
-		return userVO = daoToSelectOneUserById.selectOneUserByID(id);
+		return userVo = daoToSelectOneUserById.selectOneUserByID(id);
 	}
 }

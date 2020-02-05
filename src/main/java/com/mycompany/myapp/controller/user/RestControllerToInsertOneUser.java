@@ -27,30 +27,30 @@ public class RestControllerToInsertOneUser {
 	private ServiceToSelectOneUserByUsernameAndPassword serviceToSelectOneUserByUsernameAndPassword;
 
 	@Autowired
-	public UserVo userVO;
+	public UserVo userVo;
 
 	@Autowired
-	public ResponseVo responseVO;
+	public ResponseVo responseVo;
 
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public ResponseVo insertOneUser(@RequestBody UserVo userVO) throws Exception {
+	public ResponseVo insertOneUser(@RequestBody UserVo userVo) throws Exception {
 
 		logger.info("insertOneUser() initialised.");
 
 		// 회원이 성공적으로 추가됐으면 정수 1 출력
-		int integerOneIfInserted = serviceToInsertOneUser.insertOneUser(userVO);
+		int integerOneIfInserted = serviceToInsertOneUser.insertOneUser(userVo);
 		logger.info("Integer 1 if new user inserted: " + integerOneIfInserted);
 
 		// id와 createdAt을 responseVO에 담아주기 위해 가입 후 다시 한 번 조회
 		// 그렇지 않고 그대로 반환하면 null 반환
-		userVO = serviceToSelectOneUserByUsernameAndPassword.selectOneUserByUsernameAndPassword(userVO);
+		userVo = serviceToSelectOneUserByUsernameAndPassword.selectOneUserByUsernameAndPassword(userVo);
 
-		responseVO.setCode(HttpStatus.OK);
-		responseVO.setMessage("Success");
-		responseVO.setData(userVO);
-		logger.info("code, message, and data set to responseVO.");
+		responseVo.setCode(HttpStatus.OK);
+		responseVo.setMessage("Success");
+		responseVo.setData(userVo);
+		logger.info("code, message, and data set to responseVo.");
 
-		return responseVO;
+		return responseVo;
 
 	}
 

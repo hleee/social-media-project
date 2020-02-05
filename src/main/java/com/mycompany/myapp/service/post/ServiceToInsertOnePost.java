@@ -17,10 +17,10 @@ public class ServiceToInsertOnePost {
 	DaoToInsertOnePost daoToInsertOnePost;
 
 	@Autowired
-	PostVo postVO;
+	PostVo postVo;
 
-	public int insertOnePost(PostVo postVO) {
-		int integerOneIfInserted = daoToInsertOnePost.insertOnePost(postVO);
+	public int insertOnePost(PostVo postVo) {
+		int integerOneIfInserted = daoToInsertOnePost.insertOnePost(postVo);
 		logger.info("=== Service to insert one post ===");
 		logger.info("Integer 1 if post inserted: " + integerOneIfInserted);
 		return integerOneIfInserted;

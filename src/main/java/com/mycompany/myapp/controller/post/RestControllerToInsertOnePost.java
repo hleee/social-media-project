@@ -34,14 +34,14 @@ public class RestControllerToInsertOnePost {
 	public ServiceToSelectOnePostById serviceToSelectOnePostById;
 
 	@Autowired
-	public PostVo postVO;
+	public PostVo postVo;
 
 	@Autowired
-	public ResponseVo responseVO;
+	public ResponseVo responseVo;
 
 	// @RequestBody를 써줘야 컨트롤러가 프런트에서 입력받은 값을 인식함 (title과 content를 가져옴)
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
-	public ResponseVo insertOnePost(@RequestBody PostVo postVO, HttpServletRequest request) throws Exception {
+	public ResponseVo insertOnePost(@RequestBody PostVo postVo, HttpServletRequest request) throws Exception {
 		// 로그인 시 발행된 토큰 값은 쿠키에 담겨있으므로 그곳에서 가져옴
 		// HttpServletRequest request.getHeader("가져올 값의 이름")이나 request.getCookie() (모든
 		// 쿠킷값을 배열로 반환)
@@ -53,32 +53,32 @@ public class RestControllerToInsertOnePost {
 
 		// 1. 쿠키에 담긴 토큰 문자열을 이용해서 DB내의 토큰 데이터 행을 조회해 가져오기 (token, user_id, created_at)
 		String token = request.getHeader("accesstoken");
-		TokenVo tokenVO = serviceToSelectOneTokenRowByToken.selectOneTokenRowByToken(token);
+		TokenVo tokenVo = serviceToSelectOneTokenRowByToken.selectOneTokenRowByToken(token);
 		logger.info("accesstoken extracted and row retrieved.");
 
 		// 2. tokenVO.getUserId() 통해서 userId값 추출
-		Long userId = tokenVO.getUserId();
+		Long userId = tokenVo.getUserId();
 		logger.info("userId extracted.");
 
 		// 3. postVO.setUserId(추출한 userID값)를 통해서 postVO에 userId를 담아줌
-		postVO.setUserId(userId);
+		postVo.setUserId(userId);
 		logger.info("userId attributed to postVO.");
 
 		// 4. postVO : userId, title, content --> insert
-		int IntegerOneIfInserted = serviceToInsertOnePost.insertOnePost(postVO);
+		int IntegerOneIfInserted = serviceToInsertOnePost.insertOnePost(postVo);
 		logger.info("Integer 1 if new post inserted: " + IntegerOneIfInserted);
 
 		// 5. postVO를 다시 가져와서 글 id와 createdAt을 responseVO에 담음
-		long id = postVO.getId();
+		long id = postVo.getId();
 		logger.info("id: " + id);
-		postVO = serviceToSelectOnePostById.selectOnePostById(id);
+		postVo = serviceToSelectOnePostById.selectOnePostById(id);
 
-		responseVO.setCode(HttpStatus.OK);
-		responseVO.setMessage("Success");
-		responseVO.setData(postVO);
+		responseVo.setCode(HttpStatus.OK);
+		responseVo.setMessage("Success");
+		responseVo.setData(postVo);
 		logger.info("code, message, and data set to responseVO.");
 
-		return responseVO;
+		return responseVo;
 	}
 
 }

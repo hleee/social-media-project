@@ -19,9 +19,9 @@ public class DaoToSelectOneUserByUsernameAndPassword {
 
 	// username과 password로 단일 회원 조회
 	// 로그인에 사용
-	public UserVo selectOneUserByUsernameAndPassword(UserVo userVO) throws DataAccessException {
+	public UserVo selectOneUserByUsernameAndPassword(UserVo userVo) throws DataAccessException {
 		UserVo OneUserByUsernameAndPassword = sqlSession.selectOne("mapper.user.selectOneUserByUsernameAndPassword",
-				userVO);
+				userVo);
 		return OneUserByUsernameAndPassword;
 	}
 }

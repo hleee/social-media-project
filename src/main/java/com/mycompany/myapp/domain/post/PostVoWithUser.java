@@ -66,7 +66,7 @@ public class PostVoWithUser {
 
 	@Override
 	public String toString() {
-		String info = "PostVO: id: " + id + ", userId: " + userId + ", title: " + title + ", content: " + content
+		String info = "PostVo: id: " + id + ", userId: " + userId + ", title: " + title + ", content: " + content
 				+ ", createdAt: " + createdAt + ", user: " + user;
 		return info;
 	}

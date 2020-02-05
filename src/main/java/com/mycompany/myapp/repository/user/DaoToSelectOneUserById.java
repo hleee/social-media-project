@@ -21,7 +21,7 @@ public class DaoToSelectOneUserById {
 	// 전달되는 매개변수의 자료형과 이름을 지정했으면 sqlSession 메서드 내에서도 인자로 반복 설정해주어야 함
 	// 여기서는 Long id의 경우
 	public UserVo selectOneUserByID(Long id) throws DataAccessException {
-		UserVo userVO = sqlSession.selectOne("mapper.user.selectOneUserById", id);
-		return userVO;
+		UserVo userVo = sqlSession.selectOne("mapper.user.selectOneUserById", id);
+		return userVo;
 	}
 }

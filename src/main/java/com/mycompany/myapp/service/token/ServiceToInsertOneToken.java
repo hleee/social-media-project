@@ -17,10 +17,10 @@ public class ServiceToInsertOneToken {
 	DaoToInsertOneToken daoToInsertOneToken;
 
 	@Autowired
-	TokenVo tokenVO;
+	TokenVo tokenVo;
 
-	public int insertOneToken(TokenVo tokenVO) throws Exception {
-		int integerOneIfInserted = daoToInsertOneToken.insertOneToken(tokenVO);
+	public int insertOneToken(TokenVo tokenVo) throws Exception {
+		int integerOneIfInserted = daoToInsertOneToken.insertOneToken(tokenVo);
 		return integerOneIfInserted;
 
 	}

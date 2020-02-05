@@ -17,10 +17,10 @@ public class DaoToInsertOnePost {
 	private SqlSession sqlSession;
 
 	@Autowired
-	public PostVo postVO;
+	public PostVo postVo;
 
-	public int insertOnePost(PostVo postVO) {
-		int integerOneIfInserted = sqlSession.insert("mapper.post.insertOnePost", postVO);
+	public int insertOnePost(PostVo postVo) {
+		int integerOneIfInserted = sqlSession.insert("mapper.post.insertOnePost", postVo);
 		logger.info("=== DAO to insert one post ===");
 		logger.info("Integer 1 if post inserted: " + integerOneIfInserted);
 		return integerOneIfInserted;

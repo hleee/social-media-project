@@ -24,7 +24,7 @@ public class RestControllerToSelectAllUsers {
 	private ServiceToSelectAllUsers serviceToSelectAllUsers;
 
 	@Autowired
-	public ResponseVo responseVO;
+	public ResponseVo responseVo;
 
 	@RequestMapping(value = "/allUsers", method = RequestMethod.GET)
 	public ResponseVo selectAllUsers() throws Exception {
@@ -35,14 +35,14 @@ public class RestControllerToSelectAllUsers {
 		List<UserVo> allUsersList = serviceToSelectAllUsers.selectAllUsers();
 		logger.info("REST_CONTROLLER: All user information selected from database.");
 
-		// responseVO에 code, message, data 각각 설정
+		// responseVo에 code, message, data 각각 설정
 		// data는 모든 회원의 모든 정보 (id, username, password, createdAt)
-		responseVO.setCode(HttpStatus.OK);
-		responseVO.setMessage("Success");
-		responseVO.setData(allUsersList);
-		logger.info("REST_CONTROLLER: code, message, and data set in responseVO.");
+		responseVo.setCode(HttpStatus.OK);
+		responseVo.setMessage("Success");
+		responseVo.setData(allUsersList);
+		logger.info("REST_CONTROLLER: code, message, and data set in responseVo.");
 
-		return responseVO;
+		return responseVo;
 	}
 
 }
