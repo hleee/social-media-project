@@ -31,11 +31,22 @@
       VALUES(#{userId}, #{title}, #{content})
     ]]>
 	</insert>
-	
+
 	<!-- 전체 글을 내림차순 (가장 최근 글부터) 조회 -->
 	<select id="selectAllPostsDescending" resultMap="postResult">
     <![CDATA[
       SELECT * FROM post
+      ORDER BY id DESC
+    ]]>
+	</select>
+
+	<!-- 내 글 전체 내림차순 조회 (가장 최근 글부터) -->
+	<!-- user_id로 조회할 것이기 때문에 DB로 가는 자료형은 long -->
+	<select id="selectMyPosts" resultMap="postResult"
+		parameterType="Long">
+    <![CDATA[
+      SELECT * FROM post
+      WHERE user_id = #{userId}
       ORDER BY id DESC
     ]]>
 	</select>
