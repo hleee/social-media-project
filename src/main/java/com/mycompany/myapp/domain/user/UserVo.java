@@ -2,11 +2,15 @@ package com.mycompany.myapp.domain.user;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Component
 public class UserVo {
 	
 	private Long id;
 	private String username;
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	private String createdAt;
 
