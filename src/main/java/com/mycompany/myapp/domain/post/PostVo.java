@@ -1,4 +1,4 @@
-package com.mycompany.myapp.domain;
+package com.mycompany.myapp.domain.post;
 
 import org.springframework.stereotype.Component;
 

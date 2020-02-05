@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.myapp.domain.PostVo;
+import com.mycompany.myapp.domain.post.PostVo;
 import com.mycompany.myapp.repository.post.DaoToSelectOnePostById;
 
 @Service
