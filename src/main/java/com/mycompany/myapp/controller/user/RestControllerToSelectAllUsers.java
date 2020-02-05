@@ -26,7 +26,7 @@ public class RestControllerToSelectAllUsers {
 	@Autowired
 	public ResponseVO responseVO;
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@RequestMapping(value = "/allUsers", method = RequestMethod.GET)
 	public ResponseVO selectAllUsers() throws Exception {
 
 		logger.info("selectAllUsers() called.");
