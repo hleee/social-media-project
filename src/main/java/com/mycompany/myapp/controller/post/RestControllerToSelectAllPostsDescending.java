@@ -43,16 +43,23 @@ public class RestControllerToSelectAllPostsDescending {
 		logger.info("RESTCONTROLLER: selectAllPostsDescending() called.");
 
 		// 전체 글을 역순으로 담은 목록 객체 생성
-		List<PostVO> allPostsList = serviceToSelectAllPostsDescending.selectAllPostsDescending();
+		List<PostVO> allPostsListWithoutUserInfo = serviceToSelectAllPostsDescending.selectAllPostsDescending();
 
-		// user의 id를 이용해 각 글의 작성자 정보도 PostVO에 담아 반환
-		// 글 정보 객체에서 사용자 id를 추출해 id라는 변수에 담음
-		long id = postVO.getUserId();
+		// allPostsList를 돌며 사용자 userId를 추출해 변수에 담음
+		for (PostVO postVO : allPostsListWithoutUserInfo) {
 
-		// 추출한 id 번호를 이용해 DB의 user 테이블에서 사용자 정보 (id, username, created_at) 조회
-		UserVO userVO = serviceToSelectOneUserById.selectOneUserById(id);
-		postVO.setUser(userVO);
+			long userId = postVO.getUserId();
 
+			// 추출한 id 번호를 이용해 DB의 user 테이블에서 글쓴이의 정보 (id, username, created_at) 조회
+			// 그 정보를 userVO 객체에 넣어 postVO에 담음
+			UserVO userVO = serviceToSelectOneUserById.selectOneUserById(userId);
+			postVO.setUser(userVO);
+
+			// 사용자 정보까지 담은 postVO를 다시 목록 객체로 묶음
+			List<PostVO> allPostsList = 
+		
+		}
+		
 		// responseVO에 code, message, data 설정
 		// 여기서 data는 전체 글을 역순으로 담은 목록 객체
 		responseVO.setCode(HttpStatus.OK);

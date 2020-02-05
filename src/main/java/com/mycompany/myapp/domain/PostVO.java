@@ -10,7 +10,7 @@ public class PostVO {
 	private String title;
 	private String content;
 	private String createdAt;
-	private Object user;
+	private Object userInfo;
 
 	public PostVO() {
 		super();
@@ -56,18 +56,18 @@ public class PostVO {
 		this.createdAt = createdAt;
 	}
 
-	public Object getUser() {
-		return user;
+	public Object getUserInfo() {
+		return userInfo;
 	}
 
-	public void setUser(Object user) {
-		this.user = user;
+	public void setUserInfo(Object userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	@Override
 	public String toString() {
 		String info = "PostVO: id: " + id + ", userId: " + userId + ", title: " + title + ", content: " + content
-				+ ", createdAt: " + createdAt + ", user: " + user;
+				+ ", createdAt: " + createdAt + ", userInfo: " + userInfo;
 		return info;
 	}
 
