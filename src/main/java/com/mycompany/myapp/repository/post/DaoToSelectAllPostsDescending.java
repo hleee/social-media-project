@@ -24,6 +24,7 @@ public class DaoToSelectAllPostsDescending {
 	public List<PostVO> selectAllPostsDescending() {
 		List<PostVO> allPostsList = null;
 		allPostsList = sqlSession.selectList("mapper.post.selectAllPostsDescending");
+		logger.info("DAO: selectAllPostsDescending() called.");
 		return allPostsList;
 
 	}
