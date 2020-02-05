@@ -1,4 +1,4 @@
-package RestToSelectAllPostsDescending;
+package com.mycompany.myapp.controller.post;
 
 import java.util.List;
 
