@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.myapp.domain.ResponseVo;
 import com.mycompany.myapp.domain.post.PostVoWithUser;
 import com.mycompany.myapp.domain.user.UserVo;
-import com.mycompany.myapp.domain.user.UserVoWithoutPassword;
 import com.mycompany.myapp.service.post.ServiceToSelectAllPostsDescending;
 import com.mycompany.myapp.service.user.ServiceToSelectOneUserById;
 
@@ -33,7 +32,7 @@ public class RestControllerToSelectAllPostsDescending {
 	public PostVoWithUser postVoWithUser;
 
 	@Autowired
-	public UserVoWithoutPassword userVoWithoutPassword;
+	public UserVo userVo;
 
 	@Autowired
 	public ResponseVo responseVo;
@@ -55,11 +54,11 @@ public class RestControllerToSelectAllPostsDescending {
 			logger.info("REST_CONTROLLER: userId retrieved.");
 
 			// 추출한 id 번호를 이용해 DB의 user 테이블에서 글쓴이의 정보 (id, username, created_at) 조회
-			// 그 정보를 userVO 객체에 넣어 postVO에 담음
-			UserVoWithoutPassword userVO = serviceToSelectOneUserById.selectOneUserById(userId);
-			logger.info("REST_CONTROLLER: user info contained in userVO " + userVoWithoutPassword);
+			// 그 정보를 userVo 객체에 넣어 postVO에 담음
+			UserVo userVo = serviceToSelectOneUserById.selectOneUserById(userId);
+			logger.info("REST_CONTROLLER: user info contained in userVo " + userVo);
 
-			postVoWithUser.setUser(userVO);
+			postVoWithUser.setUser(userVo);
 		}
 
 		// responseVO에 code, message, data 설정
@@ -67,7 +66,7 @@ public class RestControllerToSelectAllPostsDescending {
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(allPostsList);
-		logger.info("REST_CONTROLLER: code, message, and data set in responseVO.");
+		logger.info("REST_CONTROLLER: code, message, and data set in responseVo.");
 
 		return responseVo;
 	}
