@@ -22,6 +22,9 @@ public class DaoToSelectMyPosts {
 	public PostVo postVo;
 
 	public List<PostVo> selectMyPosts(long userId) {
+		
+		logger.info("DAO: selectMyPosts() called.");
+		
 		List<PostVo> myPostsList = null;
 		myPostsList = sqlSession.selectList("mapper.post.selectMyPosts", userId);
 		return myPostsList;
