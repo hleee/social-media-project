@@ -6,11 +6,11 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.mycompany.myapp.domain.UserVO"
-			alias="userVO" />
-		<typeAlias type="com.mycompany.myapp.domain.TokenVO"
-			alias="tokenVO" />
-		<typeAlias type="com.mycompany.myapp.domain.PostVO"
-			alias="postVO" />
+		<typeAlias type="com.mycompany.myapp.domain.user.UserVo"
+			alias="userVo" />
+		<typeAlias type="com.mycompany.myapp.domain.token.TokenVo"
+			alias="tokenVo" />
+		<typeAlias type="com.mycompany.myapp.domain.post.PostVo"
+			alias="postVo" />
 	</typeAliases>
 </configuration>
