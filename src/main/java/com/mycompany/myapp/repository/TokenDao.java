@@ -24,13 +24,21 @@ public class TokenDao {
 	// insert 메서드는 DB에서 작업한 줄 개수를 정수 형태로 반환
 	// 토큰표에 한 줄을 성공적으로 추가했으면 정수 1 반환
 	public int insertOneToken(TokenVo tokenVo) throws DataAccessException {
+		logger.info("insertOneToken() called.");
+
 		int integerOneIfInserted = sqlSession.insert("mapper.token.insertOneToken", tokenVo);
+		logger.info("Integer 1 if inserted: " + integerOneIfInserted);
+
 		return integerOneIfInserted;
 	}
 
 	// 2. 토큰으로 토큰 테이블의 열 정보 조회
 	public TokenVo selectOneTokenRowByToken(String token) {
+		logger.info("selectOneTokenRowByToken() called.");
+
 		tokenVo = sqlSession.selectOne("mapper.token.selectOneTokenRowByToken", token);
+		logger.info("tokenVo: " + tokenVo);
+		
 		return tokenVo;
 	}
 
