@@ -2,9 +2,15 @@ package com.mycompany.myapp.util;
 
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class TokenMaker {
 
+	static Logger logger = LoggerFactory.getLogger(TokenMaker.class);
+
 	public static String makeToken() {
+
 		int length = 64;
 		StringBuffer buffer = new StringBuffer();
 		Random random = new Random();
@@ -14,7 +20,7 @@ public class TokenMaker {
 			buffer.append(charArray[random.nextInt(charArray.length)]);
 		}
 
-		System.out.println(buffer.toString());
+		logger.info(buffer.toString());
 		return buffer.toString();
 	}
 }
