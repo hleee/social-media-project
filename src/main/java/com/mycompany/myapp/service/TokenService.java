@@ -51,6 +51,8 @@ public class TokenService {
 		// tokenVo에 담긴 정보를 데이터베이스의 token 표에 넣기
 		int integerOneIfInserted = tokenDao.insertOneToken(tokenVo);
 		logger.info("Integer 1 if inserted: " + integerOneIfInserted);
+		
+		tokenVo = tokenDao.selectOneTokenRowByToken(token);
 
 		return tokenVo;
 	}
