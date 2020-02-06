@@ -68,7 +68,7 @@ public class PostService {
 			long userIdOfAuthor = allPostsList.get(i).getUserId();
 			logger.info("For loop: user id of author retrieved: " + userIdOfAuthor);
 
-			UserVo userVo = userDao.selectOneUserByID(userIdOfAuthor);
+			UserVo userVo = userDao.selectOneUserById(userIdOfAuthor);
 			logger.info("For loop: userVo: " + userVo);
 
 			// 두 VO 객체로부터 정보를 받아 한 군데로 모을 VO 객체 껍데기 생성
@@ -122,7 +122,7 @@ public class PostService {
 			logger.info("For loop entered to fill in myPostsListWithUser.");
 
 			// id로 회원 정보를 조회해 가져옴
-			UserVo userVo = userDao.selectOneUserByID(userId);
+			UserVo userVo = userDao.selectOneUserById(userId);
 			logger.info("For loop: userVo retrieved with userId: " + userVo);
 
 			// 두 VO 객체로부터 정보를 받아 한 군데로 모을 VO 객체 껍데기 생성

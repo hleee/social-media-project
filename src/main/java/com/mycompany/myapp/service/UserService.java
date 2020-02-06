@@ -32,16 +32,16 @@ public class UserService {
 	public List<UserVo> selectAllUsers() throws Exception {
 		return userDao.selectAllUsers();
 	}
-	
+
 	// 3. ID로 단일 회원 조회
 	public UserVo selectOneUserById(Long id) {
 		return userVo = userDao.selectOneUserByID(id);
 	}
-	
+
 	// 4. username과 password로 단일 회원 조회
 	public UserVo selectOneUserByUsernameAndPassword(UserVo userVo) {
 		UserVo oneUserByUsernameAndPassword = userDao.selectOneUserByUsernameAndPassword(userVo);
 		return oneUserByUsernameAndPassword;
 	}
-	
+
 }
