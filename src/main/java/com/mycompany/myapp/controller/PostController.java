@@ -126,7 +126,7 @@ public class PostController {
 			logger.info("For loop entered to fill in myPostsListWithUser.");
 
 			// id로 회원 정보를 조회해 가져옴
-			UserVo userVo = UserDao.selectOneUserByID(userId);
+			UserVo userVo = userDao.selectOneUserByID(userId);
 			logger.info("userVo: " + userVo);
 
 			// 두 VO 객체로부터 정보를 받아 한 군데로 모을 VO 객체 껍데기 생성

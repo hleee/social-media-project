@@ -2,12 +2,9 @@ package com.mycompany.myapp.util;
 
 import java.util.Random;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class TokenMaker {
 
-	public String makeToken() {
+	public static String makeToken() {
 		int length = 64;
 		StringBuffer buffer = new StringBuffer();
 		Random random = new Random();
@@ -16,8 +13,8 @@ public class TokenMaker {
 		for (int i = 0; i < length; i++) {
 			buffer.append(charArray[random.nextInt(charArray.length)]);
 		}
+
 		System.out.println(buffer.toString());
 		return buffer.toString();
 	}
-
 }
