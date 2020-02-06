@@ -35,7 +35,7 @@ public class UserController {
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public ResponseVo insertOneUser(@RequestBody UserVo userVo) throws Exception {
 
-		logger.info("insertOneUser() initialised.");
+		logger.info("insertOneUser() called.");
 
 		// 회원이 성공적으로 추가됐으면 정수 1 출력
 		int integerOneIfInserted = userService.insertOneUser(userVo);
@@ -48,7 +48,6 @@ public class UserController {
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(userVo);
-		logger.info("code, message, and data set to responseVo.");
 
 		return responseVo;
 	}
@@ -57,18 +56,17 @@ public class UserController {
 	@RequestMapping(value = "/allUsers", method = RequestMethod.GET)
 	public ResponseVo selectAllUsers() throws Exception {
 
-		logger.info("REST_CONTROLLER: selectAllUsers() called.");
+		logger.info("selectAllUsers() called.");
 
 		// 전체 회원 정보를 allUsersList라는 List에 담음
 		List<UserVo> allUsersList = userService.selectAllUsers();
-		logger.info("REST_CONTROLLER: All user information selected from database.");
+		logger.info("allUsersList: " + allUsersList);
 
 		// responseVo에 code, message, data 각각 설정
 		// data는 모든 회원의 모든 정보 (id, username, password, createdAt)
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(allUsersList);
-		logger.info("REST_CONTROLLER: code, message, and data set in responseVo.");
 
 		return responseVo;
 	}
@@ -81,16 +79,13 @@ public class UserController {
 
 		// ID로 단일 회원을 조회한 후 userVO에 담음
 		UserVo userVo = userService.selectOneUserById(id);
-		logger.info("One user selected from database.");
-		logger.info("id contained in userVO: " + id);
+		logger.info("userVo: " + userVo);
 
 		// responseVO에 code, message, data 각각 설정
 		// data는 userVO에 담긴 단일 회원의 정보 (id, username, password, createdAt)
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(userVo);
-		logger.info("code, message, and data set in responseVo.");
-		logger.info("responseVO: " + responseVo);
 
 		return responseVo;
 	}
