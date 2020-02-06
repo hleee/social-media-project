@@ -41,7 +41,7 @@ public class ResponseVo {
 	// 콘솔창에 출력
 	@Override
 	public String toString() {
-		String info = "ResponseVO: code: " + code + ", message: " + message + ", data: " + data;
+		String info = "ResponseVo: code: " + code + ", message: " + message + ", data: " + data;
 		return info;
 	}
 
