@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,9 +16,10 @@ import com.mycompany.myapp.domain.PostVo;
 import com.mycompany.myapp.domain.PostVoWithUser;
 import com.mycompany.myapp.domain.ResponseVo;
 import com.mycompany.myapp.domain.TokenVo;
-import com.mycompany.myapp.repository.UserDao;
+import com.mycompany.myapp.domain.UserVo;
 import com.mycompany.myapp.service.PostService;
 import com.mycompany.myapp.service.TokenService;
+import com.mycompany.myapp.service.UserService;
 
 @RestController
 @RequestMapping("/*")
@@ -30,6 +32,9 @@ public class PostController {
 
 	@Autowired
 	public PostVo postVo;
+	
+	@Autowired
+	public UserVo userVo;
 
 	@Autowired
 	public ResponseVo responseVo;
@@ -38,7 +43,10 @@ public class PostController {
 	public TokenService tokenService;
 
 	@Autowired
-	public UserDao userDao;
+	public UserService userService;
+
+	@Autowired
+	public PostVoWithUser postVoWithUser;
 
 	// 1. 글 저장 API
 	// @RequestBody를 써줘야 컨트롤러가 프런트에서 입력받은 값을 인식함 (title과 content를 가져옴)
@@ -118,12 +126,53 @@ public class PostController {
 		logger.info("userId: " + userId);
 
 		PostVoWithUser[] myPostsListWithUser = postService.selectMyPosts(userId);
-		
+
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(myPostsListWithUser);
-		
+
 		return responseVo;
 	}
 
+	// 4. 글 상세 조회 API
+	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
+	public ResponseVo selectOnePostDetailedView(@PathVariable("postId") long postId) {
+			
+		PostVo postVo = postService.selectOnePostById(postId);
+		long id = postVo.getId();
+		long userId = postVo.getUserId();
+		String title = postVo.getTitle();
+		String content = postVo.getContent();
+		String createdAt = postVo.getCreatedAt();
+		
+		postVoWithUser.setId(id);
+		postVoWithUser.setUserId(userId);
+		postVoWithUser.setTitle(title);
+		postVoWithUser.setContent(content);
+		postVoWithUser.setCreatedAt(createdAt);
+		
+		UserVo userVo = userService.selectOneUserById(userId);
+		postVoWithUser.setUser(userVo);
+		
+		responseVo.setCode(HttpStatus.OK);
+		responseVo.setMessage("Success");
+		responseVo.setData(postVoWithUser);
+		
+		return responseVo;
+	}
+	
+	// 5. 글 삭제 API
+	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
+	public ResponseVo deleteOnePost(@PathVariable("postId") long postId) {
+
+		
+		
+		
+		responseVo.setCode(HttpStatus.OK);
+		responseVo.setMessage("Success");
+		responseVo.setData(postVoWithUser);
+		
+		return responseVo;
+	}
+		
 }
