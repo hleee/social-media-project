@@ -5,10 +5,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.myapp.domain.PostVo;
 import com.mycompany.myapp.domain.PostVoWithUser;
+import com.mycompany.myapp.domain.ResponseVo;
 import com.mycompany.myapp.domain.UserVo;
 import com.mycompany.myapp.repository.PostDao;
 import com.mycompany.myapp.repository.UserDao;
@@ -23,9 +25,12 @@ public class PostService {
 
 	@Autowired
 	public UserDao userDao;
-	
+
 	@Autowired
 	public PostVo postVo;
+	
+	@Autowired
+	public ResponseVo responseVo;
 
 	@Autowired
 	public UserVo userVo;
@@ -102,13 +107,59 @@ public class PostService {
 
 		return allPostsListWithUsers;
 	}
-	
+
 	// 3. 내가 쓴 글 조회 API
-	public List<PostVo> selectMyPosts(long userId) {
+	public PostVoWithUser[] selectMyPosts(long userId) {
 
-		logger.info("SERVICE: selectMyPosts() called.");
+		logger.info("selectMyPosts() called.");
 
-		return postDao.selectMyPosts(userId);
+		List<PostVo> myPostsList = postDao.selectMyPosts(userId);
+
+		PostVoWithUser[] myPostsListWithUser = new PostVoWithUser[myPostsList.size()];
+
+		for (int i = 0; i < myPostsListWithUser.length; i++) {
+
+			logger.info("For loop entered to fill in myPostsListWithUser.");
+
+			// id로 회원 정보를 조회해 가져옴
+			UserVo userVo = userDao.selectOneUserByID(userId);
+			logger.info("userVo retrieved with userId: " + userVo);
+
+			// 두 VO 객체로부터 정보를 받아 한 군데로 모을 VO 객체 껍데기 생성
+			PostVoWithUser postVoWithUser = new PostVoWithUser();
+
+			// 회원 정보가 담긴 userVo를 user에 set
+			postVoWithUser.setUser(userVo);
+			logger.info("postVoWithUser only with userVo: " + postVoWithUser);
+
+			// 나머지 항목들도 손수 넣어줘야 함
+			// allPostsList에 담긴 i 번째 PostVo 객체에서 getId()
+			// 이후 새로 만든 껍데기인 postVoWithUser에 setId()
+			long id = myPostsList.get(i).getId();
+			postVoWithUser.setId(id);
+			logger.info("id set to postVoWithUser: " + id);
+
+			long userId1 = myPostsList.get(i).getUserId();
+			postVoWithUser.setUserId(userId1);
+			logger.info("userId set to postVoWithUser: " + userId1);
+
+			String title = myPostsList.get(i).getTitle();
+			postVoWithUser.setTitle(title);
+			logger.info("title set to postVoWithUser: " + title);
+
+			String content = myPostsList.get(i).getContent();
+			postVoWithUser.setContent(content);
+			logger.info("content set to postVoWithUser: " + content);
+
+			String createdAt = myPostsList.get(i).getCreatedAt();
+			postVoWithUser.setCreatedAt(createdAt);
+			logger.info("createdAt set to postVoWithUser: " + createdAt);
+
+			myPostsListWithUser[i] = postVoWithUser;
+		}
+		
+		return myPostsListWithUser;
+
 	}
 
 	// 4. 사용자 ID로 글 하나 조회

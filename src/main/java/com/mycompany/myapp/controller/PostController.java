@@ -1,7 +1,5 @@
 package com.mycompany.myapp.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -17,7 +15,6 @@ import com.mycompany.myapp.domain.PostVo;
 import com.mycompany.myapp.domain.PostVoWithUser;
 import com.mycompany.myapp.domain.ResponseVo;
 import com.mycompany.myapp.domain.TokenVo;
-import com.mycompany.myapp.domain.UserVo;
 import com.mycompany.myapp.repository.UserDao;
 import com.mycompany.myapp.service.PostService;
 import com.mycompany.myapp.service.TokenService;
@@ -58,30 +55,32 @@ public class PostController {
 
 		// (i) 쿠키에 담긴 토큰 문자열을 이용해서 DB내의 토큰 데이터 행을 조회해 가져오기 (token, user_id, created_at)
 		String token = request.getHeader("accesstoken");
+		logger.info("accesstoken: " + token);
+
 		TokenVo tokenVo = tokenService.selectOneTokenRowByToken(token);
-		logger.info("accesstoken extracted and row retrieved.");
+		logger.info("tokenVo: " + tokenVo);
 
-		// (ii) tokenVO.getUserId() 통해서 userId값 추출
+		// (ii) tokenVo.getUserId() 통해서 userId값 추출
 		Long userId = tokenVo.getUserId();
-		logger.info("userId extracted.");
+		logger.info("userId: " + userId);
 
-		// (iii) postVO.setUserId(추출한 userID값)를 통해서 postVO에 userId를 담아줌
+		// (iii) postVo.setUserId(추출한 userID값)를 통해서 postVO에 userId를 담아줌
 		postVo.setUserId(userId);
-		logger.info("userId attributed to postVO.");
+		logger.info("postVo: " + postVo);
 
-		// (iv) postVO : userId, title, content --> insert
+		// (iv) postVo : userId, title, content --> insert
 		int IntegerOneIfInserted = postService.insertOnePost(postVo);
 		logger.info("Integer 1 if new post inserted: " + IntegerOneIfInserted);
 
-		// (v) postVO를 다시 가져와서 글 id와 createdAt을 responseVO에 담음
+		// (v) postVo를 다시 가져와서 글 id와 createdAt을 responseVO에 담음
 		long id = postVo.getId();
-		logger.info("id: " + id);
+		logger.info("id of post: " + id);
+
 		postVo = postService.selectOnePostById(id);
 
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(postVo);
-		logger.info("code, message, and data set to responseVO.");
 
 		return responseVo;
 	}
@@ -90,7 +89,7 @@ public class PostController {
 	@RequestMapping(value = "/allPosts", method = RequestMethod.GET)
 	public ResponseVo selectAllPostsDescending() {
 
-		logger.info("REST_CONTROLLER: selectAllPostsDescending() called.");
+		logger.info("selectAllPostsDescending() called.");
 
 		PostVoWithUser[] allPostsListWithUsers = postService.selectAllPostsDescending();
 
@@ -99,7 +98,6 @@ public class PostController {
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(allPostsListWithUsers);
-		logger.info("REST_CONTROLLER: code, message, and data set in responseVo.");
 
 		return responseVo;
 	}
@@ -108,64 +106,23 @@ public class PostController {
 	@RequestMapping(value = "/post/my", method = RequestMethod.GET)
 	public ResponseVo selectMyPosts(HttpServletRequest request) throws Exception {
 
-		logger.info("REST_CONTROLLER: selectMyPosts() called.");
+		logger.info("selectMyPosts() called.");
 
 		String token = request.getHeader("accesstoken");
+		logger.info("accesstoken: " + token);
+
 		TokenVo tokenVo = tokenService.selectOneTokenRowByToken(token);
-		logger.info("tokenVo retrieved: " + tokenVo);
+		logger.info("tokenVo: " + tokenVo);
 
 		Long userId = tokenVo.getUserId();
-		logger.info("userId extracted: " + userId);
+		logger.info("userId: " + userId);
 
-		List<PostVo> myPostsList = postService.selectMyPosts(userId);
-
-		PostVoWithUser[] myPostsListWithUser = new PostVoWithUser[myPostsList.size()];
-
-		for (int i = 0; i < myPostsListWithUser.length; i++) {
-
-			logger.info("For loop entered to fill in myPostsListWithUser.");
-
-			// id로 회원 정보를 조회해 가져옴
-			UserVo userVo = userDao.selectOneUserByID(userId);
-			logger.info("userVo: " + userVo);
-
-			// 두 VO 객체로부터 정보를 받아 한 군데로 모을 VO 객체 껍데기 생성
-			PostVoWithUser postVoWithUser = new PostVoWithUser();
-
-			// 회원 정보가 담긴 userVo를 user에 set
-			postVoWithUser.setUser(userVo);
-			logger.info("userVo set to postVoWithUser.");
-
-			// 나머지 항목들도 손수 넣어줘야 함
-			// allPostsList에 담긴 i 번째 PostVo 객체에서 getId()
-			// 이후 새로 만든 껍데기인 postVoWithUser에 setId()
-			long id = myPostsList.get(i).getId();
-			postVoWithUser.setId(id);
-			logger.info("id: " + id);
-
-			long userId1 = myPostsList.get(i).getUserId();
-			postVoWithUser.setUserId(userId1);
-			logger.info("userId: " + userId1);
-
-			String title = myPostsList.get(i).getTitle();
-			postVoWithUser.setTitle(title);
-			logger.info("title: " + title);
-
-			String content = myPostsList.get(i).getContent();
-			postVoWithUser.setContent(content);
-			logger.info("content: " + content);
-
-			String createdAt = myPostsList.get(i).getCreatedAt();
-			postVoWithUser.setCreatedAt(createdAt);
-			logger.info("createdAt: " + createdAt);
-
-			myPostsListWithUser[i] = postVoWithUser;
-		}
-
+		PostVoWithUser[] myPostsListWithUser = postService.selectMyPosts(userId);
+		
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(myPostsListWithUser);
-
+		
 		return responseVo;
 	}
 
