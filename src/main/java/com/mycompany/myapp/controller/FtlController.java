@@ -9,9 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 // 여기는 페이지 이동용 컨트롤러 (ModelAndView), RestController는 json 값을 주고 받을 떄
 @Controller
-public class ControllerToDisplayFtl {
+public class FtlController {
 
-	static Logger logger = LoggerFactory.getLogger(ControllerToDisplayFtl.class);
+	static Logger logger = LoggerFactory.getLogger(FtlController.class);
 
 	// signup.ftl로 가서 ftl에 포함되어 있는 signup.js가 실행이 되고 거기 써있는 대로 /login으로 이동
 	// signup.ftl -> signup.js -> RestControllerToInsertOneUser.java -> insert into DB
