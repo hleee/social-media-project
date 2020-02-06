@@ -1,18 +1,17 @@
-package com.mycompany.myapp.domain.post;
+package com.mycompany.myapp.domain;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class PostVoWithUser {
+public class PostVo {
 
 	private Long id;
 	private Long userId;
 	private String title;
 	private String content;
 	private String createdAt;
-	private Object user;
 
-	public PostVoWithUser() {
+	public PostVo() {
 		super();
 	}
 
@@ -56,18 +55,10 @@ public class PostVoWithUser {
 		this.createdAt = createdAt;
 	}
 
-	public Object getUser() {
-		return user;
-	}
-
-	public void setUser(Object user) {
-		this.user = user;
-	}
-
 	@Override
 	public String toString() {
 		String info = "PostVo: id: " + id + ", userId: " + userId + ", title: " + title + ", content: " + content
-				+ ", createdAt: " + createdAt + ", user: " + user;
+				+ ", createdAt: " + createdAt;
 		return info;
 	}
 

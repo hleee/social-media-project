@@ -1,4 +1,4 @@
-package com.mycompany.myapp.domain.user;
+package com.mycompany.myapp.domain;
 
 import org.springframework.stereotype.Component;
 

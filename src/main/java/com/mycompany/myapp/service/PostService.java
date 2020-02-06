@@ -1,4 +1,4 @@
-package com.mycompany.myapp.service.post;
+package com.mycompany.myapp.service;
 
 import java.util.List;
 
@@ -7,35 +7,48 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.myapp.domain.post.PostVo;
-import com.mycompany.myapp.domain.post.PostVoWithUser;
-import com.mycompany.myapp.domain.user.UserVo;
-import com.mycompany.myapp.repository.post.DaoToSelectAllPostsDescending;
-import com.mycompany.myapp.repository.user.DaoToSelectOneUserById;
+import com.mycompany.myapp.domain.PostVo;
+import com.mycompany.myapp.domain.PostVoWithUser;
+import com.mycompany.myapp.domain.UserVo;
+import com.mycompany.myapp.repository.PostDao;
+import com.mycompany.myapp.repository.UserDao;
 
 @Service
-public class ServiceToSelectAllPostsDescending {
+public class PostService {
 
-	static Logger logger = LoggerFactory.getLogger(ServiceToSelectAllPostsDescending.class);
-
-	@Autowired
-	public DaoToSelectAllPostsDescending daoToSelectAllPostsDescending;
+	static Logger logger = LoggerFactory.getLogger(PostService.class);
 
 	@Autowired
-	public DaoToSelectOneUserById daoToSelectOneUserById;
+	public PostDao postDao;
+
+	@Autowired
+	public UserDao userDao;
+	
+	@Autowired
+	public PostVo postVo;
+
+	@Autowired
+	public UserVo userVo;
 
 	@Autowired
 	public PostVoWithUser postVoWithUser;
 
-	@Autowired
-	public PostVo postVo;
+	// 1. 글 저장 API
+	public int insertOnePost(PostVo postVo) {
+		logger.info("PostService: insertOnePost() called.");
 
+		int integerOneIfInserted = postDao.insertOnePost(postVo);
+		logger.info("PostService: Integer 1 if post inserted: " + integerOneIfInserted);
+
+		return integerOneIfInserted;
+	}
+
+	// 2. 전체 글 목록 조회 API
 	public PostVoWithUser[] selectAllPostsDescending() {
-
-		logger.info("SERVICE: selectAllPostsDescending() called.");
+		logger.info("PostService: selectAllPostsDescending() called.");
 
 		// 전체 글을 역순으로 담은 목록 객체 생성
-		List<PostVo> allPostsList = daoToSelectAllPostsDescending.selectAllPostsDescending();
+		List<PostVo> allPostsList = postDao.selectAllPostsDescending();
 
 		// allPostsList의 길이와 같은 길이의 빈 배열 객체 생성
 		PostVoWithUser[] allPostsListWithUsers = new PostVoWithUser[allPostsList.size()];
@@ -45,12 +58,12 @@ public class ServiceToSelectAllPostsDescending {
 			// allPostsListWithUser에 담음
 			// allPostsListWithUser의 길이까지 1씩 증가
 
-			logger.info("For loop entered to fill in allPostsListWithUsers.");
+			logger.info("PostService: For loop entered to fill in allPostsListWithUsers.");
 
 			// id로 회원 정보를 조회해 가져옴
 			long userIdOfAuthors = allPostsList.get(i).getUserId();
 			logger.info("User id of authors retrieved.");
-			UserVo userVo = daoToSelectOneUserById.selectOneUserByID(userIdOfAuthors);
+			UserVo userVo = userDao.selectOneUserByID(userIdOfAuthors);
 			logger.info("userVo has retrieved user info.");
 
 			// 두 VO 객체로부터 정보를 받아 한 군데로 모을 VO 객체 껍데기 생성
@@ -88,6 +101,19 @@ public class ServiceToSelectAllPostsDescending {
 		}
 
 		return allPostsListWithUsers;
+	}
+	
+	// 3. 내가 쓴 글 조회 API
+	public List<PostVo> selectMyPosts(long userId) {
+
+		logger.info("SERVICE: selectMyPosts() called.");
+
+		return postDao.selectMyPosts(userId);
+	}
+
+	// 4. 사용자 ID로 글 하나 조회
+	public PostVo selectOnePostById(long id) {
+		return postVo = postDao.selectOnePostById(id);
 	}
 
 }

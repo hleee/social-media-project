@@ -1,8 +1,7 @@
-package com.mycompany.myapp.controller.token;
+package com.mycompany.myapp.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,37 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.myapp.domain.ResponseVo;
-import com.mycompany.myapp.domain.token.TokenVo;
-import com.mycompany.myapp.domain.user.UserVo;
-import com.mycompany.myapp.service.token.ServiceToInsertOneToken;
-import com.mycompany.myapp.service.user.ServiceToSelectOneUserByUsernameAndPassword;
-import com.mycompany.myapp.util.TokenMaker;
+import com.mycompany.myapp.domain.UserVo;
 
 @RestController
 @RequestMapping("/*")
-public class RestControllerToInsertOneToken {
+public class TokenController {
 
-	static Logger logger = LoggerFactory.getLogger(RestControllerToInsertOneToken.class);
+	static Logger logger = LoggerFactory.getLogger(TokenController.class);
 
-	@Autowired
-	private ServiceToInsertOneToken serviceToInsertOneToken;
-
-	@Autowired
-	private ServiceToSelectOneUserByUsernameAndPassword serviceToSelectOneUserByUsernameAndPassword;
-
-	@Autowired
-	public UserVo userVo;
-
-	@Autowired
-	public ResponseVo responseVo;
-
-	@Autowired
-	public TokenVo tokenVo;
-
-	@Autowired
-	private TokenMaker tokenMaker;
-
-	// Inserting token = authorising
+	// 1. 토큰 등록
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public ResponseVo insertOneToken(@RequestBody UserVo userVoToDb) throws Exception {
 
@@ -75,5 +52,5 @@ public class RestControllerToInsertOneToken {
 		return responseVo;
 
 	}
-
+	
 }

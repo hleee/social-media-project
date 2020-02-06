@@ -1,9 +1,10 @@
-package com.mycompany.myapp.domain.token;
+package com.mycompany.myapp.domain;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class TokenVo {
+	
 	private String token;
 	private long userId;
 	private String createdAt;
