@@ -22,7 +22,7 @@ import com.mycompany.myapp.service.TokenService;
 import com.mycompany.myapp.service.UserService;
 
 @RestController
-@RequestMapping("/*")
+@RequestMapping("/post")
 public class PostController {
 
 	static Logger logger = LoggerFactory.getLogger(PostController.class);
@@ -50,7 +50,7 @@ public class PostController {
 
 	// 1. 글 저장 API
 	// @RequestBody를 써줘야 컨트롤러가 프런트에서 입력받은 값을 인식함 (title과 content를 가져옴)
-	@RequestMapping(value = "/post", method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseVo insertOnePost(@RequestBody PostVo postVo, HttpServletRequest request) throws Exception {
 		// 로그인 시 발행된 토큰 값은 쿠키에 담겨있으므로 그곳에서 가져옴
 		// HttpServletRequest request.getHeader("가져올 값의 이름")이나 request.getCookie() (모든
@@ -72,7 +72,7 @@ public class PostController {
 	}
 
 	// 2. 전체 글 목록 조회 API
-	@RequestMapping(value = "/allPosts", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseVo selectAllPostsDescending() {
 
 		logger.info("selectAllPostsDescending() called.");
@@ -89,7 +89,7 @@ public class PostController {
 	}
 
 	// 3. 내가 쓴 글 목록 조회 API
-	@RequestMapping(value = "/post/my", method = RequestMethod.GET)
+	@RequestMapping(value = "/my", method = RequestMethod.GET)
 	public ResponseVo selectMyPosts(HttpServletRequest request) throws Exception {
 
 		logger.info("selectMyPosts() called.");
@@ -116,7 +116,8 @@ public class PostController {
 	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
 	public ResponseVo selectOnePostDetailedView(@PathVariable("postId") long postId) {
 
-		PostVo postVo = postService.selectOnePostById(postId);
+		postVo = postService.selectOnePostById(postId);
+		
 		long id = postVo.getId();
 		long userId = postVo.getUserId();
 		String title = postVo.getTitle();
@@ -131,7 +132,7 @@ public class PostController {
 
 		UserVo userVo = userService.selectOneUserById(userId);
 		postVoWithUser.setUser(userVo);
-
+				
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(postVoWithUser);

@@ -26,7 +26,7 @@ public class PostService {
 
 	@Autowired
 	public UserDao userDao;
-	
+
 	@Autowired
 	public TokenDao tokenDao;
 
@@ -45,7 +45,7 @@ public class PostService {
 	// 1. 글 저장 API
 	public PostVo insertOnePost(PostVo postVo, String token) {
 		logger.info("insertOnePost() called.");
-		
+
 		TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
 		logger.info("tokenVo: " + tokenVo);
 
@@ -185,22 +185,23 @@ public class PostService {
 
 	}
 
-	// 4. 사용자 ID로 글 하나 조회
+	// 4. 사용자 ID로 글 하나 조회 (글 상세보기용)
 	public PostVo selectOnePostById(long id) {
 
 		logger.info("selectOnePostById() called.");
 
-		return postVo = postDao.selectOnePostById(id);
+		postVo = postDao.selectOnePostById(id);
+		
+		return postVo;
 	}
 
 	// 5. 글 삭제
 	public int deleteOnePost(long id) {
 		logger.info("deleteOnePost() called.");
-		
+
 		int integerOneIfDeleted = postDao.deleteOnePost(id);
 
 		return integerOneIfDeleted;
 	}
 
-	
 }
