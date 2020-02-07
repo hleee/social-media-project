@@ -28,6 +28,7 @@ public class UserService {
 
 	// 단일 회원 삽입
 	public ResponseVo insertOneUser(UserVo userVo) throws Exception {
+		userDao.insertOneUser(userVo);
 		userVo = userDao.selectOneUserByUsernameAndPassword(userVo);
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
