@@ -20,7 +20,7 @@ $(document).ready(function() { // jQuery 시작
 		}
 
 		$.ajax({
-			url : "/myapp/user", // RestControllerToInsertOneUser의 매핑값
+			url : "/user", // RestControllerToInsertOneUser의 매핑값
 									// /user에서 시작하여 아래 명령문 실행
 			method : "POST",
 			dataType : 'json',
@@ -29,7 +29,7 @@ $(document).ready(function() { // jQuery 시작
 		}).then(function(data) {
 			alert("Success");
 			console.log(data);
-			window.location.href = '/myapp/login'; // /myapp/login으로 이동 (ControllerToDisplayFtl)
+			window.location.href = '/login'; // /myapp/login으로 이동 (ControllerToDisplayFtl)
 		}, function(err) {
 			alert("Sign up failed");
 		});

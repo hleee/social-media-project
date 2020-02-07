@@ -16,7 +16,7 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			url : "/myapp/auth", // 프런트 쪽 /auth에서 시작
+			url : "/auth", // 프런트 쪽 /auth에서 시작
 			method : "POST",
 			dataType : 'json',
 			contentType : 'application/json',
@@ -24,7 +24,7 @@ $(document).ready(function() {
 		}).then(function(data) {
 			document.cookie = "accesstoken=" + data.data.token;
 			document.cookie = "userId=" + data.data.userId;
-			window.location.href = '/myapp'; // 루트 주소인 localhost:8090/myapp/로 이동
+			window.location.href = '/'; // 루트 주소인 localhost:8090/로 이동
 		}, function(err) {
 			alert("Please check your information again.");
 			window.location.reload();

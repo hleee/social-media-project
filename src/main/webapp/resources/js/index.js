@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 	if (userId) {
 		$.ajax({
-			url : "/myapp/user?id=" + getCookie("userId")
+			url : "/user?id=" + getCookie("userId")
 		}).then(function(data) {
 			console.log(data);
 			console.log(data.data.username);
@@ -41,7 +41,7 @@ $(document).ready(function() {
 	$('#header_logout_btn').click(function(){
 		document.cookie = "accesstoken=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 		document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-		window.location.href = '/myapp/login';
+		window.location.href = '/login';
 	});
 	
 	

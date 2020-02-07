@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.mycompany.myapp.domain.PostVo;
+import com.mycompany.myapp.domain.ResponseVo;
 
 @Repository
 public class PostDao {
@@ -22,57 +23,32 @@ public class PostDao {
 	@Autowired
 	public PostVo postVo;
 
-	// 1. 글 저장 API
+	@Autowired
+	public ResponseVo responseVo;
+
+	// 글 저장
 	public int insertOnePost(PostVo postVo) {
-		logger.info("insertOnePost() called.");
-
-		int integerOneIfInserted = sqlSession.insert("mapper.post.insertOnePost", postVo);
-		logger.info("Integer 1 if post inserted: " + integerOneIfInserted);
-
-		return integerOneIfInserted;
+		return sqlSession.insert("mapper.post.insertOnePost", postVo);
 	}
 
-	// 2. 글 전체 목록 조회 API
+	// 전체 글 조회
 	public List<PostVo> selectAllPostsDescending() {
-		logger.info("selectAllPostsDescending() called.");
-
-		List<PostVo> allPostsList = null;
-		allPostsList = sqlSession.selectList("mapper.post.selectAllPostsDescending");
-		logger.info("allPostsList: " + allPostsList);
-
-		return allPostsList;
+		return sqlSession.selectList("mapper.post.selectAllPostsDescending");
 	}
 
-	// 3. 내 글 조회 API
+	// 내 글 조회
 	public List<PostVo> selectMyPosts(long userId) {
-		logger.info("selectMyPosts() called.");
-
-		List<PostVo> myPostsList = null;
-		myPostsList = sqlSession.selectList("mapper.post.selectMyPosts", userId);
-		logger.info("myPostsList: " + myPostsList);
-
-		return myPostsList;
+		return sqlSession.selectList("mapper.post.selectMyPosts", userId);
 	}
 
-	// 4. ID로 글 하나 조회
+	// ID로 글 하나 조회
 	public PostVo selectOnePostById(long id) throws DataAccessException {
-		logger.info("selectOnePostById() called.");
-
-		PostVo postVo = sqlSession.selectOne("mapper.post.selectOnePostById", id);
-		logger.info("postVo: " + postVo);
-
-		return postVo;
+		return sqlSession.selectOne("mapper.post.selectOnePostById", id);
 	}
-	
-	// 5. 글 삭제
+
+	// 글 삭제
 	public int deleteOnePost(long id) throws DataAccessException {
-		logger.info("deleteOnePost() called.");
-		
-		int integerOneIfDeleted = sqlSession.delete("mapper.post.deleteOnePost", id);
-		logger.info("Integer 1 if deleted: " + integerOneIfDeleted);
-		
-		return integerOneIfDeleted;
+		return sqlSession.delete("mapper.post.deleteOnePost", id);
 	}
-
 
 }

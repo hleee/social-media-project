@@ -23,37 +23,24 @@ public class TokenController {
 
 	@Autowired
 	public TokenVo tokenVo;
-	
+
 	@Autowired
 	public ResponseVo responseVo;
-	
+
 	@Autowired
 	public TokenService tokenService;
-	
+
 	@Autowired
 	public UserService userService;
-	
-	// 1. 토큰 등록
+
+	// 토큰 등록
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public ResponseVo insertOneToken(@RequestBody UserVo userVo) throws Exception {
-
-		logger.info("insertOneToken() called.");
-		
-		userVo = userService
-				.selectOneUserByUsernameAndPassword(userVo);
-		logger.info("userVo: " + userVo);
-		
+		userVo = userService.selectOneUserByUsernameAndPassword(userVo);
 		tokenVo = tokenService.insertOneToken(userVo);
-		logger.info("tokenVo: " + tokenVo);
-		
-		// responseVo에 code, message, data 설정
-		// data는 토큰 일련 번호를 DB의 토큰 표에 넣고 같이 저장된 userId와 createdAt (토큰 생성 시간)
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(tokenVo);
-
 		return responseVo;
-
 	}
-	
 }

@@ -19,55 +19,24 @@ public class UserDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	// 1. 회원 가입
-	// 회원 가입 기능 구현
-	// insert 메서드는 DB에서 작업한 줄 개수를 정수 형태로 반환
-	// 사용자 표에 한 줄을 성공적으로 추가했으면 정수 1 반환
-	// DB쪽으로 전달 중인 객체는 userVO
-	// 매퍼에서 id가 insertOneUser인 SQL문을 찾아서 userVO 객체를 전달
+	// 회원 가입
 	public int insertOneUser(UserVo userVo) throws DataAccessException {
-		logger.info("insertOneUser() called");
-
-		int integerOneIfInserted = sqlSession.insert("mapper.user.insertOneUser", userVo);
-		logger.info("Integer 1 if inserted: " + integerOneIfInserted);
-
-		return integerOneIfInserted;
+		return sqlSession.insert("mapper.user.insertOneUser", userVo);
 	}
 
-	// 2. 전체 회원 조회
-	// 반환되는 자료는 목록 형태
+	// 전체 회원 조회
 	public List<UserVo> selectAllUsers() throws DataAccessException {
-		logger.info("selectAllUsers() called");
-
-		List<UserVo> allUsersList = null;
-		allUsersList = sqlSession.selectList("mapper.user.selectAllUsers");
-		logger.info("allUsersList: " + allUsersList);
-
-		return allUsersList;
+		return sqlSession.selectList("mapper.user.selectAllUsers");
 	}
 
-	// 3. ID로 단일 회원 조회
-	// 전달되는 매개변수의 자료형과 이름을 지정했으면 sqlSession 메서드 내에서도 인자로 반복 설정해주어야 함
-	// 여기서는 Long id의 경우
+	// ID로 단일 회원 조회
 	public UserVo selectOneUserById(Long id) throws DataAccessException {
-		logger.info("selectOneUserById() called");
-
-		UserVo userVo = sqlSession.selectOne("mapper.user.selectOneUserById", id);
-		logger.info("userVo: " + userVo);
-
-		return userVo;
+		return sqlSession.selectOne("mapper.user.selectOneUserById", id);
 	}
 
-	// 4. username과 password로 단일 회원 조회
-	// 로그인에 사용
+	// username과 password로 단일 회원 조회
 	public UserVo selectOneUserByUsernameAndPassword(UserVo userVo) throws DataAccessException {
-		logger.info("selectOneUserByUsernameAndPassword() called");
-
-		UserVo oneUserByUsernameAndPassword = sqlSession.selectOne("mapper.user.selectOneUserByUsernameAndPassword",
-				userVo);
-		logger.info("oneUserByUsernameAndPassword: " + oneUserByUsernameAndPassword);
-
-		return oneUserByUsernameAndPassword;
+		return sqlSession.selectOne("mapper.user.selectOneUserByUsernameAndPassword", userVo);
 	}
 
 }
