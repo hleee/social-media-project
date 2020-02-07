@@ -50,16 +50,15 @@
       ORDER BY id DESC
     ]]>
 	</select>
-	
+
 	<!-- user_id로 조회할 것이기 때문에 DB로 가는 자료형은 long -->
-	<delete id="deleteOnePost" resultMap="postResult"
-		parameterType="Long">
+	<delete id="deleteOnePost" parameterType="Long">
     <![CDATA[
       DELETE * FROM post
       WHERE id = #{id}
     ]]>
 	</delete>
-	
+
 
 </mapper>
 	
