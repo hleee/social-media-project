@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.mycompany.myapp.domain.PostVo;
 import com.mycompany.myapp.domain.PostVoWithUser;
 import com.mycompany.myapp.domain.ResponseVo;
+import com.mycompany.myapp.domain.TokenVo;
 import com.mycompany.myapp.domain.UserVo;
 import com.mycompany.myapp.repository.PostDao;
+import com.mycompany.myapp.repository.TokenDao;
 import com.mycompany.myapp.repository.UserDao;
 
 @Service
@@ -24,6 +26,9 @@ public class PostService {
 
 	@Autowired
 	public UserDao userDao;
+	
+	@Autowired
+	public TokenDao tokenDao;
 
 	@Autowired
 	public PostVo postVo;
@@ -38,13 +43,31 @@ public class PostService {
 	public PostVoWithUser postVoWithUser;
 
 	// 1. 글 저장 API
-	public int insertOnePost(PostVo postVo) {
+	public PostVo insertOnePost(PostVo postVo, String token) {
 		logger.info("insertOnePost() called.");
+		
+		TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
+		logger.info("tokenVo: " + tokenVo);
 
-		int integerOneIfInserted = postDao.insertOnePost(postVo);
-		logger.info("Integer 1 if post inserted: " + integerOneIfInserted);
+		// (ii) tokenVo.getUserId() 통해서 userId값 추출
+		Long userId = tokenVo.getUserId();
+		logger.info("userId: " + userId);
 
-		return integerOneIfInserted;
+		// (iii) postVo.setUserId(추출한 userID값)를 통해서 postVO에 userId를 담아줌
+		postVo.setUserId(userId);
+		logger.info("postVo: " + postVo);
+
+		// (iv) postVo : userId, title, content --> insert
+		int IntegerOneIfInserted = postDao.insertOnePost(postVo);
+		logger.info("Integer 1 if new post inserted: " + IntegerOneIfInserted);
+
+		// (v) postVo를 다시 가져와서 글 id와 createdAt을 responseVo에 담음
+		long id = postVo.getId();
+		logger.info("id of post: " + id);
+
+		postVo = postDao.selectOnePostById(id);
+
+		return postVo;
 	}
 
 	// 2. 전체 글 목록 조회 API
@@ -170,4 +193,14 @@ public class PostService {
 		return postVo = postDao.selectOnePostById(id);
 	}
 
+	// 5. 글 삭제
+	public int deleteOnePost(long id) {
+		logger.info("deleteOnePost() called.");
+		
+		int integerOneIfDeleted = postDao.deleteOnePost(id);
+
+		return integerOneIfDeleted;
+	}
+
+	
 }

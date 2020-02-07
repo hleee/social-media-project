@@ -63,5 +63,16 @@ public class PostDao {
 
 		return postVo;
 	}
+	
+	// 5. 글 삭제
+	public int deleteOnePost(long id) throws DataAccessException {
+		logger.info("deleteOnePost() called.");
+		
+		int integerOneIfDeleted = sqlSession.delete("mapper.post.deleteOnePost", id);
+		logger.info("Integer 1 if deleted: " + integerOneIfDeleted);
+		
+		return integerOneIfDeleted;
+	}
+
 
 }

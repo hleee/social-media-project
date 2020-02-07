@@ -32,7 +32,7 @@ public class PostController {
 
 	@Autowired
 	public PostVo postVo;
-	
+
 	@Autowired
 	public UserVo userVo;
 
@@ -60,31 +60,9 @@ public class PostController {
 		// @RequestHeader("accesstoken") String token도 가능
 
 		logger.info("insertOnePost() called.");
-
-		// (i) 쿠키에 담긴 토큰 문자열을 이용해서 DB내의 토큰 데이터 행을 조회해 가져오기 (token, user_id, created_at)
+		
 		String token = request.getHeader("accesstoken");
-		logger.info("accesstoken: " + token);
-
-		TokenVo tokenVo = tokenService.selectOneTokenRowByToken(token);
-		logger.info("tokenVo: " + tokenVo);
-
-		// (ii) tokenVo.getUserId() 통해서 userId값 추출
-		Long userId = tokenVo.getUserId();
-		logger.info("userId: " + userId);
-
-		// (iii) postVo.setUserId(추출한 userID값)를 통해서 postVO에 userId를 담아줌
-		postVo.setUserId(userId);
-		logger.info("postVo: " + postVo);
-
-		// (iv) postVo : userId, title, content --> insert
-		int IntegerOneIfInserted = postService.insertOnePost(postVo);
-		logger.info("Integer 1 if new post inserted: " + IntegerOneIfInserted);
-
-		// (v) postVo를 다시 가져와서 글 id와 createdAt을 responseVO에 담음
-		long id = postVo.getId();
-		logger.info("id of post: " + id);
-
-		postVo = postService.selectOnePostById(id);
+		postVo = postService.insertOnePost(postVo, token);
 
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
@@ -137,42 +115,63 @@ public class PostController {
 	// 4. 글 상세 조회 API
 	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
 	public ResponseVo selectOnePostDetailedView(@PathVariable("postId") long postId) {
-			
+
 		PostVo postVo = postService.selectOnePostById(postId);
 		long id = postVo.getId();
 		long userId = postVo.getUserId();
 		String title = postVo.getTitle();
 		String content = postVo.getContent();
 		String createdAt = postVo.getCreatedAt();
-		
+
 		postVoWithUser.setId(id);
 		postVoWithUser.setUserId(userId);
 		postVoWithUser.setTitle(title);
 		postVoWithUser.setContent(content);
 		postVoWithUser.setCreatedAt(createdAt);
-		
+
 		UserVo userVo = userService.selectOneUserById(userId);
 		postVoWithUser.setUser(userVo);
-		
+
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(postVoWithUser);
-		
+
 		return responseVo;
 	}
-	
+
 	// 5. 글 삭제 API
-	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/post/{postId}", method = RequestMethod.DELETE)
 	public ResponseVo deleteOnePost(@PathVariable("postId") long postId) {
 
-		
-		
-		
-		responseVo.setCode(HttpStatus.OK);
-		responseVo.setMessage("Success");
-		responseVo.setData(postVoWithUser);
-		
-		return responseVo;
+		int integerOneIfDeleted = postService.deleteOnePost(postId);
+		logger.info("Integer 1 if deleted: " + integerOneIfDeleted);
+
+		if (integerOneIfDeleted == 1) {
+			logger.info("If statement entered.");
+			
+			// . 뒤가 null이면 null조차 반환을 못 함
+			// long id = postVo.getId();
+
+			// SELECT를 하면 null 값은 반환할 수 있음
+			// 그 null을 postVo 객체에 담아 출력
+			postVo = postService.selectOnePostById(postId);
+			
+			responseVo.setCode(HttpStatus.OK);
+			responseVo.setMessage("Success");
+			responseVo.setData(postVo);
+
+			return responseVo;
+
+		} else {
+			logger.info("Else statement entered.");
+
+			responseVo.setCode(HttpStatus.INTERNAL_SERVER_ERROR);
+			responseVo.setMessage("Error");
+			responseVo.setData(null);
+
+			return responseVo;
+		}
+
 	}
-		
+
 }
