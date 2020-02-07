@@ -1,11 +1,8 @@
 package com.mycompany.myapp.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,31 +31,18 @@ public class UserController {
 	// 단일 회원 삽입
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseVo insertOneUser(@RequestBody UserVo userVo) throws Exception {
-		userService.insertOneUser(userVo);
-		userVo = userService.selectOneUserByUsernameAndPassword(userVo);
-		responseVo.setCode(HttpStatus.OK);
-		responseVo.setMessage("Success");
-		responseVo.setData(userVo);
-		return responseVo;
+		return userService.insertOneUser(userVo);
 	}
 
 	// 전체 회원 조회
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseVo selectAllUsers() throws Exception {
-		List<UserVo> allUsersList = userService.selectAllUsers();
-		responseVo.setCode(HttpStatus.OK);
-		responseVo.setMessage("Success");
-		responseVo.setData(allUsersList);
-		return responseVo;
+		return userService.selectAllUsers();
 	}
 
 	// ID로 단일 회원 조회
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseVo selectOneUserById(@RequestParam("id") Long id) throws Exception {
-		userVo = userService.selectOneUserById(id);
-		responseVo.setCode(HttpStatus.OK);
-		responseVo.setMessage("Success");
-		responseVo.setData(userVo);
-		return responseVo;
+		return userService.selectOneUserById(id);
 	}
 }

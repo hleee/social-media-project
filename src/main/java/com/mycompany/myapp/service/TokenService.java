@@ -3,8 +3,10 @@ package com.mycompany.myapp.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.mycompany.myapp.domain.ResponseVo;
 import com.mycompany.myapp.domain.TokenVo;
 import com.mycompany.myapp.domain.UserVo;
 import com.mycompany.myapp.repository.TokenDao;
@@ -26,17 +28,24 @@ public class TokenService {
 	public UserDao userDao;
 
 	@Autowired
+	public ResponseVo responseVo;
+
+	@Autowired
 	public UserVo userVo;
 
 	// 토큰 발급 및 저장
-	public TokenVo insertOneToken(UserVo userVo) throws Exception {
+	public ResponseVo insertOneToken(UserVo userVo) throws Exception {
 		userVo = userDao.selectOneUserByUsernameAndPassword(userVo);
 		long id = userVo.getId();
 		String token = TokenMaker.makeToken();
 		tokenVo.setToken(token);
 		tokenVo.setUserId(id);
 		tokenDao.insertOneToken(tokenVo);
-		return tokenDao.selectOneTokenRowByToken(token);
+		tokenVo = tokenDao.selectOneTokenRowByToken(token);
+		responseVo.setCode(HttpStatus.OK);
+		responseVo.setMessage("Success");
+		responseVo.setData(tokenVo);
+		return responseVo;
 	}
 
 	// 토큰으로 토큰 테이블의 열 정보 조회

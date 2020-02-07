@@ -20,7 +20,7 @@ import com.mycompany.myapp.service.TokenService;
 import com.mycompany.myapp.service.UserService;
 
 @RestController
-@RequestMapping("/post/**")
+@RequestMapping("/post/")
 public class PostController {
 
 	static Logger logger = LoggerFactory.getLogger(PostController.class);
