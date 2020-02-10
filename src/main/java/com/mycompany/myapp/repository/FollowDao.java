@@ -1,0 +1,32 @@
+package com.mycompany.myapp.repository;
+
+import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.mycompany.myapp.domain.FollowVo;
+
+@Repository
+public class FollowDao {
+
+	static Logger logger = LoggerFactory.getLogger(FollowDao.class);
+
+	@Autowired
+	private SqlSession sqlSession;
+
+	@Autowired
+	public FollowVo followVo;
+
+	// 팔로워-팔로이 한 쌍 삽입
+	public int insertOneFollow(FollowVo followVo) {
+		return sqlSession.insert("mapper.follow.insertOneFollow", followVo);
+	}
+
+	// 팔로워-팔로이 한 쌍 삭제
+	public int deleteOneFollow(FollowVo followVo) {
+		return sqlSession.delete("mapper.follow.deleteOneFollow", followVo);
+	}
+
+}

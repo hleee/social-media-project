@@ -4,7 +4,7 @@ $(document).ready(function(){
 	console.log("postId - " + postId);
 	
 	$.ajax({
-        url: "/post/" + postId // Rest API로 데이터 가져오기, 보이는 건  post/detail/글 번호로
+        url: "/post/" + postId
     }).then(function(data) {
        console.log(data);
        $('#detail_title').text(data.data.title);
@@ -15,23 +15,10 @@ $(document).ready(function(){
     	console.log(err.responseJSON);
     });
 	
-//	$.ajax({
-//        url: "/comments?post_id="+postId
-//    }).then(function(data) {
-//    	$.each(data, function(index, e) {
-//    		$('#comments').append(
-//    				'<div class="media mb-4"><div class="media-body"><h5 class="mt-0">' + e.user
-//    				+ '</h5>' + e.comment 
-//    	            + '</div></div>');
-//    	});
-//       console.log(data);
-//    }, function(err) {
-//    	console.log(err.responseJSON);
-//    });
-	
 	
 	$('#detail_delete_btn').click(function(){
 		var postId = $('#detail_post_id').attr("value");
+		postId = postId.replace(/,/g, "");
 		console.log("delete button click! - " + postId);
 		$.ajax({
 	        url: "/post/"+postId,

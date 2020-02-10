@@ -18,7 +18,7 @@ $(document).ready(function(){
     				+ '</p> <a href="/post/detail/' + e.id 
     				+ '" class="btn btn-primary">Read More &rarr;</a> </div> ' 
     				+ '<div class="card-footer text-muted"> Posted on ' + e.createdAt.split('T')[0]
-    				+ ' by ' + e.user.username
+    				+ ' by ' + e.user.username + getFollowInfo(e.user)
     				+ '</div> </div>');
     	});
        console.log(data);
@@ -26,13 +26,24 @@ $(document).ready(function(){
     	console.log(err.responseJSON);
     });
 	
+	function getFollowInfo(user) {
+		if(user.isFollow) {
+			return ' <span class="unfollow" value="' + user.id + '" style="color:blue; cursor: pointer;"> Unfollow </span>';	
+		} else if(user.isFollow == null){
+			return '';
+		} else {
+			return ' <span class="follow" value="' + user.id + '" style="color:blue; cursor: pointer;"> Follow </span>';
+		}
+		
+	}
+	
 	
 	if(token) {
 		$.ajax({
 			beforeSend: function(xhr){
 				xhr.setRequestHeader('accesstoken', token);
 	        },
-	        url: "/post/my"
+	        url: "/post/feed"
 	    }).then(function(data) {
 	    	$.each(data.data, function(index, e) {
 	    		$('#myfeed').append(
@@ -41,7 +52,7 @@ $(document).ready(function(){
 	    				+ '</p> <a href="/post/detail/' + e.id 
 	    				+ '" class="btn btn-primary">Read More &rarr;</a> </div> ' 
 	    				+ '<div class="card-footer text-muted"> Posted on ' + e.createdAt.split('T')[0]
-	    				+ ' by ' + e.user.username
+	    				+ ' by ' + e.user.username + getFollowInfo(e.user)
 	    				+ '</div> </div>');
 	    	});
 	       console.log(data);

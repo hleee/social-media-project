@@ -14,7 +14,7 @@ import com.mycompany.myapp.domain.UserVo;
 import com.mycompany.myapp.service.UserService;
 
 @RestController
-@RequestMapping("/user/**")
+@RequestMapping("/*")
 public class UserController {
 
 	static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -29,20 +29,21 @@ public class UserController {
 	public UserVo userVo;
 
 	// 단일 회원 삽입
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public ResponseVo insertOneUser(@RequestBody UserVo userVo) throws Exception {
 		return userService.insertOneUser(userVo);
 	}
 
 	// 전체 회원 조회
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/all", method = RequestMethod.GET)
 	public ResponseVo selectAllUsers() throws Exception {
 		return userService.selectAllUsers();
 	}
 
 	// ID로 단일 회원 조회
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public ResponseVo selectOneUserById(@RequestParam("id") Long id) throws Exception {
 		return userService.selectOneUserById(id);
 	}
+	
 }
