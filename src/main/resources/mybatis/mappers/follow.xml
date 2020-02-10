@@ -26,4 +26,14 @@
     ]]>
 	</delete>
 
+	<!-- 팔로워 ID로 팔로워-팔로이 한 쌍 조회 -->
+	<select id="selectOneFollowByFollowerId" resultMap="followResult"
+		parameterType="Long">
+    <![CDATA[
+      SELECT * FROM follow
+      WHERE follower_id = #{followerId}
+    ]]>
+	</select>
+
+
 </mapper>

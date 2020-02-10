@@ -1,5 +1,7 @@
 package com.mycompany.myapp.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,11 @@ public class FollowDao {
 	// 팔로워-팔로이 한 쌍 삭제
 	public int deleteOneFollow(FollowVo followVo) {
 		return sqlSession.delete("mapper.follow.deleteOneFollow", followVo);
+	}
+
+	// 팔로워 ID로 팔로워-팔로이 한 쌍 조회
+	public List<FollowVo> selectOneFollowByFollowerId(Long followerId) {
+		return sqlSession.selectList("mapper.follow.selectOneFollowByFollowerId", followerId);
 	}
 
 }

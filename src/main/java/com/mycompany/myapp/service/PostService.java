@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.mycompany.myapp.domain.FollowVo;
 import com.mycompany.myapp.domain.PostVo;
 import com.mycompany.myapp.domain.PostVoWithUser;
 import com.mycompany.myapp.domain.ResponseVo;
 import com.mycompany.myapp.domain.TokenVo;
 import com.mycompany.myapp.domain.UserVo;
+import com.mycompany.myapp.repository.FollowDao;
 import com.mycompany.myapp.repository.PostDao;
 import com.mycompany.myapp.repository.TokenDao;
 import com.mycompany.myapp.repository.UserDao;
@@ -32,7 +34,13 @@ public class PostService {
 	public TokenDao tokenDao;
 
 	@Autowired
+	public FollowDao followDao;
+
+	@Autowired
 	public PostVo postVo;
+
+	@Autowired
+	public FollowVo followVo;
 
 	@Autowired
 	public ResponseVo responseVo;
@@ -58,8 +66,8 @@ public class PostService {
 	}
 
 	// 전체 글 목록 조회
-	public ResponseVo selectAllPostsDescending() {
-		List<PostVo> allPostsList = postDao.selectAllPostsDescending();
+	public ResponseVo selectAllPosts() {
+		List<PostVo> allPostsList = postDao.selectAllPosts();
 		PostVoWithUser[] allPostsListWithUsers = new PostVoWithUser[allPostsList.size()];
 		for (int i = 0; i < allPostsListWithUsers.length; i++) {
 			long userIdOfAuthor = allPostsList.get(i).getUserId();
@@ -85,8 +93,10 @@ public class PostService {
 	}
 
 	// 내 글 조회
-	public ResponseVo selectMyPosts(long userId) {
-		List<PostVo> myPostsList = postDao.selectMyPosts(userId);
+	public ResponseVo selectMyPosts(String token) {
+		TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
+		Long userId = tokenVo.getUserId();
+		List<PostVo> myPostsList = postDao.selectPostsByUserId(userId);
 		PostVoWithUser[] myPostsListWithUser = new PostVoWithUser[myPostsList.size()];
 		for (int i = 0; i < myPostsListWithUser.length; i++) {
 			UserVo userVo = userDao.selectOneUserById(userId);
@@ -127,10 +137,10 @@ public class PostService {
 		postVoWithUser.setUser(userVo);
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
-		responseVo.setData(postVoWithUser);		 
+		responseVo.setData(postVoWithUser);
 		return responseVo;
 	}
-	
+
 	// 글 삭제
 	public ResponseVo deleteOnePost(long id) {
 		int integerOneIfDeleted = postDao.deleteOnePost(id);
@@ -139,12 +149,59 @@ public class PostService {
 			responseVo.setCode(HttpStatus.OK);
 			responseVo.setMessage("Success");
 			responseVo.setData(postVo);
-			return responseVo;
 		} else {
 			responseVo.setCode(HttpStatus.INTERNAL_SERVER_ERROR);
 			responseVo.setMessage("Error");
 			responseVo.setData(null);
-			return responseVo;
 		}
+		return responseVo;
+	}
+
+	// 내 글과 팔로이의 글 조회 (피드)
+	public ResponseVo selectFolloweesPostsAndMyPosts(String token) {
+		TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
+		Long userId = tokenVo.getUserId();
+		List<PostVo> myPostsList = postDao.selectPostsByUserId(userId);
+		PostVoWithUser[] myPostsListWithUser = new PostVoWithUser[myPostsList.size()];
+		for (int i = 0; i < myPostsListWithUser.length; i++) {
+			UserVo userVo = userDao.selectOneUserById(userId);
+			PostVoWithUser postVoWithUser = new PostVoWithUser();
+			postVoWithUser.setUser(userVo);
+			long id = myPostsList.get(i).getId();
+			postVoWithUser.setId(id);
+			long userId1 = myPostsList.get(i).getUserId();
+			postVoWithUser.setUserId(userId1);
+			String title = myPostsList.get(i).getTitle();
+			postVoWithUser.setTitle(title);
+			String content = myPostsList.get(i).getContent();
+			postVoWithUser.setContent(content);
+			String createdAt = myPostsList.get(i).getCreatedAt();
+			postVoWithUser.setCreatedAt(createdAt);
+			myPostsListWithUser[i] = postVoWithUser;
+		}
+		List<FollowVo> myFollowVoList = followDao.selectOneFollowByFollowerId(userId);
+		PostVoWithUser[] myFolloweesIdOnlyList = new PostVoWithUser[myFollowVoList.size()];
+		for (int i = 0; i < myFolloweesIdOnlyList.length; i++) {
+			PostVoWithUser postVoWithUser = new PostVoWithUser();
+			Long followeeId = myFollowVoList.get(i).getFolloweeId();
+			UserVo userVo = userDao.selectOneUserById(followeeId);
+			postVoWithUser.setUser(userVo);
+			List<PostVo> followeePostsList = postDao.selectPostsByUserId(followeeId);
+			long id = followeePostsList.get(i).getId();
+			postVoWithUser.setId(id);
+			long userId1 = followeePostsList.get(i).getUserId();
+			postVoWithUser.setUserId(userId1);
+			String title = followeePostsList.get(i).getTitle();
+			postVoWithUser.setTitle(title);
+			String content = followeePostsList.get(i).getContent();
+			postVoWithUser.setContent(content);
+			String createdAt = followeePostsList.get(i).getCreatedAt();
+			postVoWithUser.setCreatedAt(createdAt);
+			myFolloweesIdOnlyList[i] = postVoWithUser;
+		}
+		responseVo.setCode(HttpStatus.OK);
+		responseVo.setMessage("Success");
+		responseVo.setData(postVoWithUser);
+		return responseVo;
 	}
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.myapp.domain.PostVo;
 import com.mycompany.myapp.domain.PostVoWithUser;
 import com.mycompany.myapp.domain.ResponseVo;
-import com.mycompany.myapp.domain.TokenVo;
 import com.mycompany.myapp.domain.UserVo;
 import com.mycompany.myapp.service.PostService;
 import com.mycompany.myapp.service.TokenService;
@@ -55,16 +54,14 @@ public class PostController {
 
 	// 전체 글 조회
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
-	public ResponseVo selectAllPostsDescending() {
-		return postService.selectAllPostsDescending();
+	public ResponseVo selectAllPosts() {
+		return postService.selectAllPosts();
 	}
 
 	// 내 글 조회
 	@RequestMapping(value = "/post/my", method = RequestMethod.GET)
 	public ResponseVo selectMyPosts(@CookieValue("accesstoken") String token) throws Exception {
-		TokenVo tokenVo = tokenService.selectOneTokenRowByToken(token);
-		Long userId = tokenVo.getUserId();
-		return postService.selectMyPosts(userId);
+		return postService.selectMyPosts(token);
 	}
 
 	// 글 상세 조회
@@ -77,6 +74,12 @@ public class PostController {
 	@RequestMapping(value = "/post/{postId}", method = RequestMethod.DELETE)
 	public ResponseVo deleteOnePost(@PathVariable("postId") long postId) {
 		return postService.deleteOnePost(postId);
+	}
+
+	// 내 글과 팔로이의 글 조회 (피드)
+	@RequestMapping(value = "/post/feed", method = RequestMethod.GET)
+	public ResponseVo selectFolloweesPostsAndMyPosts(@CookieValue("accesstoken") String token) {
+		return postService.selectFolloweesPostsAndMyPosts(token);
 	}
 
 }

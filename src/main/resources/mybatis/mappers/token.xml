@@ -25,7 +25,7 @@
 		parameterType="tokenVo">
     <![CDATA[
       SELECT * FROM token
-      WHERE token=#{token}
+      WHERE token = #{token}
     ]]>
 	</select>
 

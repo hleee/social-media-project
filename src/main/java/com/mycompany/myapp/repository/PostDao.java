@@ -32,13 +32,13 @@ public class PostDao {
 	}
 
 	// 전체 글 조회
-	public List<PostVo> selectAllPostsDescending() {
-		return sqlSession.selectList("mapper.post.selectAllPostsDescending");
+	public List<PostVo> selectAllPosts() {
+		return sqlSession.selectList("mapper.post.selectAllPosts");
 	}
 
-	// 내 글 조회
-	public List<PostVo> selectMyPosts(long userId) {
-		return sqlSession.selectList("mapper.post.selectMyPosts", userId);
+	// 내 글 조회, 내 글과 팔로이의 글 조회 (피드)
+	public List<PostVo> selectPostsByUserId(long userId) {
+		return sqlSession.selectList("mapper.post.selectPostsByUserId", userId);
 	}
 
 	// ID로 글 하나 조회
