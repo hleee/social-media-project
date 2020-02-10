@@ -26,7 +26,7 @@ public class FtlConfig extends WebMvcConfigurerAdapter {
 	@Bean 
 	public FreeMarkerConfigurer freemarkerConfig() { 
 	    FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer(); 
-	    freeMarkerConfigurer.setTemplateLoaderPath("/WEB-INF/views/frontend_step1/");
+	    freeMarkerConfigurer.setTemplateLoaderPath("/WEB-INF/views/frontend_step2/");
 	    return freeMarkerConfigurer; 
 	}
 	

@@ -4,7 +4,7 @@ $(document).ready(function(){
 	console.log("postId - " + postId);
 	
 	$.ajax({
-        url: "/post/" + postId
+        url: "/post/" + postId // Rest API로 데이터 가져오기, 보이는 건  post/detail/글 번호로
     }).then(function(data) {
        console.log(data);
        $('#detail_title').text(data.data.title);

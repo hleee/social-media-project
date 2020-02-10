@@ -20,7 +20,7 @@ import com.mycompany.myapp.service.TokenService;
 import com.mycompany.myapp.service.UserService;
 
 @RestController
-@RequestMapping("/post/")
+@RequestMapping("/*")
 public class PostController {
 
 	static Logger logger = LoggerFactory.getLogger(PostController.class);
@@ -47,20 +47,20 @@ public class PostController {
 	public PostVoWithUser postVoWithUser;
 
 	// 글 저장
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	public ResponseVo insertOnePost(@RequestBody PostVo postVo, @CookieValue("accesstoken") String token)
 			throws Exception {
 		return postService.insertOnePost(postVo, token);
 	}
 
 	// 전체 글 조회
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/post", method = RequestMethod.GET)
 	public ResponseVo selectAllPostsDescending() {
 		return postService.selectAllPostsDescending();
 	}
 
 	// 내 글 조회
-	@RequestMapping(value = "/my", method = RequestMethod.GET)
+	@RequestMapping(value = "/post/my", method = RequestMethod.GET)
 	public ResponseVo selectMyPosts(@CookieValue("accesstoken") String token) throws Exception {
 		TokenVo tokenVo = tokenService.selectOneTokenRowByToken(token);
 		Long userId = tokenVo.getUserId();
@@ -68,13 +68,13 @@ public class PostController {
 	}
 
 	// 글 상세 조회
-	@RequestMapping(value = "/{postId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
 	public ResponseVo selectOnePostDetailedView(@PathVariable("postId") long postId) {
 		return postService.selectOnePostById(postId);
 	}
 
 	// 글 삭제
-	@RequestMapping(value = "/{postId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/post/{postId}", method = RequestMethod.DELETE)
 	public ResponseVo deleteOnePost(@PathVariable("postId") long postId) {
 		return postService.deleteOnePost(postId);
 	}

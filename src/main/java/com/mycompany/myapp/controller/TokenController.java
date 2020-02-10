@@ -12,7 +12,6 @@ import com.mycompany.myapp.domain.ResponseVo;
 import com.mycompany.myapp.domain.TokenVo;
 import com.mycompany.myapp.domain.UserVo;
 import com.mycompany.myapp.service.TokenService;
-import com.mycompany.myapp.service.UserService;
 
 @RestController
 @RequestMapping("/*")
@@ -29,12 +28,9 @@ public class TokenController {
 	@Autowired
 	public TokenService tokenService;
 
-	@Autowired
-	public UserService userService;
-
 	// 토큰 등록
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public ResponseVo insertOneToken(@RequestBody UserVo userVo) throws Exception {
-		return userService.insertOneUser(userVo);
+		return tokenService.insertOneToken(userVo);
 	}
 }
