@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Blog Home - Start Bootstrap Template</title>
+<title>Twitpresso - Sign up</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -89,13 +89,13 @@ body {
 	<div class="container login-container">
             <div class="row">
                 <div class="col-md-6 login-form-1">
-                    <h3>Sign Up</h3>
+                    <h3>Sign up</h3>
                     <form>
                         <div class="form-group">
-                            <input type="text" id="signup_username" class="form-control" placeholder="Username *" value="" />
+                            <input type="text" id="signup_username" class="form-control" placeholder="Username*" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="password" id="signup_password" class="form-control" placeholder="Password *" value="" />
+                            <input type="password" id="signup_password" class="form-control" placeholder="Password*" value="" />
                         </div>
                         <div class="form-group">
                             <input type="submit" id="signup_btn" class="btnSubmit" value="Signup" />

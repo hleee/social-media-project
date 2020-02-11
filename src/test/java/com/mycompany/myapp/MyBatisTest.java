@@ -2,7 +2,6 @@ package com.mycompany.myapp;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,9 +23,9 @@ public class MyBatisTest
     @Test
     public void testSession() throws Exception{
         
-        try(SqlSession session = sqlFactory.openSession()){
+        try {
             
-            System.out.println(" >>>>>>>>>> session 출력 : "+session+"\n");
+            System.out.println(" >>>>>>>>>> session 출력 : "+"\n");
             
         } catch (Exception e) {
             e.printStackTrace();

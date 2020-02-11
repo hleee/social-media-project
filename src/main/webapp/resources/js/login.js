@@ -6,7 +6,7 @@ $(document).ready(function(){
 		var password = $('#login_password').val();
 		
 		if(!username || !password) {
-			alert("필수 항목을 채워주세요.");
+			alert("This field is mandatory.");
 			return;
 		}
 		
@@ -25,7 +25,7 @@ $(document).ready(function(){
 	    	document.cookie = "accesstoken=" + data.data.token;
 	    	window.location.href = '/';
 	    }, function(err) {
-	    	alert("계정 정보를 확인해주세요.");
+	    	alert("Please check your information again.");
 	    	window.location.reload();
 	    });
 		return false;

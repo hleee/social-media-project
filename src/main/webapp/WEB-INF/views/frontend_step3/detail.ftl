@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>Twitpresso - detail page</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
@@ -58,7 +58,7 @@
           <hr>
           
           <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
+            <h5 class="card-header">Leave a comment:</h5>
             <div class="card-body">
               <form>
               	<div class="form-group">
@@ -67,7 +67,7 @@
                 <div class="form-group">
                   <textarea class="form-control" rows="3" id="comment_text"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary" id="create_comment_btn">Write Comment</button>
+                <button type="submit" class="btn btn-primary" id="create_comment_btn">Write a comment</button>
               </form>
             </div>
           </div>
@@ -90,7 +90,7 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Modify Post</h5>
+					<h5 class="modal-title" id="exampleModalLongTitle">Modify post</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -111,7 +111,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="modify_post_btn">Modify Post</button>
+					<button type="button" class="btn btn-primary" id="modify_post_btn">Modify post</button>
 				</div>
 			</div>
 		</div>

@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Blog Home - Start Bootstrap Template</title>
+<title>Twitpresso - main feed</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -37,10 +37,10 @@ body {
 			<div class="my-5"></div>
 			<ul class="nav nav-tabs">
 				 <li class="nav-item">
-				 	<a class="nav-link active" data-toggle="tab" href="#myfeed">My Feed</a>
+				 	<a class="nav-link active" data-toggle="tab" href="#myfeed">My feed</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#posts">All Posts</a>
+					<a class="nav-link" data-toggle="tab" href="#posts">All posts</a>
 				</li>
 			</ul>
 			
@@ -74,7 +74,7 @@ body {
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Create Post</h5>
+					<h5 class="modal-title" id="exampleModalLongTitle">Create post</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -95,7 +95,7 @@ body {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="save_post_btn">Save Post</button>
+					<button type="button" class="btn btn-primary" id="save_post_btn">Save post</button>
 				</div>
 			</div>
 		</div>

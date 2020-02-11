@@ -180,24 +180,32 @@ public class PostService {
 			myPostsListWithUser[i] = postVoWithUser;
 		}
 		List<FollowVo> myFollowVoList = followDao.selectOneFollowByFollowerId(userId);
-		PostVoWithUser[] myFolloweesIdOnlyList = new PostVoWithUser[myFollowVoList.size()];
-		for (int i = 0; i < myFolloweesIdOnlyList.length; i++) {
+		PostVoWithUser[] myFolloweesPostsListWithUser = new PostVoWithUser[myFollowVoList.size()];
+		for (int i = 0; i < myFolloweesPostsListWithUser.length; i++) {
 			PostVoWithUser postVoWithUser = new PostVoWithUser();
 			Long followeeId = myFollowVoList.get(i).getFolloweeId();
 			UserVo userVo = userDao.selectOneUserById(followeeId);
 			postVoWithUser.setUser(userVo);
-			List<PostVo> followeePostsList = postDao.selectPostsByUserId(followeeId);
-			long id = followeePostsList.get(i).getId();
-			postVoWithUser.setId(id);
-			long userId1 = followeePostsList.get(i).getUserId();
-			postVoWithUser.setUserId(userId1);
-			String title = followeePostsList.get(i).getTitle();
-			postVoWithUser.setTitle(title);
-			String content = followeePostsList.get(i).getContent();
-			postVoWithUser.setContent(content);
-			String createdAt = followeePostsList.get(i).getCreatedAt();
-			postVoWithUser.setCreatedAt(createdAt);
-			myFolloweesIdOnlyList[i] = postVoWithUser;
+			myFolloweesPostsListWithUser[i] = postVoWithUser;
+			logger.info("== 1 == " + postVoWithUser);
+			PostVoWithUser[] followeePostsList = new PostVoWithUser[myFollowVoList.size()];
+			List<PostVo> postVo = postDao.selectPostsByUserId(followeeId);
+			for (int j = 0; j < followeePostsList.length; j++) {
+				logger.info("== 2 == " + postVo);
+				long id = postVo.get(j).getId();
+				postVoWithUser.setId(id);
+				long userId1 = postVo.get(j).getUserId();
+				postVoWithUser.setUserId(userId1);
+				String title = postVo.get(j).getTitle();
+				postVoWithUser.setTitle(title);
+				String content = postVo.get(j).getContent();
+				postVoWithUser.setContent(content);
+				String createdAt = postVo.get(j).getCreatedAt();
+				postVoWithUser.setCreatedAt(createdAt);
+//				followeePostsList[j] = postVoWithUser;
+				logger.info("== 3 == " + postVoWithUser);
+			}
+//			myFolloweesPostsListWithUser[i] = postVoWithUser;
 		}
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
