@@ -179,18 +179,29 @@ public class PostService {
 			postVoWithUser.setCreatedAt(createdAt);
 			myPostsListWithUser[i] = postVoWithUser;
 		}
-		List<FollowVo> myFollowVoList = followDao.selectOneFollowByFollowerId(userId);
+
+		// 팔로워 아이디를 기준으로 팔로워-팔로이 쌍을 followVo 형태로 반환 List<FollowVo> 형태
+		// 거기서 팔로이를 하나하나 빼서 글 조회		
+		// 유저 아이디를 뽑아 길이 추출
+		List<FollowVo> myFollowVoList = followDao.selectAllFollowsByFollowerId(userId);
+		// 얻어낸 길이로 PostVoWithUser 배열 생성
 		PostVoWithUser[] myFolloweesPostsListWithUser = new PostVoWithUser[myFollowVoList.size()];
 		for (int i = 0; i < myFolloweesPostsListWithUser.length; i++) {
 			PostVoWithUser postVoWithUser = new PostVoWithUser();
+			// 첫 번째 followVo에서 followeeId 추출
 			Long followeeId = myFollowVoList.get(i).getFolloweeId();
 			UserVo userVo = userDao.selectOneUserById(followeeId);
 			postVoWithUser.setUser(userVo);
-			myFolloweesPostsListWithUser[i] = postVoWithUser;
+			// 첫번째 followee의 정보 attach
+			// myFolloweesPostsListWithUser[i] = postVoWithUser;
+			// 유저 정보가 들어간 것을 확인
 			logger.info("== 1 == " + postVoWithUser);
-			PostVoWithUser[] followeePostsList = new PostVoWithUser[myFollowVoList.size()];
+			// 유저 1의 ID로 그 사람의 글 전체 조회
 			List<PostVo> postVo = postDao.selectPostsByUserId(followeeId);
+			// 가져온 글 목록 길이의 PostVoWithUser 배열 생성
+			PostVoWithUser[] followeePostsList = new PostVoWithUser[postVo.size()];
 			for (int j = 0; j < followeePostsList.length; j++) {
+				logger.info("Length: " + followeePostsList.length);
 				logger.info("== 2 == " + postVo);
 				long id = postVo.get(j).getId();
 				postVoWithUser.setId(id);
@@ -202,14 +213,15 @@ public class PostService {
 				postVoWithUser.setContent(content);
 				String createdAt = postVo.get(j).getCreatedAt();
 				postVoWithUser.setCreatedAt(createdAt);
-//				followeePostsList[j] = postVoWithUser;
+				followeePostsList[j] = postVoWithUser;
 				logger.info("== 3 == " + postVoWithUser);
+				logger.info("j: " + j);
 			}
-//			myFolloweesPostsListWithUser[i] = postVoWithUser;
+			myFolloweesPostsListWithUser[i] = postVoWithUser;
+			responseVo.setCode(HttpStatus.OK);
+			responseVo.setMessage("Success");
+			responseVo.setData(postVoWithUser);
 		}
-		responseVo.setCode(HttpStatus.OK);
-		responseVo.setMessage("Success");
-		responseVo.setData(postVoWithUser);
-		return responseVo;
+		return responseVo;	
 	}
 }
