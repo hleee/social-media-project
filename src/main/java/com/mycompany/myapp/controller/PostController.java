@@ -76,7 +76,7 @@ public class PostController {
 		return postService.deleteOnePost(postId);
 	}
 
-	// 내 글과 팔로이의 글 조회 (피드)
+	// 내 글과 내가 팔로우하는 사람의 글 조회 (피드 기능)
 	@RequestMapping(value = "/post/feed", method = RequestMethod.GET)
 	public ResponseVo selectFolloweesPostsAndMyPosts(@CookieValue("accesstoken") String token) {
 		return postService.selectFolloweesPostsAndMyPosts(token);

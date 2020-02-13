@@ -193,7 +193,7 @@ public class PostService {
 		return responseVo;
 	}
 
-	// 내 글과 내가 팔로우하는 사람의 글 조회 (피드)
+	// 내 글과 내가 팔로우하는 사람의 글 조회 (피드 기능)
 	public ResponseVo selectFolloweesPostsAndMyPosts(String token) {
 		TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
 		long userId = tokenVo.getUserId();
