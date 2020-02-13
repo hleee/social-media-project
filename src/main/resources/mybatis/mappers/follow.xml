@@ -26,12 +26,12 @@
     ]]>
 	</delete>
 
-	<!-- 팔로워 ID로 팔로워-팔로이 한 쌍 조회 -->
-	<select id="selectAllFollowsByFollowerId" resultMap="followResult"
+	<!-- 팔로이 ID로 팔로워-팔로이 쌍 모두 조회 -->
+	<select id="selectAllFollowersByFolloweeId" resultMap="followResult"
 		parameterType="Long">
     <![CDATA[
       SELECT * FROM follow
-      WHERE follower_id = #{followerId}
+      WHERE followee_id = #{followeeId}
     ]]>
 	</select>
 

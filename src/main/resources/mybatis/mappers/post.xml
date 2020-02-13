@@ -40,7 +40,7 @@
     ]]>
 	</select>
 
-	<!-- 내 글 전체 내림차순 조회 (가장 최근 글부터) 혹은 피드 기능 -->
+	<!-- 내 글 전체 내림차순 조회 (가장 최근 글부터) -->
 	<!-- user_id로 조회할 것이기 때문에 DB로 가는 자료형은 long -->
 	<select id="selectPostsByUserId" resultMap="postResult"
 		parameterType="Long">
@@ -48,6 +48,17 @@
       SELECT * FROM post
       WHERE user_id = #{userId}
       ORDER BY id DESC
+    ]]>
+	</select>
+	
+	<!-- 사용자 ID로 가장 최근 글 하나 조회 -->
+	<select id="selectOnePostByUserId" resultMap="postResult"
+		parameterType="Long">
+    <![CDATA[
+      SELECT * FROM post
+      WHERE user_id = #{userId}
+      ORDER BY id DESC
+      LIMIT 1
     ]]>
 	</select>
 

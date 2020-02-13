@@ -14,5 +14,7 @@
 			alias="postVo" />
 		<typeAlias type="com.mycompany.myapp.domain.FollowVo"
 			alias="followVo" />
+		<typeAlias type="com.mycompany.myapp.domain.FeedVo"
+			alias="feedVo" />
 	</typeAliases>
 </configuration>
