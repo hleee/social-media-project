@@ -193,7 +193,7 @@ public class PostService {
 		return responseVo;
 	}
 
-	// 내 글과 팔로이의 글 조회 (피드)
+	// 내 글과 내가 팔로우하는 사람의 글 조회 (피드)
 	public ResponseVo selectFolloweesPostsAndMyPosts(String token) {
 		TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
 		long userId = tokenVo.getUserId();
@@ -203,6 +203,19 @@ public class PostService {
 			PostVoWithUser postVoWithUser = new PostVoWithUser();
 			long followeeId = allFeedList.get(i).getFolloweeId();
 			userVo = userDao.selectOneUserById(followeeId);
+			List<FollowVo> AllFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(followeeId);
+			FeedVo[] followVoArray = new FeedVo[AllFolloweesByFollowerIdList.size()];
+			for (int j = 0; j < followVoArray.length; j++) {
+				long idOfThoseFollowedByUser = AllFolloweesByFollowerIdList.get(j).getFolloweeId();
+				followVo.setFollowerId(userId);
+				followVo.setFolloweeId(idOfThoseFollowedByUser);
+				followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
+				if (userId == followVo.getFollowerId() & idOfThoseFollowedByUser == followVo.getFolloweeId()) {
+					userVo.setIsFollow(true);
+				} else {
+					userVo.setIsFollow(false);
+				}
+			}
 			long postId = allFeedList.get(i).getPostId();
 			postVo = postDao.selectOnePostById(postId);
 			String title = postVo.getTitle();

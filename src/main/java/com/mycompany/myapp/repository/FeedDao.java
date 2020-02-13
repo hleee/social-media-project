@@ -29,7 +29,7 @@ public class FeedDao {
 	@Autowired
 	public ResponseVo responseVo;
 
-	// 팔로워 ID와 팔로이 ID가 동일한 기록 조회
+	// 팔로워 ID와 팔로이 ID가 동일한 피드 기록 조회
 	public FeedVo selectOneFeedWhereFollowerIdIsFolloweeId(long followeeId) {
 		return sqlSession.selectOne("mapper.feed.selectOneFeedWhereFollowerIdIsFolloweeId", followeeId);
 	}

@@ -36,4 +36,9 @@ public class FollowDao {
 		return sqlSession.selectList("mapper.follow.selectAllFollowersByFolloweeId", followeeId);
 	}
 
+	// 팔로이 ID로 팔로워-팔로이 쌍 모두 조회
+	public FollowVo selectOneFollowByFollowerIdAndFolloweeId(FollowVo followVo) {
+		return sqlSession.selectOne("mapper.follow.selectOneFollowByFollowerIdAndFolloweeId", followVo);
+	}
+
 }

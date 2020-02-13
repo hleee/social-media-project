@@ -27,13 +27,22 @@
 	</delete>
 
 	<!-- 팔로이 ID로 팔로워-팔로이 쌍 모두 조회 -->
-	<select id="selectAllFollowersByFolloweeId" resultMap="followResult"
-		parameterType="Long">
+	<select id="selectAllFollowersByFolloweeId"
+		resultMap="followResult" parameterType="Long">
     <![CDATA[
       SELECT * FROM follow
       WHERE followee_id = #{followeeId}
     ]]>
 	</select>
 
+	<!-- 팔로워 ID와 팔로이 ID로 한 쌍 조회 -->
+	<select id="selectOneFollowByFollowerIdAndFolloweeId"
+		resultMap="followResult" parameterType="followVo">
+    <![CDATA[
+      SELECT * FROM follow
+      WHERE followee_id = #{followeeId}
+      AND follower_id = #{followerId}
+    ]]>
+	</select>
 
 </mapper>
