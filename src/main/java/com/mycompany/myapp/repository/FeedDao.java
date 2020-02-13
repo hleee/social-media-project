@@ -1,5 +1,7 @@
 package com.mycompany.myapp.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +29,14 @@ public class FeedDao {
 	@Autowired
 	public ResponseVo responseVo;
 
-	// 팔로이 ID로 피드 정보 조회
-	// 자기 자신이 피드 테이블에 들어있는지 중복 확인
-	public FeedVo selectOneFeedWrittenByTheSamePerson(long followeeId) {
-		return sqlSession.selectOne("mapper.feed.selectOneFeedWrittenByTheSamePerson", followeeId);
+	// 팔로워 ID와 팔로이 ID가 동일한 기록 조회
+	public FeedVo selectOneFeedWhereFollowerIdIsFolloweeId(long followeeId) {
+		return sqlSession.selectOne("mapper.feed.selectOneFeedWhereFollowerIdIsFolloweeId", followeeId);
 	}
+
+	// 같은 팔로워 ID의 모든 피드 기록 조회
+	public List<FeedVo> selectAllFeedByUserId(long userId) {
+		return sqlSession.selectList("mapper.feed.selectAllFeedByUserId", userId);
+	}
+
 }

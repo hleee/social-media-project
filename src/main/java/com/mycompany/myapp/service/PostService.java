@@ -67,6 +67,34 @@ public class PostService {
 		postDao.insertOnePost(postVo);
 		long id = postVo.getId();
 		postVo = postDao.selectOnePostById(id);
+		PostVo latestPostVo = postDao.selectOnePostByUserId(userId);
+		long latestPostId = latestPostVo.getId();
+		FeedVo feedVoWhereFollowerIdIsFolloweeId = feedDao.selectOneFeedWhereFollowerIdIsFolloweeId(userId);
+		try {
+			long followeeIdFromDb = feedVoWhereFollowerIdIsFolloweeId.getFolloweeId();
+			if (userId == followeeIdFromDb) {
+				feedVo.setFolloweeId(userId);
+				feedVo.setPostId(latestPostId);
+			} else {
+				feedVo.setUserId(userId);
+				feedVo.setFolloweeId(userId);
+				feedVo.setPostId(latestPostId);
+				postDao.insertOneFeed(feedVo);
+			}
+		} catch (NullPointerException e) {
+			logger.info("Null Pointer Exception caught: " + e);
+			feedVo.setUserId(userId);
+			feedVo.setFolloweeId(userId);
+			feedVo.setPostId(latestPostId);
+			postDao.insertOneFeed(feedVo);
+		}
+		List<FollowVo> followVoList = followDao.selectAllFollowersByFolloweeId(userId);
+		FeedVo[] followVoArray = new FeedVo[followVoList.size()];
+		for (int i = 0; i < followVoArray.length; i++) {
+			long followerId = followVoList.get(i).getFollowerId();
+			feedVo.setUserId(followerId);
+			postDao.insertOneFeed(feedVo);
+		}
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(postVo);
@@ -168,34 +196,29 @@ public class PostService {
 	// 내 글과 팔로이의 글 조회 (피드)
 	public ResponseVo selectFolloweesPostsAndMyPosts(String token) {
 		TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
-		long followeeId = tokenVo.getUserId();
-		PostVo postVo = postDao.selectOnePostByUserId(followeeId);
-		long postId = postVo.getId();
-		if (followeeId == feedDao.selectOneFeedWrittenByTheSamePerson(followeeId).getFolloweeId()) {
-			feedVo.setFolloweeId(followeeId);
-			feedVo.setPostId(postId);
-		} else {
-			feedVo.setUserId(followeeId);
-			feedVo.setFolloweeId(followeeId);
-			feedVo.setPostId(postId);
-			postDao.insertOneFeed(feedVo);
+		long userId = tokenVo.getUserId();
+		List<FeedVo> allFeedList = feedDao.selectAllFeedByUserId(userId);
+		PostVoWithUser[] allFeedListWithUser = new PostVoWithUser[allFeedList.size()];
+		for (int i = 0; i < allFeedListWithUser.length; i++) {
+			PostVoWithUser postVoWithUser = new PostVoWithUser();
+			long followeeId = allFeedList.get(i).getFolloweeId();
+			userVo = userDao.selectOneUserById(followeeId);
+			long postId = allFeedList.get(i).getPostId();
+			postVo = postDao.selectOnePostById(postId);
+			String title = postVo.getTitle();
+			String content = postVo.getContent();
+			String createdAt = postVo.getCreatedAt();
+			postVoWithUser.setId(postId);
+			postVoWithUser.setUserId(followeeId);
+			postVoWithUser.setTitle(title);
+			postVoWithUser.setContent(content);
+			postVoWithUser.setCreatedAt(createdAt);
+			postVoWithUser.setUser(userVo);
+			allFeedListWithUser[i] = postVoWithUser;
 		}
-		logger.info("======1=====" + feedVo);
-		List<FollowVo> followVoList = followDao.selectAllFollowersByFolloweeId(followeeId);
-		logger.info("======2=====" + followVoList);
-		FeedVo[] followVoArray = new FeedVo[followVoList.size()];
-		for (int i = 0; i < followVoArray.length; i++) {
-			logger.info("======3=====FOR STATEMENT ENTERED===========");
-			long followerId = followVoList.get(i).getFollowerId();
-			feedVo.setUserId(followerId);
-			logger.info("feedVo: " + feedVo);
-			postDao.insertOneFeed(feedVo);
-		}
-		// feed 테이블에 추가
-
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
-		responseVo.setData(feedVo);
+		responseVo.setData(allFeedListWithUser);
 		return responseVo;
 	}
 }

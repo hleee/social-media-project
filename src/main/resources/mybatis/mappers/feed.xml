@@ -18,16 +18,24 @@
       VALUES(#{userId}, #{followeeId}, #{postId})
     ]]>
 	</insert>
-	
+
 	<!-- 팔로이 ID와 팔로워 ID가 같은 경우 조회 -->
-	<select id="selectOneFeedWrittenByTheSamePerson" resultMap="feedResult"
-		parameterType="Long">
+	<select id="selectOneFeedWhereFollowerIdIsFolloweeId"
+		resultMap="feedResult" parameterType="Long">
     <![CDATA[
       SELECT * FROM feed
       WHERE user_id = #{followeeId}
       AND followee_id = #{followeeId}
     ]]>
 	</select>
-	
-		
+
+	<select id="selectAllFeedByUserId" resultMap="feedResult"
+		parameterType="Long">
+    <![CDATA[
+      SELECT * FROM feed
+      WHERE user_id = #{user_id}
+      ORDER BY post_id DESC
+    ]]>
+	</select>
+
 </mapper>

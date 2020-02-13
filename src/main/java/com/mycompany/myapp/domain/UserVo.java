@@ -7,12 +7,13 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Component
 public class UserVo {
-	
+
 	private Long id;
 	private String username;
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	private String createdAt;
+	private Boolean isFollow;
 
 	public UserVo() {
 
@@ -50,11 +51,19 @@ public class UserVo {
 		this.createdAt = createdAt;
 	}
 
+	public Boolean getIsFollow() {
+		return isFollow;
+	}
+
+	public void setIsFollow(Boolean isFollow) {
+		this.isFollow = isFollow;
+	}
+
 	// 콘솔창에 출력
 	@Override
 	public String toString() {
 		String info = "UserVo: id: " + id + ", username: " + username + ", password: " + password + ", createdAt: "
-				+ createdAt;
+				+ createdAt + ", isFollow: " + isFollow;
 		return info;
 	}
 
