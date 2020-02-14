@@ -16,7 +16,7 @@ $(document).ready(function(){
     				'<div class="card mb-4"> <div class="card-body"> <h2 class="card-title">' + e.title 
     				+ '</h2> <p class="card-text">' + e.content 
     				+ '</p> <a href="/post/detail/' + e.id 
-    				+ '" class="btn btn-primary">Read More &rarr;</a> </div> ' 
+    				+ '" class="btn btn-primary">Read more &rarr;</a> </div> ' 
     				+ '<div class="card-footer text-muted"> Posted on ' + e.createdAt.split('T')[0]
     				+ ' by ' + e.user.username + getFollowInfo(e.user)
     				+ '</div> </div>');
@@ -50,7 +50,7 @@ $(document).ready(function(){
 	    				'<div class="card mb-4"> <div class="card-body"> <h2 class="card-title">' + e.title 
 	    				+ '</h2> <p class="card-text">' + e.content 
 	    				+ '</p> <a href="/post/detail/' + e.id 
-	    				+ '" class="btn btn-primary">Read More &rarr;</a> </div> ' 
+	    				+ '" class="btn btn-primary">Read more &rarr;</a> </div> ' 
 	    				+ '<div class="card-footer text-muted"> Posted on ' + e.createdAt.split('T')[0]
 	    				+ ' by ' + e.user.username + getFollowInfo(e.user)
 	    				+ '</div> </div>');

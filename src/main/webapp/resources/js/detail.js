@@ -52,7 +52,7 @@ $(document).ready(function(){
             contentType: 'application/json',
             data: JSON.stringify(param)
 	    }).then(function(data) {
-	    	window.location.href = '/page/detail/'+postId;
+	    	window.location.href = '/post/detail/'+postId;
 	    }, function(err) {
 	    	alert(err.responseJSON);
 	    });
@@ -80,7 +80,7 @@ $(document).ready(function(){
             contentType: 'application/json',
             data: JSON.stringify(param)
 	    }).then(function(data) {
-	    	window.location.href = '/page/detail/'+postId;
+	    	window.location.href = '/post/detail/'+postId;
 	    }, function(err) {
 	    	alert(err.responseJSON);
 	    });

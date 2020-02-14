@@ -64,5 +64,10 @@ public class PostDao {
 	public PostVo selectOnePostByUserId(long userId) throws DataAccessException {
 		return sqlSession.selectOne("mapper.post.selectOnePostByUserId", userId);
 	}
+	
+	// 글 수정
+	public int updateOnePost (PostVo postVo) throws DataAccessException {
+		return sqlSession.update("mapper.post.updateOnePost", postVo);
+	}
 
 }

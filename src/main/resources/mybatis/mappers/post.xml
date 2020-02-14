@@ -50,7 +50,7 @@
       ORDER BY id DESC
     ]]>
 	</select>
-	
+
 	<!-- 사용자 ID로 가장 최근 글 하나 조회 -->
 	<select id="selectOnePostByUserId" resultMap="postResult"
 		parameterType="Long">
@@ -69,6 +69,15 @@
       WHERE id = #{id}
     ]]>
 	</delete>
+
+	<!-- id로 글 수정 -->
+	<update id="updateOnePost" parameterType="postVo">
+    <![CDATA[
+      UPDATE post
+      SET title = #{title}, content = #{content}
+      WHERE id = #{id}
+    ]]>
+	</update>
 
 </mapper>
 	

@@ -82,4 +82,10 @@ public class PostController {
 		return postService.selectFolloweesPostsAndMyPosts(token);
 	}
 
+	// 글 수정
+	@RequestMapping(value = "/post", method = RequestMethod.PUT)
+	public ResponseVo updateOnePost(@RequestBody PostVo postVo) {
+		return postService.updateOnePost(postVo);
+	}
+
 }

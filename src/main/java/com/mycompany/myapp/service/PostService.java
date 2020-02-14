@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -65,31 +66,12 @@ public class PostService {
 		Long userId = tokenVo.getUserId();
 		postVo.setUserId(userId);
 		postDao.insertOnePost(postVo);
-		long id = postVo.getId();
-		postVo = postDao.selectOnePostById(id);
 		PostVo latestPostVo = postDao.selectOnePostByUserId(userId);
 		long latestPostId = latestPostVo.getId();
-		FeedVo feedVoWhereFollowerIdIsFolloweeId = feedDao.selectOneFeedWhereFollowerIdIsFolloweeId(userId);
-		try {
-			long followeeIdFromDb = feedVoWhereFollowerIdIsFolloweeId.getFolloweeId();
-			if (userId == followeeIdFromDb) {
-				feedVo.setUserId(userId);
-				feedVo.setFolloweeId(userId);
-				feedVo.setPostId(latestPostId);
-				postDao.insertOneFeed(feedVo);
-			} else {
-				feedVo.setUserId(userId);
-				feedVo.setFolloweeId(userId);
-				feedVo.setPostId(latestPostId);
-				postDao.insertOneFeed(feedVo);
-			}
-		} catch (NullPointerException e) {
-			logger.info("Null Pointer Exception caught: " + e);
-			feedVo.setUserId(userId);
-			feedVo.setFolloweeId(userId);
-			feedVo.setPostId(latestPostId);
-			postDao.insertOneFeed(feedVo);
-		}
+		feedVo.setUserId(userId);
+		feedVo.setFolloweeId(userId);
+		feedVo.setPostId(latestPostId);
+		postDao.insertOneFeed(feedVo);
 		List<FollowVo> followVoList = followDao.selectAllFollowersByFolloweeId(userId);
 		FeedVo[] followVoArray = new FeedVo[followVoList.size()];
 		for (int i = 0; i < followVoArray.length; i++) {
@@ -200,44 +182,79 @@ public class PostService {
 		TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
 		long userId = tokenVo.getUserId();
 		List<FeedVo> allFeedList = feedDao.selectAllFeedByUserId(userId);
-		PostVoWithUser[] allFeedListWithUser = new PostVoWithUser[allFeedList.size()];
-		for (int i = 0; i < allFeedListWithUser.length; i++) {
+		List<PostVoWithUser> allFeedListWithUser = new ArrayList<PostVoWithUser>();
+		for (int i = 0; i < allFeedList.size(); i++) {
 			PostVoWithUser postVoWithUser = new PostVoWithUser();
 			long followeeId = allFeedList.get(i).getFolloweeId();
 			userVo = userDao.selectOneUserById(followeeId);
 			if (followeeId == userId) {
 				userVo.setIsFollow(null);
+				continue;
 			} else {
 				List<FollowVo> AllFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(followeeId);
 				FeedVo[] followVoArray = new FeedVo[AllFolloweesByFollowerIdList.size()];
 				for (int j = 0; j < followVoArray.length; j++) {
 					long idOfThoseFollowedByUser = AllFolloweesByFollowerIdList.get(j).getFolloweeId();
 					followVo.setFollowerId(userId);
+					logger.info("userId: " + userId);
 					followVo.setFolloweeId(idOfThoseFollowedByUser);
+					logger.info("id of those followed by user: " + idOfThoseFollowedByUser);
 					followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
 					if (userId == followVo.getFollowerId() & idOfThoseFollowedByUser == followVo.getFolloweeId()) {
 						userVo.setIsFollow(true);
+						logger.info("TRUE: " + userVo.getIsFollow());
 					} else {
 						userVo.setIsFollow(false);
+						logger.info("FALSE: " + userVo.getIsFollow());
 					}
 				}
 			}
 			long postId = allFeedList.get(i).getPostId();
+			logger.info("First element in the all feed list: " + allFeedList.get(i));
 			postVo = postDao.selectOnePostById(postId);
-			String title = postVo.getTitle();
-			String content = postVo.getContent();
-			String createdAt = postVo.getCreatedAt();
-			postVoWithUser.setId(postId);
-			postVoWithUser.setUserId(followeeId);
-			postVoWithUser.setTitle(title);
-			postVoWithUser.setContent(content);
-			postVoWithUser.setCreatedAt(createdAt);
-			postVoWithUser.setUser(userVo);
-			allFeedListWithUser[i] = postVoWithUser;
+			logger.info("글번호: " + postId);
+			long idOfSomeoneFollowedByUser;
+			try {
+				idOfSomeoneFollowedByUser = postVo.getUserId();
+				logger.info("내가 팔로우하는 사람의 번호" + idOfSomeoneFollowedByUser);
+				String title = postVo.getTitle();
+				String content = postVo.getContent();
+				String createdAt = postVo.getCreatedAt();
+				postVoWithUser.setId(postId);
+				postVoWithUser.setUserId(idOfSomeoneFollowedByUser);
+				postVoWithUser.setTitle(title);
+				postVoWithUser.setContent(content);
+				postVoWithUser.setCreatedAt(createdAt);
+				postVoWithUser.setUser(userVo);
+				allFeedListWithUser.add(postVoWithUser);
+				logger.info("postVoWithUser: " + postVoWithUser);
+			} catch (Exception e) {
+				logger.info("Error: deleted post returned null");
+			}
 		}
 		responseVo.setCode(HttpStatus.OK);
 		responseVo.setMessage("Success");
 		responseVo.setData(allFeedListWithUser);
+		return responseVo;
+	}
+
+	// 글 수정
+	public ResponseVo updateOnePost(PostVo postVo) {
+		postDao.updateOnePost(postVo);
+		long postId = postVo.getId();
+		postVo = postDao.selectOnePostById(postId);
+		long userId = postVo.getUserId();
+		String title = postVo.getTitle();
+		String content = postVo.getContent();
+		userVo = userDao.selectOneUserById(userId);
+		postVoWithUser.setId(postId);
+		postVoWithUser.setUserId(userId);
+		postVoWithUser.setTitle(title);
+		postVoWithUser.setContent(content);
+		postVoWithUser.setUser(userVo);
+		responseVo.setCode(HttpStatus.OK);
+		responseVo.setMessage("Success");
+		responseVo.setData(postVoWithUser);
 		return responseVo;
 	}
 }
