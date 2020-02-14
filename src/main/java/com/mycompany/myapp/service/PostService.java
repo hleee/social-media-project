@@ -73,8 +73,10 @@ public class PostService {
 		try {
 			long followeeIdFromDb = feedVoWhereFollowerIdIsFolloweeId.getFolloweeId();
 			if (userId == followeeIdFromDb) {
+				feedVo.setUserId(userId);
 				feedVo.setFolloweeId(userId);
 				feedVo.setPostId(latestPostId);
+				postDao.insertOneFeed(feedVo);
 			} else {
 				feedVo.setUserId(userId);
 				feedVo.setFolloweeId(userId);
@@ -203,17 +205,21 @@ public class PostService {
 			PostVoWithUser postVoWithUser = new PostVoWithUser();
 			long followeeId = allFeedList.get(i).getFolloweeId();
 			userVo = userDao.selectOneUserById(followeeId);
-			List<FollowVo> AllFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(followeeId);
-			FeedVo[] followVoArray = new FeedVo[AllFolloweesByFollowerIdList.size()];
-			for (int j = 0; j < followVoArray.length; j++) {
-				long idOfThoseFollowedByUser = AllFolloweesByFollowerIdList.get(j).getFolloweeId();
-				followVo.setFollowerId(userId);
-				followVo.setFolloweeId(idOfThoseFollowedByUser);
-				followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
-				if (userId == followVo.getFollowerId() & idOfThoseFollowedByUser == followVo.getFolloweeId()) {
-					userVo.setIsFollow(true);
-				} else {
-					userVo.setIsFollow(false);
+			if (followeeId == userId) {
+				userVo.setIsFollow(null);
+			} else {
+				List<FollowVo> AllFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(followeeId);
+				FeedVo[] followVoArray = new FeedVo[AllFolloweesByFollowerIdList.size()];
+				for (int j = 0; j < followVoArray.length; j++) {
+					long idOfThoseFollowedByUser = AllFolloweesByFollowerIdList.get(j).getFolloweeId();
+					followVo.setFollowerId(userId);
+					followVo.setFolloweeId(idOfThoseFollowedByUser);
+					followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
+					if (userId == followVo.getFollowerId() & idOfThoseFollowedByUser == followVo.getFolloweeId()) {
+						userVo.setIsFollow(true);
+					} else {
+						userVo.setIsFollow(false);
+					}
 				}
 			}
 			long postId = allFeedList.get(i).getPostId();
