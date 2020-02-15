@@ -46,6 +46,9 @@ public class PostService {
 	public FeedVo feedVo;
 
 	@Autowired
+	public TokenVo tokenVo;
+
+	@Autowired
 	public FeedDao feedDao;
 
 	@Autowired
@@ -191,7 +194,8 @@ public class PostService {
 			userVo = userDao.selectOneUserById(followeeId);
 			if (followeeId == userId) {
 				userVo.setIsFollow(null);
-				logger.info("followeeId in IF STATEMENT: " + followeeId + "userId: " + userId + "isFollow: " + userVo.getIsFollow());
+				logger.info("followeeId in IF STATEMENT: " + followeeId + "userId: " + userId + "isFollow: "
+						+ userVo.getIsFollow());
 			} else {
 				List<FollowVo> AllFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(followeeId);
 				FeedVo[] followVoArray = new FeedVo[AllFolloweesByFollowerIdList.size()];
@@ -228,6 +232,7 @@ public class PostService {
 				postVoWithUser.setContent(content);
 				postVoWithUser.setCreatedAt(createdAt);
 				postVoWithUser.setUser(userVo);
+				logger.info("FINAL isFOLLOW: " + userVo.getIsFollow());
 				allFeedListWithUser.add(postVoWithUser);
 				logger.info("postVoWithUser: " + postVoWithUser);
 			} catch (Exception e) {
