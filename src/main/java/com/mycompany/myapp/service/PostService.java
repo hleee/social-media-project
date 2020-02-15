@@ -182,14 +182,16 @@ public class PostService {
 		TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
 		long userId = tokenVo.getUserId();
 		List<FeedVo> allFeedList = feedDao.selectAllFeedByUserId(userId);
+		logger.info("allFeedList: " + allFeedList);
 		List<PostVoWithUser> allFeedListWithUser = new ArrayList<PostVoWithUser>();
 		for (int i = 0; i < allFeedList.size(); i++) {
 			PostVoWithUser postVoWithUser = new PostVoWithUser();
 			long followeeId = allFeedList.get(i).getFolloweeId();
+			logger.info("followeeId (THERE MUST BE USER003 TOO!): " + followeeId);
 			userVo = userDao.selectOneUserById(followeeId);
 			if (followeeId == userId) {
 				userVo.setIsFollow(null);
-				continue;
+				logger.info("followeeId in IF STATEMENT: " + followeeId + "userId: " + userId + "isFollow: " + userVo.getIsFollow());
 			} else {
 				List<FollowVo> AllFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(followeeId);
 				FeedVo[] followVoArray = new FeedVo[AllFolloweesByFollowerIdList.size()];
@@ -210,7 +212,7 @@ public class PostService {
 				}
 			}
 			long postId = allFeedList.get(i).getPostId();
-			logger.info("First element in the all feed list: " + allFeedList.get(i));
+			logger.info("=====FOLLOWEE_ID: " + allFeedList.get(i).getFolloweeId());
 			postVo = postDao.selectOnePostById(postId);
 			logger.info("글번호: " + postId);
 			long idOfSomeoneFollowedByUser;
