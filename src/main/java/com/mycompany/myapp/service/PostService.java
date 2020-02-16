@@ -185,44 +185,33 @@ public class PostService {
 		TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
 		long userId = tokenVo.getUserId();
 		List<FeedVo> allFeedList = feedDao.selectAllFeedByUserId(userId);
-		logger.info("allFeedList: " + allFeedList);
 		List<PostVoWithUser> allFeedListWithUser = new ArrayList<PostVoWithUser>();
 		for (int i = 0; i < allFeedList.size(); i++) {
 			PostVoWithUser postVoWithUser = new PostVoWithUser();
 			long followeeId = allFeedList.get(i).getFolloweeId();
-			logger.info("followeeId (THERE MUST BE USER003 TOO!): " + followeeId);
 			userVo = userDao.selectOneUserById(followeeId);
 			if (followeeId == userId) {
 				userVo.setIsFollow(null);
-				logger.info("followeeId in IF STATEMENT: " + followeeId + "userId: " + userId + "isFollow: "
-						+ userVo.getIsFollow());
 			} else {
 				List<FollowVo> AllFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(followeeId);
 				FeedVo[] followVoArray = new FeedVo[AllFolloweesByFollowerIdList.size()];
 				for (int j = 0; j < followVoArray.length; j++) {
 					long idOfThoseFollowedByUser = AllFolloweesByFollowerIdList.get(j).getFolloweeId();
 					followVo.setFollowerId(userId);
-					logger.info("userId: " + userId);
 					followVo.setFolloweeId(idOfThoseFollowedByUser);
-					logger.info("id of those followed by user: " + idOfThoseFollowedByUser);
 					followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
 					if (userId == followVo.getFollowerId() & idOfThoseFollowedByUser == followVo.getFolloweeId()) {
 						userVo.setIsFollow(true);
-						logger.info("TRUE: " + userVo.getIsFollow());
 					} else {
 						userVo.setIsFollow(false);
-						logger.info("FALSE: " + userVo.getIsFollow());
 					}
 				}
 			}
 			long postId = allFeedList.get(i).getPostId();
-			logger.info("=====FOLLOWEE_ID: " + allFeedList.get(i).getFolloweeId());
 			postVo = postDao.selectOnePostById(postId);
-			logger.info("글번호: " + postId);
 			long idOfSomeoneFollowedByUser;
 			try {
 				idOfSomeoneFollowedByUser = postVo.getUserId();
-				logger.info("내가 팔로우하는 사람의 번호" + idOfSomeoneFollowedByUser);
 				String title = postVo.getTitle();
 				String content = postVo.getContent();
 				String createdAt = postVo.getCreatedAt();
@@ -232,9 +221,7 @@ public class PostService {
 				postVoWithUser.setContent(content);
 				postVoWithUser.setCreatedAt(createdAt);
 				postVoWithUser.setUser(userVo);
-				logger.info("FINAL isFOLLOW: " + userVo.getIsFollow());
 				allFeedListWithUser.add(postVoWithUser);
-				logger.info("postVoWithUser: " + postVoWithUser);
 			} catch (Exception e) {
 				logger.info("Error: deleted post returned null");
 			}
