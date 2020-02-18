@@ -89,30 +89,89 @@ public class PostService {
 	}
 
 	// 전체 글 목록 조회
-	public ResponseVo selectAllPosts() {
-		List<PostVo> allPostsList = postDao.selectAllPosts();
-		PostVoWithUser[] allPostsListWithUsers = new PostVoWithUser[allPostsList.size()];
-		for (int i = 0; i < allPostsListWithUsers.length; i++) {
-			long userIdOfAuthor = allPostsList.get(i).getUserId();
-			UserVo userVo = userDao.selectOneUserById(userIdOfAuthor);
-			PostVoWithUser postVoWithUser = new PostVoWithUser();
-			postVoWithUser.setUser(userVo);
-			long id = allPostsList.get(i).getId();
-			postVoWithUser.setId(id);
-			long userId = allPostsList.get(i).getUserId();
-			postVoWithUser.setUserId(userId);
-			String title = allPostsList.get(i).getTitle();
-			postVoWithUser.setTitle(title);
-			String content = allPostsList.get(i).getContent();
-			postVoWithUser.setContent(content);
-			String createdAt = allPostsList.get(i).getCreatedAt();
-			postVoWithUser.setCreatedAt(createdAt);
-			allPostsListWithUsers[i] = postVoWithUser;
-		}
-		responseVo.setCode(HttpStatus.OK);
-		responseVo.setMessage("Success");
-		responseVo.setData(allPostsListWithUsers);
-		return responseVo;
+	public ResponseVo selectAllPosts(String token) {
+		if (token == null) {
+			List<PostVo> allPostsList = postDao.selectAllPosts();
+			PostVoWithUser[] allPostsListWithUsers = new PostVoWithUser[allPostsList.size()];
+			for (int i = 0; i < allPostsListWithUsers.length; i++) {
+				long userIdOfAuthor = allPostsList.get(i).getUserId();
+				UserVo userVo = userDao.selectOneUserById(userIdOfAuthor);
+				PostVoWithUser postVoWithUser = new PostVoWithUser();
+				postVoWithUser.setUser(userVo);
+				long id = allPostsList.get(i).getId();
+				postVoWithUser.setId(id);
+				long userId = allPostsList.get(i).getUserId();
+				postVoWithUser.setUserId(userId);
+				String title = allPostsList.get(i).getTitle();
+				postVoWithUser.setTitle(title);
+				String content = allPostsList.get(i).getContent();
+				postVoWithUser.setContent(content);
+				String createdAt = allPostsList.get(i).getCreatedAt();
+				postVoWithUser.setCreatedAt(createdAt);
+				allPostsListWithUsers[i] = postVoWithUser;
+			}
+			responseVo.setCode(HttpStatus.OK);
+			responseVo.setMessage("Success");
+			responseVo.setData(allPostsListWithUsers);
+			return responseVo;
+		} else {
+			TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token); // 토큰으로
+			logger.info("1. token: " + token);
+			long userId = tokenVo.getUserId(); // 현재 사용자 id 추출
+			logger.info("2. userId: " + userId);
+			List<PostVo> allPostsList = postDao.selectAllPosts(); // 전체 글 정보 조회
+			logger.info("3. allPostsList: " + allPostsList);
+			List<PostVoWithUser> allPostsListWithUser = new ArrayList<PostVoWithUser>(); // PostVoWithUser로 List 생성
+			for (int i = 0; i < allPostsList.size(); i++) { // List의 길이는 전체 글 개수
+				logger.info("==== List entered ====");
+				PostVoWithUser postVoWithUser = new PostVoWithUser(); // PostVoWithUser 객체 생성
+				long authorId = allPostsList.get(i).getUserId(); // 반복문을 돌며 글의 작성자 id 조회
+				logger.info("4. authorId: " + authorId);
+				userVo = userDao.selectOneUserById(authorId); // 작성자 id로 사용자 정보 조회
+				logger.info("5. userVo: " + userVo);
+				if (authorId == userId) { // 현재 로그인한 사용자의 id와 글 작성자 id가 같으면 null 지정
+					userVo.setIsFollow(null);
+					logger.info("5-1. userVo.getIsFollow: " + userVo.getIsFollow());
+				} else { // 아니면 follow, unfollow 표시; 사용자가 작성자를 follow하고 있는지 아닌지
+					List<FollowVo> AllFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(userId);
+					logger.info("5-2. AllFolloweesByFollwerIdList: " + AllFolloweesByFollowerIdList);
+					FollowVo[] followVoArray = new FollowVo[AllFolloweesByFollowerIdList.size()];
+					for (int j = 0; j < followVoArray.length; j++) {
+						long idOfThoseFollowedByUser = AllFolloweesByFollowerIdList.get(j).getFolloweeId();
+						followVo.setFollowerId(userId);
+						followVo.setFolloweeId(idOfThoseFollowedByUser);
+						followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
+						if (userId == followVo.getFollowerId() & idOfThoseFollowedByUser == followVo.getFolloweeId()) {
+							userVo.setIsFollow(true);
+						} else {
+							userVo.setIsFollow(false);
+						}
+					}
+				}
+				long postId = allPostsList.get(i).getId();
+				postVo = postDao.selectOnePostById(postId);
+				long idOfSomeoneFollowedByUser;
+				try {
+					idOfSomeoneFollowedByUser = postVo.getUserId();
+					String title = postVo.getTitle();
+					String content = postVo.getContent();
+					String createdAt = postVo.getCreatedAt();
+					postVoWithUser.setId(postId);
+					postVoWithUser.setUserId(idOfSomeoneFollowedByUser);
+					postVoWithUser.setTitle(title);
+					postVoWithUser.setContent(content);
+					postVoWithUser.setCreatedAt(createdAt);
+					postVoWithUser.setUser(userVo);
+					allPostsListWithUser.add(postVoWithUser);
+				} catch (Exception e) {
+					logger.info("Error: deleted post returned null");
+				}
+			}
+			responseVo.setCode(HttpStatus.OK);
+			responseVo.setMessage("Success");
+			responseVo.setData(allPostsListWithUser);
+			return responseVo;	
+		} 
 	}
 
 	// 내 글 조회

@@ -54,8 +54,8 @@ public class PostController {
 
 	// 전체 글 조회
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
-	public ResponseVo selectAllPosts() {
-		return postService.selectAllPosts();
+	public ResponseVo selectAllPosts(@CookieValue(value = "accesstoken", required = false) String token) {
+		return postService.selectAllPosts(token);
 	}
 
 	// 내 글 조회
