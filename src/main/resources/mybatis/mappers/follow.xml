@@ -35,6 +35,15 @@
     ]]>
 	</select>
 
+	<!-- 팔로워 ID로 팔로워-팔로이 쌍 모두 조회 -->
+	<select id="selectAllFolloweesByFollowerId"
+		resultMap="followResult" parameterType="Long">
+    <![CDATA[
+      SELECT * FROM follow
+      WHERE follower_id = #{followerId}
+    ]]>
+	</select>
+
 	<!-- 팔로워 ID와 팔로이 ID로 한 쌍 조회 -->
 	<select id="selectOneFollowByFollowerIdAndFolloweeId"
 		resultMap="followResult" parameterType="followVo">

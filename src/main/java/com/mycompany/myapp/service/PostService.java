@@ -115,63 +115,72 @@ public class PostService {
 			responseVo.setData(allPostsListWithUsers);
 			return responseVo;
 		} else {
-			TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token); // 토큰으로
+			TokenVo tokenVo = tokenDao.selectOneTokenRowByToken(token);
 			logger.info("1. token: " + token);
-			long userId = tokenVo.getUserId(); // 현재 사용자 id 추출
+			long userId = tokenVo.getUserId();
 			logger.info("2. userId: " + userId);
-			List<PostVo> allPostsList = postDao.selectAllPosts(); // 전체 글 정보 조회
+			List<PostVo> allPostsList = postDao.selectAllPosts();
 			logger.info("3. allPostsList: " + allPostsList);
-			List<PostVoWithUser> allPostsListWithUser = new ArrayList<PostVoWithUser>(); // PostVoWithUser로 List 생성
-			for (int i = 0; i < allPostsList.size(); i++) { // List의 길이는 전체 글 개수
+			List<PostVoWithUser> allPostsListWithUser = new ArrayList<PostVoWithUser>();
+			for (int i = 0; i < allPostsList.size(); i++) {
 				logger.info("==== List entered ====");
-				PostVoWithUser postVoWithUser = new PostVoWithUser(); // PostVoWithUser 객체 생성
-				long authorId = allPostsList.get(i).getUserId(); // 반복문을 돌며 글의 작성자 id 조회
+				PostVoWithUser postVoWithUser = new PostVoWithUser();
+				long authorId = allPostsList.get(i).getUserId();
 				logger.info("4. authorId: " + authorId);
-				userVo = userDao.selectOneUserById(authorId); // 작성자 id로 사용자 정보 조회
+				userVo = userDao.selectOneUserById(authorId);
 				logger.info("5. userVo: " + userVo);
-				if (authorId == userId) { // 현재 로그인한 사용자의 id와 글 작성자 id가 같으면 null 지정
-					userVo.setIsFollow(null);
-					logger.info("5-1. userVo.getIsFollow: " + userVo.getIsFollow());
-				} else { // 아니면 follow, unfollow 표시; 사용자가 작성자를 follow하고 있는지 아닌지
-					List<FollowVo> AllFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(userId);
-					logger.info("5-2. AllFolloweesByFollwerIdList: " + AllFolloweesByFollowerIdList);
-					FollowVo[] followVoArray = new FollowVo[AllFolloweesByFollowerIdList.size()];
-					for (int j = 0; j < followVoArray.length; j++) {
-						long idOfThoseFollowedByUser = AllFolloweesByFollowerIdList.get(j).getFolloweeId();
-						followVo.setFollowerId(userId);
-						followVo.setFolloweeId(idOfThoseFollowedByUser);
-						followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
-						if (userId == followVo.getFollowerId() & idOfThoseFollowedByUser == followVo.getFolloweeId()) {
-							userVo.setIsFollow(true);
-						} else {
-							userVo.setIsFollow(false);
-						}
+				List<FollowVo> allFolloweesByFollowerIdList = followDao.selectAllFolloweesByFollowerId(userId);
+				logger.info("5-2. AllFolloweesByFollwerIdList: " + allFolloweesByFollowerIdList);
+				FollowVo[] followVoArray = new FollowVo[allPostsList.size()];
+				for (int j = 0; j < followVoArray.length; j++) {
+					long writerId = allPostsList.get(j).getUserId();
+					logger.info("6. Writer of the post: " + writerId);
+					followVo.setFollowerId(userId);
+					followVo.setFolloweeId(writerId);
+					logger.info("7. followVo: " + followVo);
+					followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
+					logger.info("8. followVo: " + followVo);
+					if (followVo == null) {
+						logger.info("NO MATCH IN FOLLOW TABLE");
+						continue;
+					} else if (userId == followVo.getFollowerId() & writerId == followVo.getFolloweeId()) {
+						userVo.setIsFollow(true);
+						logger.info("8-1. TRUE: " + userVo.getIsFollow());
+					} else if (writerId == userId) {
+						userVo.setIsFollow(null);
+						logger.info("8-2. NULL: " + userVo.getIsFollow());
+					} else {
+						userVo.setIsFollow(false);
+						logger.info("8-3. FALSE: " + userVo.getIsFollow());
+					}
+					long postId = allPostsList.get(i).getId();
+					logger.info("9. postId: " + postId);
+					postVo = postDao.selectOnePostById(postId);
+					long publisherId;
+					try {
+						publisherId = postVo.getUserId();
+						String title = postVo.getTitle();
+						String content = postVo.getContent();
+						String createdAt = postVo.getCreatedAt();
+						postVoWithUser.setId(postId);
+						postVoWithUser.setUserId(publisherId);
+						postVoWithUser.setTitle(title);
+						postVoWithUser.setContent(content);
+						postVoWithUser.setCreatedAt(createdAt);
+						postVoWithUser.setUser(userVo);
+						logger.info("10. postVoWithUser: " + postVoWithUser);
+						allPostsListWithUser.add(postVoWithUser);
+					} catch (Exception e) {
+						logger.info("Error: deleted post returned null");
 					}
 				}
-				long postId = allPostsList.get(i).getId();
-				postVo = postDao.selectOnePostById(postId);
-				long idOfSomeoneFollowedByUser;
-				try {
-					idOfSomeoneFollowedByUser = postVo.getUserId();
-					String title = postVo.getTitle();
-					String content = postVo.getContent();
-					String createdAt = postVo.getCreatedAt();
-					postVoWithUser.setId(postId);
-					postVoWithUser.setUserId(idOfSomeoneFollowedByUser);
-					postVoWithUser.setTitle(title);
-					postVoWithUser.setContent(content);
-					postVoWithUser.setCreatedAt(createdAt);
-					postVoWithUser.setUser(userVo);
-					allPostsListWithUser.add(postVoWithUser);
-				} catch (Exception e) {
-					logger.info("Error: deleted post returned null");
-				}
+				responseVo.setCode(HttpStatus.OK);
+				responseVo.setMessage("Success");
+				responseVo.setData(allPostsListWithUser);
 			}
-			responseVo.setCode(HttpStatus.OK);
-			responseVo.setMessage("Success");
-			responseVo.setData(allPostsListWithUser);
-			return responseVo;	
-		} 
+			return responseVo;
+		}
+
 	}
 
 	// 내 글 조회
@@ -252,19 +261,24 @@ public class PostService {
 			if (followeeId == userId) {
 				userVo.setIsFollow(null);
 			} else {
-				List<FollowVo> AllFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(followeeId);
-				FeedVo[] followVoArray = new FeedVo[AllFolloweesByFollowerIdList.size()];
+				List<FollowVo> allFolloweesByFollowerIdList = followDao.selectAllFollowersByFolloweeId(followeeId);
+				FeedVo[] followVoArray = new FeedVo[allFolloweesByFollowerIdList.size()];
 				for (int j = 0; j < followVoArray.length; j++) {
-					long idOfThoseFollowedByUser = AllFolloweesByFollowerIdList.get(j).getFolloweeId();
+					long idOfThoseFollowedByUser = allFolloweesByFollowerIdList.get(j).getFolloweeId();
 					followVo.setFollowerId(userId);
 					followVo.setFolloweeId(idOfThoseFollowedByUser);
 					followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
-					if (userId == followVo.getFollowerId() & idOfThoseFollowedByUser == followVo.getFolloweeId()) {
-						userVo.setIsFollow(true);
-					} else {
-						userVo.setIsFollow(false);
+					try {
+						if (userId == followVo.getFollowerId() & idOfThoseFollowedByUser == followVo.getFolloweeId()) {
+							userVo.setIsFollow(true);
+						} else {
+							userVo.setIsFollow(false);
+						}
+					} catch (Exception e) {
+						logger.info("ERROR: NULL POINTER");
 					}
 				}
+
 			}
 			long postId = allFeedList.get(i).getPostId();
 			postVo = postDao.selectOnePostById(postId);
