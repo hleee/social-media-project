@@ -121,6 +121,8 @@ public class PostService {
 			logger.info("2. userId: " + userId);
 			List<PostVo> allPostsList = postDao.selectAllPosts();
 			logger.info("3. allPostsList: " + allPostsList);
+			List<FollowVo> allFolloweesByFollowerIdList = followDao.selectAllFolloweesByFollowerId(userId);
+			logger.info("5-2. List of users followed by user: " + allFolloweesByFollowerIdList);
 			List<PostVoWithUser> allPostsListWithUser = new ArrayList<PostVoWithUser>();
 			for (int i = 0; i < allPostsList.size(); i++) {
 				logger.info("==== List entered ====");
@@ -128,60 +130,53 @@ public class PostService {
 				long authorId = allPostsList.get(i).getUserId();
 				logger.info("4. authorId: " + authorId);
 				userVo = userDao.selectOneUserById(authorId);
-				logger.info("5. userVo: " + userVo);
-				List<FollowVo> allFolloweesByFollowerIdList = followDao.selectAllFolloweesByFollowerId(userId);
-				logger.info("5-2. AllFolloweesByFollwerIdList: " + allFolloweesByFollowerIdList);
-				FollowVo[] followVoArray = new FollowVo[allPostsList.size()];
-				for (int j = 0; j < followVoArray.length; j++) {
-					long writerId = allPostsList.get(j).getUserId();
-					logger.info("6. Writer of the post: " + writerId);
-					followVo.setFollowerId(userId);
-					followVo.setFolloweeId(writerId);
-					logger.info("7. followVo: " + followVo);
-					followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
-					logger.info("8. followVo: " + followVo);
-					if (followVo == null) {
-						logger.info("NO MATCH IN FOLLOW TABLE");
-						continue;
-					} else if (userId == followVo.getFollowerId() & writerId == followVo.getFolloweeId()) {
-						userVo.setIsFollow(true);
-						logger.info("8-1. TRUE: " + userVo.getIsFollow());
-					} else if (writerId == userId) {
-						userVo.setIsFollow(null);
-						logger.info("8-2. NULL: " + userVo.getIsFollow());
-					} else {
-						userVo.setIsFollow(false);
-						logger.info("8-3. FALSE: " + userVo.getIsFollow());
-					}
-					long postId = allPostsList.get(i).getId();
-					logger.info("9. postId: " + postId);
-					postVo = postDao.selectOnePostById(postId);
-					long publisherId;
-					try {
-						publisherId = postVo.getUserId();
-						String title = postVo.getTitle();
-						String content = postVo.getContent();
-						String createdAt = postVo.getCreatedAt();
-						postVoWithUser.setId(postId);
-						postVoWithUser.setUserId(publisherId);
-						postVoWithUser.setTitle(title);
-						postVoWithUser.setContent(content);
-						postVoWithUser.setCreatedAt(createdAt);
-						postVoWithUser.setUser(userVo);
-						logger.info("10. postVoWithUser: " + postVoWithUser);
-						allPostsListWithUser.add(postVoWithUser);
-					} catch (Exception e) {
-						logger.info("Error: deleted post returned null");
-					}
+				logger.info("5. author information: " + userVo);
+				followVo.setFollowerId(userId);
+				followVo.setFolloweeId(authorId);
+				logger.info("7. followVo: " + followVo);
+				followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
+				logger.info("8. followVo: " + followVo);
+				if (followVo == null) {
+					logger.info("NO MATCH IN FOLLOW TABLE");
+					continue;
+				} else if (userId == followVo.getFollowerId() & authorId == followVo.getFolloweeId()) {
+					userVo.setIsFollow(true);
+					logger.info("8-1. TRUE: " + userVo.getIsFollow());
+				} else if (authorId == userId) {
+					userVo.setIsFollow(null);
+					logger.info("8-2. NULL: " + userVo.getIsFollow());
+				} else {
+					userVo.setIsFollow(false);
+					logger.info("8-3. FALSE: " + userVo.getIsFollow());
 				}
-				responseVo.setCode(HttpStatus.OK);
-				responseVo.setMessage("Success");
-				responseVo.setData(allPostsListWithUser);
+				long postId = allPostsList.get(i).getId();
+				logger.info("9. postId: " + postId);
+				postVo = postDao.selectOnePostById(postId);
+				long publisherId;
+				try {
+					publisherId = postVo.getUserId();
+					String title = postVo.getTitle();
+					String content = postVo.getContent();
+					String createdAt = postVo.getCreatedAt();
+					postVoWithUser.setId(postId);
+					postVoWithUser.setUserId(publisherId);
+					postVoWithUser.setTitle(title);
+					postVoWithUser.setContent(content);
+					postVoWithUser.setCreatedAt(createdAt);
+					postVoWithUser.setUser(userVo);
+					logger.info("10. postVoWithUser: " + postVoWithUser);
+					allPostsListWithUser.add(postVoWithUser);
+				} catch (Exception e) {
+					logger.info("Error: deleted post returned null");
+				}
 			}
-			return responseVo;
+			responseVo.setCode(HttpStatus.OK);
+			responseVo.setMessage("Success");
+			responseVo.setData(allPostsListWithUser);
 		}
-
+		return responseVo;
 	}
+
 
 	// 내 글 조회
 	public ResponseVo selectMyPosts(String token) {
