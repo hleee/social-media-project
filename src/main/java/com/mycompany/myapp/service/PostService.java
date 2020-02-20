@@ -127,16 +127,21 @@ public class PostService {
 			for (int i = 0; i < allPostsList.size(); i++) {
 				logger.info("==== List entered ====");
 				PostVoWithUser postVoWithUser = new PostVoWithUser();
+				FollowVo followVo = new FollowVo();
 				long authorId = allPostsList.get(i).getUserId();
 				logger.info("4. authorId: " + authorId);
 				userVo = userDao.selectOneUserById(authorId);
 				logger.info("5. author information: " + userVo);
+				logger.info("USER_ID_BEFORE: " + userId);
 				followVo.setFollowerId(userId);
+				logger.info("USER_ID_AFTER: " + userId);
 				followVo.setFolloweeId(authorId);
 				logger.info("7. followVo: " + followVo);
 				followVo = followDao.selectOneFollowByFollowerIdAndFolloweeId(followVo);
 				logger.info("8. followVo: " + followVo);
 				if (followVo == null) {
+					userVo.setIsFollow(false);
+					logger.info("8-1. FALSE: " + userVo.getIsFollow());
 					logger.info("NO MATCH IN FOLLOW TABLE");
 					continue;
 				} else if (userId == followVo.getFollowerId() & authorId == followVo.getFolloweeId()) {
@@ -145,9 +150,6 @@ public class PostService {
 				} else if (authorId == userId) {
 					userVo.setIsFollow(null);
 					logger.info("8-2. NULL: " + userVo.getIsFollow());
-				} else {
-					userVo.setIsFollow(false);
-					logger.info("8-3. FALSE: " + userVo.getIsFollow());
 				}
 				long postId = allPostsList.get(i).getId();
 				logger.info("9. postId: " + postId);
