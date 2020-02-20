@@ -45,6 +45,8 @@ $(document).ready(function(){
 	        },
 	        url: "/post/feed"
 	    }).then(function(data) {
+//	    	console.log(JSON.stringify(data.data));
+	    	
 	    	$.each(data.data, function(index, e) {
 	    		$('#myfeed').append(
 	    				'<div class="card mb-4"> <div class="card-body"> <h2 class="card-title">' + e.title 
@@ -54,6 +56,7 @@ $(document).ready(function(){
 	    				+ '<div class="card-footer text-muted"> Posted on ' + e.createdAt.split('T')[0]
 	    				+ ' by ' + e.user.username + getFollowInfo(e.user)
 	    				+ '</div> </div>');
+	    		console.log(JSON.stringify(e));
 	    	});
 	       console.log(data);
 	    }, function(err) {
