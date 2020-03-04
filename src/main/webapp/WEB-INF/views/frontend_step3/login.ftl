@@ -89,7 +89,7 @@ body {
 	<div class="container login-container">
             <div class="row">
                 <div class="col-md-6 login-form-1">
-                    <h3>Login</h3>
+                    <h3>Log in</h3>
                     <form>
                         <div class="form-group">
                             <input type="text" id="login_username" class="form-control" placeholder="Username*" value="" />
@@ -98,7 +98,7 @@ body {
                             <input type="password" id="login_password" class="form-control" placeholder="Password*" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="submit" id="login_btn" class="btnSubmit" value="Login"/>
+                            <input type="submit" id="login_btn" class="btnSubmit" value="Log in"/>
                         </div>
                     </form>
                 </div>

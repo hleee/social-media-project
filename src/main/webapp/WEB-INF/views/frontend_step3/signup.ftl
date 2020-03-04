@@ -98,7 +98,7 @@ body {
                             <input type="password" id="signup_password" class="form-control" placeholder="Password*" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="submit" id="signup_btn" class="btnSubmit" value="Signup" />
+                            <input type="submit" id="signup_btn" class="btnSubmit" value="Sign up" />
                         </div>
                     </form>
                 </div>
